@@ -1,0 +1,18 @@
+{
+    "welcome_message": " hello",
+    "greeting": "welcome",
+    "searchbar": " Search for barbershops, salons",
+    "hometext": "Home ",
+    "searchtext": "Search ",
+    "bookingtext": "Booking",
+    "moreText": "See all ",
+    "FullCategories": "All",
+    "SeeAll": "See All",
+    "Services": "Services",
+    "Duration": "Duration",
+    "minutes": "minutes",
+    "Booking": "Booking",
+    "Home": "Home",
+    "Search": "Search",
+    "Profile": "Profile"
+}

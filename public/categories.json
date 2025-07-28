@@ -1,0 +1,45 @@
+[
+    {
+        "id": "1",
+        "title": {
+            "en": "Barbershop",
+            "uz": "Sartaroshxona",
+            "ru": "Барбершоп"
+        },
+        "route": "/barbershops",
+        "icon": "✂️"
+    },
+    {
+        "id": "2",
+        "title": {
+            "en": "Hair Salon",
+            "uz": "Soch Saloni",
+            "ru": "Парикмахерская"
+        },
+        "route": "/hair-salons",
+        "icon": "💇"
+
+    },
+    {
+        "id": "3",
+        "title": {
+            "en": "Nail Salon",
+            "uz": "Tirnoq Saloni",
+            "ru": "Ногтевой Салон"
+        },
+        "route": "/nail-salons",
+        "icon": "💅"
+
+    },
+    {
+        "id": "4",
+        "title": {
+            "en": "Beauty Spas",
+            "uz": "Go'zallik Spasi",
+            "ru": "СПА-салоны"
+        },
+        "route": "/beauty-spas",
+        "icon": "🧖"
+
+    }
+]
