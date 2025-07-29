@@ -19,7 +19,7 @@ const { navigate , services  , categories} = useAppContext();
 
 
    return (
-    <div className="pt-4 pb-4 px-4 h-[600px] overflow-y-auto border border-gray-300 rounded-lg shadow-md bg-gray-50">
+    <div className="pt-4 pb-4 px-4 h-[600px] overflow-y-auto  shadow-md bg-black text-gray-400">
       {visibleCategories.map((category) => {
         const filteredServices = services.filter(
           (service) => service.category === category.title.en
@@ -27,10 +27,10 @@ const { navigate , services  , categories} = useAppContext();
 
         return (
           <div key={category.id} className="mb-6">
-            <div className="flex justify-between items-center mb-2 sticky top-0 bg-gray-50 z-10 py-2">
+            <div className="flex justify-between items-center mb-2   z-10 py-2">
               <h2 className="text-base font-semibold">{category.title[lang]}</h2>
               <button
-                className="text-sm text-purple-500 hover:text-purple-700"
+                className="text-sm text-yellow-200 hover:text-purple-700"
                 onClick={() => (window.location.href = category.route)}
               >
                {t("SeeAll")}
@@ -41,7 +41,7 @@ const { navigate , services  , categories} = useAppContext();
                 filteredServices.map((service) => (
                   <div
                     key={service.id}
-                    className="min-w-[140px] bg-white shadow rounded-xl overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                    className="min-w-[140px] bg-gray-900 shadow rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-yellow-200 transition-shadow duration-200"
                   >
                     <img
                       src={service.image}
@@ -50,10 +50,10 @@ const { navigate , services  , categories} = useAppContext();
                     />
                     <div className="flex justify-between items-center p-2">
                       <div className="p-2">
-                        <div className="text-sm font-medium ">
+                        <div className="text-sm font-medium text-gray-50 ">
                           {service.name[lang] || service.name.en}
                         </div>
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-gray-400">
                           ⭐ {service.rating}
                         </div>
                       </div>
@@ -62,7 +62,7 @@ const { navigate , services  , categories} = useAppContext();
                           onClick={() => navigate(`/service/${service.id}`)}
                           className="p-2 text-gray-500 hover:text-purple-600 transition-colors duration-200"
                         >
-                          <ArrowCircleRightIcon className="h-6 w-6 text-gray-500" />
+                          <ArrowCircleRightIcon className="h-6 w-6 text-yellow-200" />
                         </button>
                       </div>
                     </div>

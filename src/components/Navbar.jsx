@@ -13,14 +13,14 @@ const BottomNav = () => {
   ];
 
   return (
-    <div className="sticky bottom-0 left-0 right-0 items-center bg-white shadow border-t z-50">
+    <div className="sticky w- bottom-0 left-0 right-0 items-center bg-gray-900 shadow border border-gray-600 rounded-3xl border-t z-50">
       <div className="flex justify-around py-2">
         {navItems.map((item) => (
           <button
             key={item.key}
             onClick={() => setActive(item.key)}
             className={`flex flex-col items-center text-xs ${
-              active === item.key ? "text-purple-600" : "text-gray-500"
+              active === item.key ? "text-yellow-300" : "text-gray-500"
             }`}
           >
             <NavLink to={item.link}>

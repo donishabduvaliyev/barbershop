@@ -14,8 +14,8 @@ const Home = () => {
     const [selectedCategory, setSelectedCategory] = useState('All');
 
     return (
-        <div>
-            <div className="px-4 pt-6 flex justify-between items-center bg-red-500">
+        <div className='bg-black text-white'>
+            <div className="px-4 pt-6 flex justify-between items-center">
                 <div className='flex gap-5  justify-between '>
                     <h1 className="text-[15px] text-red-200"> {t('welcome_message')} {userName}</h1>
                     <h1 className="text-[15px] font-semibold">{t("greeting")}</h1>
