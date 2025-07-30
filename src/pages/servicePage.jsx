@@ -3,24 +3,24 @@ import { useParams } from 'react-router-dom';
 import { useAppContext } from '../context/context';
 import { useTranslation } from "react-i18next";
 // import { StarIcon, PhoneIcon, MapPinIcon } from "@heroicons/react/24/solid";
-import { MapIcon, PhoneIncomingIcon } from '@heroicons/react/outline';
+import { LocationMarkerIcon, MapIcon, PhoneIncomingIcon } from '@heroicons/react/outline';
 
 
 const ServicePage = () => {
- const { id } = useParams();
+  const { id } = useParams();
   // const service = serviceData.find((s) => s.id === id);
-  const { services } = useAppContext();
+  const { services, navigate } = useAppContext();
   const service = services.find((s) => s.id === Number(id));
-   const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
-  
+
 
 
   if (!service) {
     return <div className="p-4">Service not found</div>;
   }
-    
+
   return (
     <div className="bg-black text-white min-h-screen">
       {/* Top Image */}
@@ -28,24 +28,36 @@ const ServicePage = () => {
 
       {/* Main Info */}
       <div className="p-4 space-y-2">
-        <h2 className="text-2xl font-semibold">{service.name[lang]}</h2>
+        <div className='flex items-center justify-between'>
+          <h2 className="text-xl font-semibold">{service.name[lang]}</h2>
 
-        <div className="flex items-center space-x-2">
-       ⭐
-          <span>{service.rating}</span>
-          <span className="text-gray-400">({service.reviewsCount} reviews)</span>
+          <div className="flex items-center flex-col">
+            <div>
+              ⭐
+              <span>{service.rating}</span>
+            </div>
+            <span className="text-gray-400 text-[12px]">({service.reviewsCount} reviews)</span>
+          </div>
         </div>
 
         <p className="text-sm text-gray-400">{service.description[lang]}</p>
 
-        <div className="text-sm text-gray-400 flex items-center gap-2">
-          <MapIcon className="w-4 h-4" />
-          {service.address}
+        <div className='flex items-center justify-between'>
+          <div className="text-sm text-gray-400 flex items-center gap-2">
+            {/* <MapIcon className="w-4 h-4" /> */}
+            <LocationMarkerIcon className="w-4 h-4 text-yellow-300" />
+            <a
+              href={`https://www.google.com/maps?q=${service.location.coordinates[1]},${service.location.coordinates[0]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className='underline hover:text-yellow-200'
+            >{service.address}</a>
+          </div>
         </div>
 
         <div className="text-sm text-gray-400 flex items-center gap-2">
-          <PhoneIncomingIcon className="w-4 h-4" />
-          {service.phone}
+          <PhoneIncomingIcon className="w-4 h-4 text-yellow-300" />
+          <a href={`tel: ${service.phone}`} className='hover:text-yellow-200' >{service.phone}</a>
         </div>
       </div>
 
@@ -69,7 +81,7 @@ const ServicePage = () => {
         </div>
       </div>
 
-     
+
     </div>
   )
 }
