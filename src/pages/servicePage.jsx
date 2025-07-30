@@ -57,7 +57,7 @@ const ServicePage = () => {
 
         <div className="text-sm text-gray-400 flex items-center gap-2">
           <PhoneIncomingIcon className="w-4 h-4 text-yellow-300" />
-          <a href={`tel: ${service.phone}`} className='hover:text-yellow-200' >{service.phone}</a>
+          <a href={`tel: ${service.phone}`} className='hover:text-yellow-200 underline' >{service.phone}</a>
         </div>
       </div>
 

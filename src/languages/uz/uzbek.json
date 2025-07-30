@@ -1,18 +1,22 @@
 {
-    "welcome_message": "Salom",
-    "greeting": "Hush kelibsiz!",
-    "searchbar": "Qidiruv: salonlar,sartaroshlar, go'zallik salonlari",
-    "hometext": "Bosh sahifa",
-    "searchtext": "Qidiruv",
-    "bookingtext": "Buyurtma",
-    "moreText": "Barchasi ",
-    "FullCategories": "Barcha",
-    "SeeAll": "Barchasi",
-    "Services": "Hizmatlar",
+  "welcome_message": "Salom",
+  "greeting": "Hush kelibsiz!",
+  "searchbar": "Qidiruv: salonlar,sartaroshlar, go'zallik salonlari",
+  "hometext": "Bosh sahifa",
+  "searchtext": "Qidiruv",
+  "bookingtext": "Buyurtma",
+  "moreText": "Barchasi ",
+  "FullCategories": "Barcha",
+  "SeeAll": "Barchasi",
+  "Services": "Hizmatlar",
   "Duration": "Davomiyligi",
   "minutes": "minut",
   "Booking": "Joy band qilish",
   "Home": "Asosiy ",
   "Search": "Qidiruv",
-  "Profile": "Profil"
+  "Profile": "Profil",
+  "movePage": " Bu sahifa mavjud emas. Siz tez orada asosiy sahifaga yo'naltirilasiz...",
+  "ErrorPage": "404 - Sahifa topilmadi",
+    "GoHome": "Bosh sahifaga o'tish"
+
 }

@@ -14,5 +14,8 @@
     "Booking": "Booking",
     "Home": "Home",
     "Search": "Search",
-    "Profile": "Profile"
+    "Profile": "Profile",
+    "movePage":" This page doesn’t exist. You’ll be redirected to the homepage shortly...",
+    "ErrorPage": "404 - Page Not Found",
+    "GoHome": "Go to Homepage Now"
 }

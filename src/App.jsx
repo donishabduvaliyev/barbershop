@@ -7,12 +7,14 @@ import Booking from './pages/Booking.jsx'
 import ServicePage from './pages/servicePage.jsx'
 import YandexMap from './components/YandexMap.jsx'
 import Layout from './Outlet/Layout.jsx'
+import NotFound from './pages/NotFound.jsx'
 // import CatalogforAll from './pages/CatalogforAll.jsx'
 
 const App = () => {
   return (
       <Routes>
         <Route path="/map" element={<MapView />} />
+         <Route path="*" element={<NotFound />} />
         <Route path='/' element={<Layout />} >
         
         <Route index element={<Home />} />
