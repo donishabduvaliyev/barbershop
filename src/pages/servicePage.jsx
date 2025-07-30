@@ -42,22 +42,38 @@ const ServicePage = () => {
 
         <p className="text-sm text-gray-400">{service.description[lang]}</p>
 
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center justify-between mt-2'>
+          <div className='flex items-center justify-between'>
+            <div className="text-sm text-gray-400 flex items-center gap-2">
+              {/* <MapIcon className="w-4 h-4" /> */}
+              <LocationMarkerIcon className="w-4 h-4 text-yellow-300" />
+              <a
+                href={`https://www.google.com/maps?q=${service.location.coordinates[1]},${service.location.coordinates[0]}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className='underline hover:text-yellow-200'
+              >{service.address}</a>
+            </div>
+          </div>
+
           <div className="text-sm text-gray-400 flex items-center gap-2">
-            {/* <MapIcon className="w-4 h-4" /> */}
-            <LocationMarkerIcon className="w-4 h-4 text-yellow-300" />
-            <a
-              href={`https://www.google.com/maps?q=${service.location.coordinates[1]},${service.location.coordinates[0]}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className='underline hover:text-yellow-200'
-            >{service.address}</a>
+            <PhoneIncomingIcon className="w-4 h-4 text-yellow-300" />
+            <a href={`tel: ${service.phone}`} className='hover:text-yellow-200 underline' >{service.phone}</a>
           </div>
         </div>
+        <div>
+          <p>
+            {service.workingHours.from} - {service.workingHours.to}
+          </p>
+          {
+            service.workingHours.days.map((day, idx) => (
+              <span key={idx} className="text-sm text-gray-400">
+                {day}
+                {idx < service.workingHours.days.length - 1 ? ', ' : ''}
+              </span>)
+            )
+          }
 
-        <div className="text-sm text-gray-400 flex items-center gap-2">
-          <PhoneIncomingIcon className="w-4 h-4 text-yellow-300" />
-          <a href={`tel: ${service.phone}`} className='hover:text-yellow-200 underline' >{service.phone}</a>
         </div>
       </div>
 

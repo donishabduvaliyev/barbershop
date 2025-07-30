@@ -96,7 +96,7 @@ export default function LanguageDrawer() {
               className={`
                 px-4 py-3 rounded-lg text-left text-lg font-medium
                 ${i18n.language === lang.code
-                  ? 'bg-blue-600 dark:bg-yellow-300 text-white'
+                  ? 'bg-blue-600 dark:bg-yellow-300 text-black'
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'}
                 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-200
               `}
