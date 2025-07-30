@@ -1,0 +1,1262 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "en": "Nail Artistry 1",
+      "uz": "Tirnoq San'ati 1",
+      "ru": "Нейл-Арт 1"
+    },
+    "category": "Nail Salon",
+    "description": {
+      "en": "Top nail salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
+      "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
+    },
+    "image": "https://example.com/nail_salon_1.jpg",
+    "images": [
+      "https://example.com/img1_1.jpg",
+      "https://example.com/img1_2.jpg"
+    ],
+    "rating": 4.5,
+    "reviewsCount": 113,
+    "phone": "+998909119982",
+    "address": "160 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.27, 41.305]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 2,
+    "name": {
+      "en": "Fade Masters 2",
+      "uz": "Fade Ustalari 2",
+      "ru": "Мастера Фейда 2"
+    },
+    "category": "Barbershop",
+    "description": {
+      "en": "Top barbershop services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
+      "ru": "Лучшие услуги барбершопа в Ташкенте"
+    },
+    "image": "https://example.com/barbershop_2.jpg",
+    "images": [
+      "https://example.com/img2_1.jpg",
+      "https://example.com/img2_2.jpg"
+    ],
+    "rating": 4.4,
+    "reviewsCount": 51,
+    "phone": "+998906931976",
+    "address": "193 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.2797, 41.3111]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 3,
+    "name": {
+      "en": "Gentleman's Cut 3",
+      "uz": "Jentlmen Sartaroshi 3",
+      "ru": "Джентльменская Стрижка 3"
+    },
+    "category": "Barbershop",
+    "description": {
+      "en": "Top barbershop services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
+      "ru": "Лучшие услуги барбершопа в Ташкенте"
+    },
+    "image": "https://example.com/barbershop_3.jpg",
+    "images": [
+      "https://example.com/img3_1.jpg",
+      "https://example.com/img3_2.jpg"
+    ],
+    "rating": 4.2,
+    "reviewsCount": 141,
+    "phone": "+998905406654",
+    "address": "179 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.289, 41.312]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 4,
+    "name": {
+      "en": "Chic Cuts 4",
+      "uz": "Go'zal Sochlar 4",
+      "ru": "Шикарные Стрижки 4"
+    },
+    "category": "Hair Salon",
+    "description": {
+      "en": "Top hair salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
+      "ru": "Лучшие услуги парикмахерской в Ташкенте"
+    },
+    "image": "https://example.com/hair_salon_4.jpg",
+    "images": [
+      "https://example.com/img4_1.jpg",
+      "https://example.com/img4_2.jpg"
+    ],
+    "rating": 4.2,
+    "reviewsCount": 157,
+    "phone": "+998903219671",
+    "address": "20 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.2797, 41.3111]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 5,
+    "name": {
+      "en": "Hair Kingdom 5",
+      "uz": "Soch Qirolligi 5",
+      "ru": "Королевство Волос 5"
+    },
+    "category": "Hair Salon",
+    "description": {
+      "en": "Top hair salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
+      "ru": "Лучшие услуги парикмахерской в Ташкенте"
+    },
+    "image": "https://example.com/hair_salon_5.jpg",
+    "images": [
+      "https://example.com/img5_1.jpg",
+      "https://example.com/img5_2.jpg"
+    ],
+    "rating": 4.2,
+    "reviewsCount": 159,
+    "phone": "+998901233355",
+    "address": "13 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.289, 41.312]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 6,
+    "name": {
+      "en": "The Style Lounge 6",
+      "uz": "Uslub Makoni 6",
+      "ru": "Стиль Лаунж 6"
+    },
+    "category": "Hair Salon",
+    "description": {
+      "en": "Top hair salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
+      "ru": "Лучшие услуги парикмахерской в Ташкенте"
+    },
+    "image": "https://example.com/hair_salon_6.jpg",
+    "images": [
+      "https://example.com/img6_1.jpg",
+      "https://example.com/img6_2.jpg"
+    ],
+    "rating": 4.0,
+    "reviewsCount": 179,
+    "phone": "+998904511195",
+    "address": "244 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.27, 41.305]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 7,
+    "name": {
+      "en": "Polished Perfection 7",
+      "uz": "Mukammal Jilo 7",
+      "ru": "Идеальный Блеск 7"
+    },
+    "category": "Nail Salon",
+    "description": {
+      "en": "Top nail salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
+      "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
+    },
+    "image": "https://example.com/nail_salon_7.jpg",
+    "images": [
+      "https://example.com/img7_1.jpg",
+      "https://example.com/img7_2.jpg"
+    ],
+    "rating": 4.9,
+    "reviewsCount": 96,
+    "phone": "+998901228849",
+    "address": "93 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.2826, 41.3014]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 8,
+    "name": {
+      "en": "Glamour Strands 8",
+      "uz": "Jozibali Sochlar 8",
+      "ru": "Гламурные Пряди 8"
+    },
+    "category": "Hair Salon",
+    "description": {
+      "en": "Top hair salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
+      "ru": "Лучшие услуги парикмахерской в Ташкенте"
+    },
+    "image": "https://example.com/hair_salon_8.jpg",
+    "images": [
+      "https://example.com/img8_1.jpg",
+      "https://example.com/img8_2.jpg"
+    ],
+    "rating": 4.5,
+    "reviewsCount": 130,
+    "phone": "+998903387064",
+    "address": "108 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.27, 41.305]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 9,
+    "name": {
+      "en": "The Sharp Edge 9",
+      "uz": "O'tkir Tig' 9",
+      "ru": "Острый Край 9"
+    },
+    "category": "Barbershop",
+    "description": {
+      "en": "Top barbershop services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
+      "ru": "Лучшие услуги барбершопа в Ташкенте"
+    },
+    "image": "https://example.com/barbershop_9.jpg",
+    "images": [
+      "https://example.com/img9_1.jpg",
+      "https://example.com/img9_2.jpg"
+    ],
+    "rating": 4.8,
+    "reviewsCount": 196,
+    "phone": "+998907279135",
+    "address": "44 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.27, 41.305]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 10,
+    "name": {
+      "en": "Urban Barber 10",
+      "uz": "Shahar Sartaroshi 10",
+      "ru": "Городской Барбер 10"
+    },
+    "category": "Barbershop",
+    "description": {
+      "en": "Top barbershop services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
+      "ru": "Лучшие услуги барбершопа в Ташкенте"
+    },
+    "image": "https://example.com/barbershop_10.jpg",
+    "images": [
+      "https://example.com/img10_1.jpg",
+      "https://example.com/img10_2.jpg"
+    ],
+    "rating": 4.5,
+    "reviewsCount": 165,
+    "phone": "+998904092161",
+    "address": "62 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.27, 41.305]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 11,
+    "name": {
+      "en": "The Nail Bar 11",
+      "uz": "Tirnoq Bar 11",
+      "ru": "Нейл Бар 11"
+    },
+    "category": "Nail Salon",
+    "description": {
+      "en": "Top nail salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
+      "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
+    },
+    "image": "https://example.com/nail_salon_11.jpg",
+    "images": [
+      "https://example.com/img11_1.jpg",
+      "https://example.com/img11_2.jpg"
+    ],
+    "rating": 4.3,
+    "reviewsCount": 44,
+    "phone": "+998905200885",
+    "address": "104 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.2872, 41.316]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 12,
+    "name": {
+      "en": "Glamour Nails 12",
+      "uz": "Jozibali Tirnoqlar 12",
+      "ru": "Гламурные Ногти 12"
+    },
+    "category": "Nail Salon",
+    "description": {
+      "en": "Top nail salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
+      "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
+    },
+    "image": "https://example.com/nail_salon_12.jpg",
+    "images": [
+      "https://example.com/img12_1.jpg",
+      "https://example.com/img12_2.jpg"
+    ],
+    "rating": 4.2,
+    "reviewsCount": 115,
+    "phone": "+998906742190",
+    "address": "126 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.289, 41.312]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 13,
+    "name": {
+      "en": "The Nail Studio 13",
+      "uz": "Tirnoq Studiyasi 13",
+      "ru": "Ногтевая Студия 13"
+    },
+    "category": "Nail Salon",
+    "description": {
+      "en": "Top nail salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
+      "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
+    },
+    "image": "https://example.com/nail_salon_13.jpg",
+    "images": [
+      "https://example.com/img13_1.jpg",
+      "https://example.com/img13_2.jpg"
+    ],
+    "rating": 5.0,
+    "reviewsCount": 99,
+    "phone": "+998903051269",
+    "address": "221 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.2826, 41.3014]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 14,
+    "name": {
+      "en": "Golden Scissors 14",
+      "uz": "Oltin Qaychi 14",
+      "ru": "Золотые Ножницы 14"
+    },
+    "category": "Hair Salon",
+    "description": {
+      "en": "Top hair salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
+      "ru": "Лучшие услуги парикмахерской в Ташкенте"
+    },
+    "image": "https://example.com/hair_salon_14.jpg",
+    "images": [
+      "https://example.com/img14_1.jpg",
+      "https://example.com/img14_2.jpg"
+    ],
+    "rating": 4.8,
+    "reviewsCount": 85,
+    "phone": "+998906592902",
+    "address": "220 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.2797, 41.3111]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 15,
+    "name": {
+      "en": "Beauty Loft 15",
+      "uz": "Go'zallik Uyi 15",
+      "ru": "Лофт Красоты 15"
+    },
+    "category": "Hair Salon",
+    "description": {
+      "en": "Top hair salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
+      "ru": "Лучшие услуги парикмахерской в Ташкенте"
+    },
+    "image": "https://example.com/hair_salon_15.jpg",
+    "images": [
+      "https://example.com/img15_1.jpg",
+      "https://example.com/img15_2.jpg"
+    ],
+    "rating": 4.3,
+    "reviewsCount": 28,
+    "phone": "+998906702875",
+    "address": "33 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.27, 41.305]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 16,
+    "name": {
+      "en": "Perfect Ten 16",
+      "uz": "Mukammal O'nlik 16",
+      "ru": "Идеальная Десятка 16"
+    },
+    "category": "Nail Salon",
+    "description": {
+      "en": "Top nail salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
+      "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
+    },
+    "image": "https://example.com/nail_salon_16.jpg",
+    "images": [
+      "https://example.com/img16_1.jpg",
+      "https://example.com/img16_2.jpg"
+    ],
+    "rating": 4.9,
+    "reviewsCount": 169,
+    "phone": "+998905086983",
+    "address": "229 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.27, 41.305]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 17,
+    "name": {
+      "en": "Nailed It! 17",
+      "uz": "Qoyilmaqom! 17",
+      "ru": "В точку! 17"
+    },
+    "category": "Nail Salon",
+    "description": {
+      "en": "Top nail salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
+      "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
+    },
+    "image": "https://example.com/nail_salon_17.jpg",
+    "images": [
+      "https://example.com/img17_1.jpg",
+      "https://example.com/img17_2.jpg"
+    ],
+    "rating": 4.5,
+    "reviewsCount": 153,
+    "phone": "+998904563757",
+    "address": "89 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.289, 41.312]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 18,
+    "name": {
+      "en": "The Classic Clip 18",
+      "uz": "Klassik Sartarosh 18",
+      "ru": "Классическая Стрижка 18"
+    },
+    "category": "Barbershop",
+    "description": {
+      "en": "Top barbershop services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
+      "ru": "Лучшие услуги барбершопа в Ташкенте"
+    },
+    "image": "https://example.com/barbershop_18.jpg",
+    "images": [
+      "https://example.com/img18_1.jpg",
+      "https://example.com/img18_2.jpg"
+    ],
+    "rating": 4.9,
+    "reviewsCount": 29,
+    "phone": "+998906952222",
+    "address": "114 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.2872, 41.316]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 19,
+    "name": {
+      "en": "Hair & Flair 19",
+      "uz": "Soch va Uslub 19",
+      "ru": "Волосы и Стиль 19"
+    },
+    "category": "Hair Salon",
+    "description": {
+      "en": "Top hair salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
+      "ru": "Лучшие услуги парикмахерской в Ташкенте"
+    },
+    "image": "https://example.com/hair_salon_19.jpg",
+    "images": [
+      "https://example.com/img19_1.jpg",
+      "https://example.com/img19_2.jpg"
+    ],
+    "rating": 4.4,
+    "reviewsCount": 179,
+    "phone": "+998901995467",
+    "address": "25 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.289, 41.312]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  },
+  {
+    "id": 20,
+    "name": {
+      "en": "The Beauty Spot 20",
+      "uz": "Go'zallik Nuqtasi 20",
+      "ru": "Точка Красоты 20"
+    },
+    "category": "Hair Salon",
+    "description": {
+      "en": "Top hair salon services in Tashkent",
+      "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
+      "ru": "Лучшие услуги парикмахерской в Ташкенте"
+    },
+    "image": "https://example.com/hair_salon_20.jpg",
+    "images": [
+      "https://example.com/img20_1.jpg",
+      "https://example.com/img20_2.jpg"
+    ],
+    "rating": 4.9,
+    "reviewsCount": 114,
+    "phone": "+998907395580",
+    "address": "250 Example Street, Tashkent",
+    "location": {
+      "type": "Point",
+      "coordinates": [69.2797, 41.3111]
+    },
+    "services": [
+      {
+        "name": {
+          "en": "Haircut",
+          "uz": "Soch olish",
+          "ru": "Стрижка"
+        },
+        "price": 50000,
+        "durationMinutes": 30
+      },
+      {
+        "name": {
+          "en": "Beard Trim",
+          "uz": "Soqol olish",
+          "ru": "Подравнивание бороды"
+        },
+        "price": 30000,
+        "durationMinutes": 20
+      },
+      {
+        "name": {
+          "en": "Face Mask",
+          "uz": "Yuz niqobi",
+          "ru": "Маска для лица"
+        },
+        "price": 20000,
+        "durationMinutes": 10
+      }
+    ],
+    "workingHours": {
+      "from": "09:00",
+      "to": "21:00",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "createdAt": "2025-07-27T10:16:03Z",
+    "updatedAt": "2025-07-27T10:16:03Z"
+  }
+]
