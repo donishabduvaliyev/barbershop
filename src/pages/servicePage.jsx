@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAppContext } from '../context/context';
 import { useTranslation } from "react-i18next";
 // import { StarIcon, PhoneIcon, MapPinIcon } from "@heroicons/react/24/solid";
-import { LocationMarkerIcon, MapIcon, PhoneIncomingIcon } from '@heroicons/react/outline';
+import { ClockIcon, LocationMarkerIcon, MapIcon, PhoneIncomingIcon } from '@heroicons/react/outline';
 
 
 const ServicePage = () => {
@@ -62,9 +62,12 @@ const ServicePage = () => {
           </div>
         </div>
         <div>
-          <p>
-            {service.workingHours.from} - {service.workingHours.to}
-          </p>
+          <div className=" text-gray-400 flex items-center gap-2">
+            <ClockIcon className="w-4 h-4 text-yellow-300" />
+            <p>
+              {service.workingHours.from} - {service.workingHours.to}
+            </p>
+          </div>
           {
             service.workingHours.days.map((day, idx) => (
               <span key={idx} className="text-sm text-gray-400">
@@ -97,6 +100,16 @@ const ServicePage = () => {
         </div>
       </div>
 
+
+
+      <div className='flex items-center justify-center mb-3'>
+        <button 
+        onClick={() => navigate("/booking", { state: { serviceId: service.id } })}
+        className="w-[90%]  sm:w-auto bg-yellow-300 text-black text-base sm:text-lg px-3 py-3 rounded-full shadow-md hover:bg-yellow-400 transition-colors duration-300 active:scale-95">
+          {t("BookNow")}
+        </button>
+
+      </div>
 
     </div>
   )
