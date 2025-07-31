@@ -18,6 +18,7 @@
       "https://example.com/img1_2.jpg"
     ],
     "rating": 4.5,
+    "isWorking": true,
     "reviewsCount": 113,
     "phone": "+998909119982",
     "address": "160 Example Street, Tashkent",
@@ -81,6 +82,7 @@
       "https://example.com/img2_2.jpg"
     ],
     "rating": 4.4,
+    "isWorking": true,
     "reviewsCount": 51,
     "phone": "+998906931976",
     "address": "193 Example Street, Tashkent",
@@ -144,6 +146,7 @@
       "https://example.com/img3_2.jpg"
     ],
     "rating": 4.2,
+    "isWorking": true,
     "reviewsCount": 141,
     "phone": "+998905406654",
     "address": "179 Example Street, Tashkent",
@@ -207,6 +210,7 @@
       "https://example.com/img4_2.jpg"
     ],
     "rating": 4.2,
+    "isWorking": true,
     "reviewsCount": 157,
     "phone": "+998903219671",
     "address": "20 Example Street, Tashkent",
@@ -270,6 +274,7 @@
       "https://example.com/img5_2.jpg"
     ],
     "rating": 4.2,
+    "isWorking": true,
     "reviewsCount": 159,
     "phone": "+998901233355",
     "address": "13 Example Street, Tashkent",
@@ -333,6 +338,7 @@
       "https://example.com/img6_2.jpg"
     ],
     "rating": 4.0,
+    "isWorking": true,
     "reviewsCount": 179,
     "phone": "+998904511195",
     "address": "244 Example Street, Tashkent",
@@ -396,6 +402,7 @@
       "https://example.com/img7_2.jpg"
     ],
     "rating": 4.9,
+    "isWorking": true,
     "reviewsCount": 96,
     "phone": "+998901228849",
     "address": "93 Example Street, Tashkent",
@@ -459,6 +466,7 @@
       "https://example.com/img8_2.jpg"
     ],
     "rating": 4.5,
+    "isWorking": true,
     "reviewsCount": 130,
     "phone": "+998903387064",
     "address": "108 Example Street, Tashkent",
@@ -522,6 +530,7 @@
       "https://example.com/img9_2.jpg"
     ],
     "rating": 4.8,
+    "isWorking": true,
     "reviewsCount": 196,
     "phone": "+998907279135",
     "address": "44 Example Street, Tashkent",
@@ -585,6 +594,7 @@
       "https://example.com/img10_2.jpg"
     ],
     "rating": 4.5,
+    "isWorking": true,
     "reviewsCount": 165,
     "phone": "+998904092161",
     "address": "62 Example Street, Tashkent",
@@ -648,6 +658,7 @@
       "https://example.com/img11_2.jpg"
     ],
     "rating": 4.3,
+    "isWorking": true,
     "reviewsCount": 44,
     "phone": "+998905200885",
     "address": "104 Example Street, Tashkent",
@@ -711,6 +722,7 @@
       "https://example.com/img12_2.jpg"
     ],
     "rating": 4.2,
+    "isWorking": true,
     "reviewsCount": 115,
     "phone": "+998906742190",
     "address": "126 Example Street, Tashkent",
@@ -774,6 +786,7 @@
       "https://example.com/img13_2.jpg"
     ],
     "rating": 5.0,
+    "isWorking": true,
     "reviewsCount": 99,
     "phone": "+998903051269",
     "address": "221 Example Street, Tashkent",
@@ -837,6 +850,7 @@
       "https://example.com/img14_2.jpg"
     ],
     "rating": 4.8,
+    "isWorking": true,
     "reviewsCount": 85,
     "phone": "+998906592902",
     "address": "220 Example Street, Tashkent",
@@ -900,6 +914,7 @@
       "https://example.com/img15_2.jpg"
     ],
     "rating": 4.3,
+    "isWorking": true,
     "reviewsCount": 28,
     "phone": "+998906702875",
     "address": "33 Example Street, Tashkent",
@@ -963,6 +978,7 @@
       "https://example.com/img16_2.jpg"
     ],
     "rating": 4.9,
+    "isWorking": true,
     "reviewsCount": 169,
     "phone": "+998905086983",
     "address": "229 Example Street, Tashkent",
@@ -1026,6 +1042,7 @@
       "https://example.com/img17_2.jpg"
     ],
     "rating": 4.5,
+    "isWorking": true,
     "reviewsCount": 153,
     "phone": "+998904563757",
     "address": "89 Example Street, Tashkent",
@@ -1089,6 +1106,7 @@
       "https://example.com/img18_2.jpg"
     ],
     "rating": 4.9,
+    "isWorking": true,
     "reviewsCount": 29,
     "phone": "+998906952222",
     "address": "114 Example Street, Tashkent",
@@ -1152,6 +1170,7 @@
       "https://example.com/img19_2.jpg"
     ],
     "rating": 4.4,
+    "isWorking": true,
     "reviewsCount": 179,
     "phone": "+998901995467",
     "address": "25 Example Street, Tashkent",
@@ -1215,6 +1234,7 @@
       "https://example.com/img20_2.jpg"
     ],
     "rating": 4.9,
+    "isWorking": true,
     "reviewsCount": 114,
     "phone": "+998907395580",
     "address": "250 Example Street, Tashkent",
