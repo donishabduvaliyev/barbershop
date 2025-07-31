@@ -17,8 +17,15 @@
   "Profile": "Profil",
   "movePage": " Bu sahifa mavjud emas. Siz tez orada asosiy sahifaga yo'naltirilasiz...",
   "ErrorPage": "404 - Sahifa topilmadi",
-    "GoHome": "Bosh sahifaga o'tish",
-    "BookNow": "Joy band qilish"
-
-
+  "GoHome": "Bosh sahifaga o'tish",
+  "BookNow": "Joy band qilish",
+  "days": [
+    "Dushanba",
+    "Seshanba",
+    "Chorshanba",
+    "Payshanba",
+    "Juma",
+    "Shanba",
+    "Yakshanba"
+  ]
 }
