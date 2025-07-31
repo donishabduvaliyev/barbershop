@@ -23,4 +23,4 @@ node_modules
 
 
 # Ignore secret files in src
-src/pages/timePicerModal.jsx
+src/Mock-test-variations
