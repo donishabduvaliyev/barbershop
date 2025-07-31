@@ -27,6 +27,7 @@ const Booking = () => {
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
 
 
   const workingDays = shop.workingHours?.days || [];
@@ -68,7 +69,7 @@ const Booking = () => {
       return;
     }
 
-   
+   setError("");
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
