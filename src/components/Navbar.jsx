@@ -64,7 +64,7 @@ export const BottomNav = ({ activePage, setActivePage }) => {
 
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 h-15 bg-white/70 dark:bg-gray-700/90 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/20 border border-white/20">
+    <div className="sticky bottom-4 left-4 right-4 h-15 bg-white/70 dark:bg-gray-700/90 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/20 border border-white/20">
       <div className="flex justify-around items-center h-full max-w-md mx-auto">
         {navItems.map(item => {
           // const isActive = activePage === item.id;

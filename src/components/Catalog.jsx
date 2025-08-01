@@ -19,7 +19,7 @@ const { navigate , services  , categories} = useAppContext();
 
 
    return (
-    <div className="pt-4 pb-4 px-4 h-[500px]  overflow-y-auto  shadow-md bg-black text-gray-400">
+    <div className="pt-4 pb-4 px-4 h-[600px]  overflow-y-auto  shadow-md bg-black text-gray-400">
       {visibleCategories.map((category) => {
         const filteredServices = services.filter(
           (service) => service.category === category.title.en
