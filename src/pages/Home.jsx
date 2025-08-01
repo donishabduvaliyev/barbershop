@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import SearchBar from '../components/searchbar';
 import ServiceCarousel from '../components/Carusel';
 import ServiceCatalog from '../components/Catalog';
-import BottomNav from '../components/Navbar';
 import { useAppContext } from '../context/context.jsx';
 import { useTranslation } from 'react-i18next';
 import LanguageToggleButton from '../components/languageDropdown.jsx';

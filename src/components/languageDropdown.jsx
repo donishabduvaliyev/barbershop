@@ -41,7 +41,7 @@ export default function LanguageSelector() {
             {/* Button to open the language selector */}
             <button
                 onClick={toggleModal}
-                className="p-2 bg-gray-200 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 rounded-full shadow-sm hover:bg-gray-300 dark:hover:bg-zinc-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="p-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-yellow-200 rounded-full shadow-sm hover:bg-gray-300 dark:hover:bg-zinc-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-200 dark:focus:ring-yellow-300"
                 aria-label="Open language selector"
             >
                 <TranslateIcon className="h-6 w-6" />
@@ -71,7 +71,7 @@ export default function LanguageSelector() {
                                     onClick={() => selectLanguage(lang.code)}
                                     className={`w-full p-4 text-center text-lg transition-colors duration-200
                                         ${i18n.language === lang.code
-                                            ? 'text-purple-600 dark:text-purple-400 font-semibold'
+                                            ? 'text-yellow-200 dark:text-yellow-300 font-semibold'
                                             : 'text-gray-800 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5'
                                         }
                                         ${index < languages.length - 1 ? 'border-b border-gray-300/50 dark:border-zinc-700/50' : ''}
@@ -86,7 +86,7 @@ export default function LanguageSelector() {
                         <div className="w-full max-w-md mx-auto mt-3">
                             <button
                                 onClick={toggleModal}
-                                className="w-full p-4 text-center text-lg font-semibold bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-xl text-purple-600 dark:text-purple-400 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200"
+                                className="w-full p-4 text-center text-lg font-semibold bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-xl text-yellow-300 dark:text-yellow-200 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200"
                             >
                                 Cancel
                             </button>

@@ -19,7 +19,7 @@ const { navigate , services  , categories} = useAppContext();
 
 
    return (
-    <div className="pt-4 pb-4 px-4 h-[600px] overflow-y-auto  shadow-md bg-black text-gray-400">
+    <div className="pt-4 pb-4 px-4 h-[500px]  overflow-y-auto  shadow-md bg-black text-gray-400">
       {visibleCategories.map((category) => {
         const filteredServices = services.filter(
           (service) => service.category === category.title.en
@@ -41,7 +41,7 @@ const { navigate , services  , categories} = useAppContext();
                 filteredServices.map((service) => (
                   <div
                     key={service.id}
-                    className="min-w-[140px] bg-gray-900 shadow rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-yellow-200 transition-shadow duration-200"
+                    className="min-w-[140px] bg-gray-900 shadow backdrop-blur-xl  rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-yellow-200 transition-shadow duration-200"
                   >
                     <img
                       src={service.image}

@@ -6,7 +6,7 @@ const SearchBar = () => {
       <input
         type="text"
         placeholder="Search barbershops, salons..."
-        className="w-full p-3 rounded-xl border border-gray-300 bg-gray-950 focus:outline-none focus:ring-2 focus:ring-yellow-200"
+        className="w-full p-3 bg-white/70 dark:bg-gray-700/90 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/20 border border-white/20 focus:ring-2 focus:ring-yellow-200"
       />
     </div>
   );
