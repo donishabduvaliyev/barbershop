@@ -12,19 +12,19 @@ import NotFound from './pages/NotFound.jsx'
 
 const App = () => {
   return (
-      <Routes>
-        <Route path="/map" element={<MapView />} />
-         <Route path="*" element={<NotFound />} />
-        <Route path='/' element={<Layout />} >
-        
+    <Routes>
+      <Route path="*" element={<NotFound />} />
+      <Route path='/' element={<Layout />} >
+      <Route path="/map" element={<MapView />} />
+
         <Route index element={<Home />} />
         {/* <Route path="/map1" element={<YandexMap />} /> */}
 
         <Route path="/booking" element={<Booking />} />
         {/* <Route path="/search" element={<CatalogforAll />} /> */}
         <Route path="/service/:id" element={<ServicePage />} />
-        </Route>
-      </Routes>
+      </Route>
+    </Routes>
   )
 }
 
