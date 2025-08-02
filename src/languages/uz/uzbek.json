@@ -27,5 +27,14 @@
     "Juma",
     "Shanba",
     "Yakshanba"
-  ]
+  ],
+  "MyDetails": "Mening ma'lumotlarim",
+  "BookingHistory": "Buyurtmalar tarixi",
+  " Back": "Ortga",
+  " Completed": "Yakunlangan",
+  "Upcoming": "Rejalangan",
+  " NoBookings": "Buyurtmalar yo'q",
+  " Name": "Ism",
+  " Email": "Email",
+  "TelegramID": "Telegram ID"
 }

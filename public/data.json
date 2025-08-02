@@ -12,7 +12,7 @@
       "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
       "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
     },
-    "image": "https://example.com/nail_salon_1.jpg",
+    "image": "https://placehold.co/800x600/f472b6/FFFFFF?text=Nail+Artistry",
     "images": [
       "https://example.com/img1_1.jpg",
       "https://example.com/img1_2.jpg"
@@ -24,7 +24,10 @@
     "address": "160 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.27, 41.305]
+      "coordinates": [
+        69.27,
+        41.305
+      ]
     },
     "services": [
       {
@@ -58,10 +61,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 2.1,
+    "priceTier": 3,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 2,
@@ -76,7 +91,7 @@
       "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
       "ru": "Лучшие услуги барбершопа в Ташкенте"
     },
-    "image": "https://example.com/barbershop_2.jpg",
+    "image": "https://placehold.co/800x600/1a1a1a/FFFFFF?text=Fade+Masters",
     "images": [
       "https://example.com/img2_1.jpg",
       "https://example.com/img2_2.jpg"
@@ -88,7 +103,10 @@
     "address": "193 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.2797, 41.3111]
+      "coordinates": [
+        69.2797,
+        41.3111
+      ]
     },
     "services": [
       {
@@ -122,10 +140,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 1.5,
+    "priceTier": 4,
+    "AdvertisementNumber": 1,
+    "isEditorsChoice": true
   },
   {
     "id": 3,
@@ -140,7 +170,7 @@
       "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
       "ru": "Лучшие услуги барбершопа в Ташкенте"
     },
-    "image": "https://example.com/barbershop_3.jpg",
+    "image": "https://placehold.co/800x600/262626/FFFFFF?text=Gentleman's+Cut",
     "images": [
       "https://example.com/img3_1.jpg",
       "https://example.com/img3_2.jpg"
@@ -152,7 +182,10 @@
     "address": "179 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.289, 41.312]
+      "coordinates": [
+        69.289,
+        41.312
+      ]
     },
     "services": [
       {
@@ -186,10 +219,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 3.1,
+    "priceTier": 2,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": true
   },
   {
     "id": 4,
@@ -204,7 +249,7 @@
       "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
       "ru": "Лучшие услуги парикмахерской в Ташкенте"
     },
-    "image": "https://example.com/hair_salon_4.jpg",
+    "image": "https://placehold.co/800x600/ec4899/FFFFFF?text=Chic+Cuts",
     "images": [
       "https://example.com/img4_1.jpg",
       "https://example.com/img4_2.jpg"
@@ -216,7 +261,10 @@
     "address": "20 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.2797, 41.3111]
+      "coordinates": [
+        69.2797,
+        41.3111
+      ]
     },
     "services": [
       {
@@ -250,10 +298,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 0.8,
+    "priceTier": 2,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 5,
@@ -268,7 +328,7 @@
       "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
       "ru": "Лучшие услуги парикмахерской в Ташкенте"
     },
-    "image": "https://example.com/hair_salon_5.jpg",
+    "image": "https://placehold.co/800x600/ec4899/FFFFFF?text=Hair+Kingdom",
     "images": [
       "https://example.com/img5_1.jpg",
       "https://example.com/img5_2.jpg"
@@ -280,7 +340,10 @@
     "address": "13 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.289, 41.312]
+      "coordinates": [
+        69.289,
+        41.312
+      ]
     },
     "services": [
       {
@@ -314,10 +377,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 4.5,
+    "priceTier": 3,
+    "AdvertisementNumber": 2,
+    "isEditorsChoice": false
   },
   {
     "id": 6,
@@ -332,7 +407,7 @@
       "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
       "ru": "Лучшие услуги парикмахерской в Ташкенте"
     },
-    "image": "https://example.com/hair_salon_6.jpg",
+    "image": "https://placehold.co/800x600/ec4899/FFFFFF?text=Style+Lounge",
     "images": [
       "https://example.com/img6_1.jpg",
       "https://example.com/img6_2.jpg"
@@ -344,7 +419,10 @@
     "address": "244 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.27, 41.305]
+      "coordinates": [
+        69.27,
+        41.305
+      ]
     },
     "services": [
       {
@@ -378,10 +456,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 2.8,
+    "priceTier": 1,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 7,
@@ -396,7 +486,7 @@
       "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
       "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
     },
-    "image": "https://example.com/nail_salon_7.jpg",
+    "image": "https://placehold.co/800x600/f472b6/FFFFFF?text=Polished",
     "images": [
       "https://example.com/img7_1.jpg",
       "https://example.com/img7_2.jpg"
@@ -408,7 +498,10 @@
     "address": "93 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.2826, 41.3014]
+      "coordinates": [
+        69.2826,
+        41.3014
+      ]
     },
     "services": [
       {
@@ -442,10 +535,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 0.9,
+    "priceTier": 4,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": true
   },
   {
     "id": 8,
@@ -460,7 +565,7 @@
       "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
       "ru": "Лучшие услуги парикмахерской в Ташкенте"
     },
-    "image": "https://example.com/hair_salon_8.jpg",
+    "image": "https://placehold.co/800x600/ec4899/FFFFFF?text=Glamour",
     "images": [
       "https://example.com/img8_1.jpg",
       "https://example.com/img8_2.jpg"
@@ -472,7 +577,10 @@
     "address": "108 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.27, 41.305]
+      "coordinates": [
+        69.27,
+        41.305
+      ]
     },
     "services": [
       {
@@ -506,10 +614,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 1.1,
+    "priceTier": 3,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 9,
@@ -524,7 +644,7 @@
       "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
       "ru": "Лучшие услуги барбершопа в Ташкенте"
     },
-    "image": "https://example.com/barbershop_9.jpg",
+    "image": "https://placehold.co/800x600/1a1a1a/FFFFFF?text=Sharp+Edge",
     "images": [
       "https://example.com/img9_1.jpg",
       "https://example.com/img9_2.jpg"
@@ -536,7 +656,10 @@
     "address": "44 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.27, 41.305]
+      "coordinates": [
+        69.27,
+        41.305
+      ]
     },
     "services": [
       {
@@ -570,10 +693,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 1.9,
+    "priceTier": 2,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 10,
@@ -588,7 +723,7 @@
       "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
       "ru": "Лучшие услуги барбершопа в Ташкенте"
     },
-    "image": "https://example.com/barbershop_10.jpg",
+    "image": "https://placehold.co/800x600/262626/FFFFFF?text=Urban+Barber",
     "images": [
       "https://example.com/img10_1.jpg",
       "https://example.com/img10_2.jpg"
@@ -600,7 +735,10 @@
     "address": "62 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.27, 41.305]
+      "coordinates": [
+        69.27,
+        41.305
+      ]
     },
     "services": [
       {
@@ -634,10 +772,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 2.5,
+    "priceTier": 3,
+    "AdvertisementNumber": 3,
+    "isEditorsChoice": false
   },
   {
     "id": 11,
@@ -652,7 +802,7 @@
       "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
       "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
     },
-    "image": "https://example.com/nail_salon_11.jpg",
+    "image": "https://placehold.co/800x600/f472b6/FFFFFF?text=The+Nail+Bar",
     "images": [
       "https://example.com/img11_1.jpg",
       "https://example.com/img11_2.jpg"
@@ -664,7 +814,10 @@
     "address": "104 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.2872, 41.316]
+      "coordinates": [
+        69.2872,
+        41.316
+      ]
     },
     "services": [
       {
@@ -698,10 +851,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 3.8,
+    "priceTier": 1,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 12,
@@ -716,7 +881,7 @@
       "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
       "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
     },
-    "image": "https://example.com/nail_salon_12.jpg",
+    "image": "https://placehold.co/800x600/f472b6/FFFFFF?text=Glamour+Nails",
     "images": [
       "https://example.com/img12_1.jpg",
       "https://example.com/img12_2.jpg"
@@ -728,7 +893,10 @@
     "address": "126 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.289, 41.312]
+      "coordinates": [
+        69.289,
+        41.312
+      ]
     },
     "services": [
       {
@@ -762,10 +930,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 0.6,
+    "priceTier": 2,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 13,
@@ -780,7 +960,7 @@
       "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
       "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
     },
-    "image": "https://example.com/nail_salon_13.jpg",
+    "image": "https://placehold.co/800x600/f472b6/FFFFFF?text=Nail+Studio",
     "images": [
       "https://example.com/img13_1.jpg",
       "https://example.com/img13_2.jpg"
@@ -792,7 +972,10 @@
     "address": "221 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.2826, 41.3014]
+      "coordinates": [
+        69.2826,
+        41.3014
+      ]
     },
     "services": [
       {
@@ -826,10 +1009,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 1.4,
+    "priceTier": 3,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": true
   },
   {
     "id": 14,
@@ -844,7 +1039,7 @@
       "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
       "ru": "Лучшие услуги парикмахерской в Ташкенте"
     },
-    "image": "https://example.com/hair_salon_14.jpg",
+    "image": "https://placehold.co/800x600/ec4899/FFFFFF?text=Golden+Scissors",
     "images": [
       "https://example.com/img14_1.jpg",
       "https://example.com/img14_2.jpg"
@@ -856,7 +1051,10 @@
     "address": "220 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.2797, 41.3111]
+      "coordinates": [
+        69.2797,
+        41.3111
+      ]
     },
     "services": [
       {
@@ -890,10 +1088,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 3.3,
+    "priceTier": 4,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 15,
@@ -908,7 +1118,7 @@
       "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
       "ru": "Лучшие услуги парикмахерской в Ташкенте"
     },
-    "image": "https://example.com/hair_salon_15.jpg",
+    "image": "https://placehold.co/800x600/ec4899/FFFFFF?text=Beauty+Loft",
     "images": [
       "https://example.com/img15_1.jpg",
       "https://example.com/img15_2.jpg"
@@ -920,7 +1130,10 @@
     "address": "33 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.27, 41.305]
+      "coordinates": [
+        69.27,
+        41.305
+      ]
     },
     "services": [
       {
@@ -954,10 +1167,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 2.2,
+    "priceTier": 2,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 16,
@@ -972,7 +1197,7 @@
       "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
       "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
     },
-    "image": "https://example.com/nail_salon_16.jpg",
+    "image": "https://placehold.co/800x600/f472b6/FFFFFF?text=Perfect+Ten",
     "images": [
       "https://example.com/img16_1.jpg",
       "https://example.com/img16_2.jpg"
@@ -984,7 +1209,10 @@
     "address": "229 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.27, 41.305]
+      "coordinates": [
+        69.27,
+        41.305
+      ]
     },
     "services": [
       {
@@ -1018,10 +1246,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 1.0,
+    "priceTier": 3,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": true
   },
   {
     "id": 17,
@@ -1036,7 +1276,7 @@
       "uz": "Toshkentdagi eng yaxshi tirnoq saloni xizmatlari",
       "ru": "Лучшие услуги ногтевого сервиса в Ташкенте"
     },
-    "image": "https://example.com/nail_salon_17.jpg",
+    "image": "https://placehold.co/800x600/f472b6/FFFFFF?text=Nailed+It!",
     "images": [
       "https://example.com/img17_1.jpg",
       "https://example.com/img17_2.jpg"
@@ -1048,7 +1288,10 @@
     "address": "89 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.289, 41.312]
+      "coordinates": [
+        69.289,
+        41.312
+      ]
     },
     "services": [
       {
@@ -1082,10 +1325,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 4.1,
+    "priceTier": 2,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 18,
@@ -1100,7 +1355,7 @@
       "uz": "Toshkentdagi eng yaxshi sartaroshxona xizmatlari",
       "ru": "Лучшие услуги барбершопа в Ташкенте"
     },
-    "image": "https://example.com/barbershop_18.jpg",
+    "image": "https://placehold.co/800x600/1a1a1a/FFFFFF?text=Classic+Clip",
     "images": [
       "https://example.com/img18_1.jpg",
       "https://example.com/img18_2.jpg"
@@ -1112,7 +1367,10 @@
     "address": "114 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.2872, 41.316]
+      "coordinates": [
+        69.2872,
+        41.316
+      ]
     },
     "services": [
       {
@@ -1146,10 +1404,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 3.5,
+    "priceTier": 3,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": true
   },
   {
     "id": 19,
@@ -1164,7 +1434,7 @@
       "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
       "ru": "Лучшие услуги парикмахерской в Ташкенте"
     },
-    "image": "https://example.com/hair_salon_19.jpg",
+    "image": "https://placehold.co/800x600/ec4899/FFFFFF?text=Hair+%26+Flair",
     "images": [
       "https://example.com/img19_1.jpg",
       "https://example.com/img19_2.jpg"
@@ -1176,7 +1446,10 @@
     "address": "25 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.289, 41.312]
+      "coordinates": [
+        69.289,
+        41.312
+      ]
     },
     "services": [
       {
@@ -1210,10 +1483,22 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 2.9,
+    "priceTier": 1,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": false
   },
   {
     "id": 20,
@@ -1228,7 +1513,7 @@
       "uz": "Toshkentdagi eng yaxshi soch saloni xizmatlari",
       "ru": "Лучшие услуги парикмахерской в Ташкенте"
     },
-    "image": "https://example.com/hair_salon_20.jpg",
+    "image": "https://placehold.co/800x600/ec4899/FFFFFF?text=Beauty+Spot",
     "images": [
       "https://example.com/img20_1.jpg",
       "https://example.com/img20_2.jpg"
@@ -1240,7 +1525,10 @@
     "address": "250 Example Street, Tashkent",
     "location": {
       "type": "Point",
-      "coordinates": [69.2797, 41.3111]
+      "coordinates": [
+        69.2797,
+        41.3111
+      ]
     },
     "services": [
       {
@@ -1274,9 +1562,21 @@
     "workingHours": {
       "from": "09:00",
       "to": "21:00",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
     },
     "createdAt": "2025-07-27T10:16:03Z",
-    "updatedAt": "2025-07-27T10:16:03Z"
+    "updatedAt": "2025-07-27T10:16:03Z",
+    "distance": 0.5,
+    "priceTier": 4,
+    "AdvertisementNumber": null,
+    "isEditorsChoice": true
   }
 ]

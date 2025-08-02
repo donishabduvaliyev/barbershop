@@ -14,10 +14,27 @@
     "Booking": "Booking",
     "Home": "Home",
     "Search": "Search",
-    "Profile": "Profile",
     "movePage": " This page doesn’t exist. You’ll be redirected to the homepage shortly...",
     "ErrorPage": "404 - Page Not Found",
     "GoHome": "Go to Homepage Now",
     "BookNow": "Book Now",
-    "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    ],
+    "Profile": "Profile",
+    "MyDetails": "My Details",
+    "BookingHistory": "Booking History",
+    " Back": "Back",
+    " Completed": "Completed",
+    "Upcoming": "Upcoming",
+    " NoBookings": "No bookings found.",
+    " Name": "Name",
+    " Email": "Email",
+    "TelegramID": "Telegram ID"
 }

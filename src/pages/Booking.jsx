@@ -4,121 +4,113 @@ import { useAppContext } from '../context/context';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-
-
 // Helper function to format numbers with leading zeros
 const pad = (num) => num.toString().padStart(2, '0');
 
 // Reusable component for the scrollable picker columns (Hour, Minute)
 const ScrollPickerColumn = ({ items, selectedValue, onSelect, itemHeight = 40 }) => {
-    const scrollRef = useRef(null);
+  const scrollRef = useRef(null);
 
-    useEffect(() => {
-        if (scrollRef.current) {
-            const selectedIndex = items.indexOf(selectedValue);
-            if (selectedIndex !== -1) {
-                scrollRef.current.scrollTop = selectedIndex * itemHeight;
-            }
-        }
-    }, [selectedValue, items, itemHeight]);
+  useEffect(() => {
+    if (scrollRef.current) {
+      const selectedIndex = items.indexOf(selectedValue);
+      if (selectedIndex !== -1) {
+        scrollRef.current.scrollTop = selectedIndex * itemHeight;
+      }
+    }
+  }, [selectedValue, items, itemHeight]);
 
-    const handleScroll = () => {
-        if (scrollRef.current) {
-            const scrollTop = scrollRef.current.scrollTop;
-            const selectedIndex = Math.round(scrollTop / itemHeight);
-            const newValue = items[selectedIndex];
-            if (newValue !== undefined && newValue !== selectedValue) {
-                onSelect(newValue);
-            }
-        }
-    };
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const scrollTop = scrollRef.current.scrollTop;
+      const selectedIndex = Math.round(scrollTop / itemHeight);
+      const newValue = items[selectedIndex];
+      if (newValue !== undefined && newValue !== selectedValue) {
+        onSelect(newValue);
+      }
+    }
+  };
 
-    const handleScrollEnd = () => {
-        if (scrollRef.current) {
-            const scrollTop = scrollRef.current.scrollTop;
-            const selectedIndex = Math.round(scrollTop / itemHeight);
-            scrollRef.current.scrollTo({ top: selectedIndex * itemHeight, behavior: 'smooth' });
-        }
-    };
+  const handleScrollEnd = () => {
+    if (scrollRef.current) {
+      const scrollTop = scrollRef.current.scrollTop;
+      const selectedIndex = Math.round(scrollTop / itemHeight);
+      scrollRef.current.scrollTo({ top: selectedIndex * itemHeight, behavior: 'smooth' });
+    }
+  };
 
-    let scrollEndTimer = null;
-    const onScroll = () => {
-        clearTimeout(scrollEndTimer);
-        scrollEndTimer = setTimeout(handleScrollEnd, 150);
-        handleScroll();
-    };
+  let scrollEndTimer = null;
+  const onScroll = () => {
+    clearTimeout(scrollEndTimer);
+    scrollEndTimer = setTimeout(handleScrollEnd, 150);
+    handleScroll();
+  };
 
-    return (
-        <div
-            ref={scrollRef}
-            onScroll={onScroll}
-            className="w-full h-48 overflow-y-scroll snap-y snap-mandatory no-scrollbar"
+  return (
+    <div
+      ref={scrollRef}
+      onScroll={onScroll}
+      className="w-full h-48 overflow-y-scroll snap-y snap-mandatory no-scrollbar"
+      style={{
+        maskImage: 'linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)',
+      }}
+    >
+      <div style={{ height: itemHeight * 2 }}></div>
+      <div className="relative">
+        {items.map((item) => (
+          <div
+            key={item}
+            className="flex items-center justify-center snap-center text-xl transition-all duration-300"
             style={{
-                maskImage: 'linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)',
+              height: `${itemHeight}px`,
+              opacity: selectedValue === item ? 1 : 0.4,
+              transform: selectedValue === item ? 'scale(1.1)' : 'scale(1)',
             }}
-        >
-            <div style={{ height: itemHeight * 2 }}></div>
-            <div className="relative">
-                {items.map((item) => (
-                    <div
-                        key={item}
-                        className="flex items-center justify-center snap-center text-xl transition-all duration-300"
-                        style={{
-                            height: `${itemHeight}px`,
-                            opacity: selectedValue === item ? 1 : 0.4,
-                            transform: selectedValue === item ? 'scale(1.1)' : 'scale(1)',
-                        }}
-                    >
-                        {item}
-                    </div>
-                ))}
-            </div>
-            <div style={{ height: itemHeight * 2 }}></div>
-        </div>
-    );
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+      <div style={{ height: itemHeight * 2 }}></div>
+    </div>
+  );
 };
 
-// --- NEW: Validation Error Modal Component ---
 const ValidationModal = ({ isOpen, onClose, message, t }) => {
-    if (!isOpen) return null;
-
-    return (
-        <div className="fixed inset-0 z-[10000] bg-black/60 flex justify-center items-center p-4">
-            <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-xl w-full max-w-sm text-center p-6 animate-popup">
-                <h3 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-4">{message}</h3>
-                <button
-                    onClick={onClose}
-                    className="w-full bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition"
-                >
-                    {t('OK')}
-                </button>
-            </div>
-        </div>
-    );
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-[10000] bg-black/60 flex justify-center items-center p-4">
+      <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-xl w-full max-w-sm text-center p-6 animate-popup">
+        <h3 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-4">{message}</h3>
+        <button
+          onClick={onClose}
+          className="w-full bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition"
+        >
+          {t('OK')}
+        </button>
+      </div>
+    </div>
+  );
 };
-
 
 const Booking = () => {
   const location = useLocation();
-  const { services, navigate } = useAppContext();
+  const { services, navigate, addBooking, } = useAppContext();
   const { t, i18n } = useTranslation();
-  
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-
-  // --- NEW: State for the validation modal ---
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
   const [validationMessage, setValidationMessage] = useState("");
-
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedHour, setSelectedHour] = useState(null);
   const [selectedMinute, setSelectedMinute] = useState(null);
   const [finalBookingTime, setFinalBookingTime] = useState(null);
-  
+
   const serviceId = location.state?.serviceId;
   const shop = services.find((s) => s.id === serviceId);
   const lang = i18n.language || 'en';
@@ -131,33 +123,28 @@ const Booking = () => {
 
   const { availableHours, availableMinutes } = useMemo(() => {
     if (!selectedDate || !shop) return { availableHours: [], availableMinutes: [] };
-
     const now = new Date();
     const isToday = selectedDate.toDateString() === now.toDateString();
     const [fromHour] = shop.workingHours.from.split(':').map(Number);
     const [toHour] = shop.workingHours.to.split(':').map(Number);
-    
     const startHour = isToday ? Math.max(fromHour, now.getHours() + 1) : fromHour;
-
     const hours = [];
     for (let hour = startHour; hour < toHour; hour++) {
-        hours.push(pad(hour));
+      hours.push(pad(hour));
     }
-    
     const minutes = Array.from({ length: 60 }, (_, i) => pad(i));
-
     return { availableHours: hours, availableMinutes: minutes };
   }, [selectedDate, shop]);
 
   useEffect(() => {
     if (selectedDate) {
-        if (availableHours.length > 0) {
-            setSelectedHour(availableHours[0]);
-            setSelectedMinute('00');
-        } else {
-            setSelectedHour(null);
-            setSelectedMinute(null);
-        }
+      if (availableHours.length > 0) {
+        setSelectedHour(availableHours[0]);
+        setSelectedMinute('00');
+      } else {
+        setSelectedHour(null);
+        setSelectedMinute(null);
+      }
     }
   }, [selectedDate, availableHours]);
 
@@ -165,7 +152,7 @@ const Booking = () => {
     setSelectedDate(date);
   };
 
-  // --- MODIFIED: Booking handler to show validation modal ---
+  // --- FIXED: Booking logic is now entirely inside this function ---
   const handleBooking = () => {
     if (!name || !phone) {
       setValidationMessage(t("Please fill in your name and phone number"));
@@ -179,12 +166,32 @@ const Booking = () => {
     }
 
     setLoading(true);
-    
-    const finalDate = new Date(selectedDate);
-    finalDate.setHours(parseInt(selectedHour, 10));
-    finalDate.setMinutes(parseInt(selectedMinute, 10));
-    setFinalBookingTime(finalDate);
 
+    // 1. Create the final booking date object
+    const bookingDate = new Date(selectedDate);
+    bookingDate.setHours(parseInt(selectedHour, 10));
+    bookingDate.setMinutes(parseInt(selectedMinute, 10));
+    setFinalBookingTime(bookingDate); // Keep this for the success message UI
+
+    // 2. Create the new booking object to be "saved"
+    const newBooking = {
+      id: Date.now(), // Unique ID
+      serviceId: shop.id,
+      serviceName: shop.name[lang], // Use the name in the current language
+      date: bookingDate.toISOString(), // Store as a standardized string
+      status: 'Upcoming',
+      user: {
+        name: name,
+        phone: phone,
+      },
+    };
+    // setNewBooking(newBooking)
+
+    // 3. Call the addBooking function from your context
+    addBooking(newBooking);
+    console.log("New booking saved:", newBooking);
+
+    // 4. Show success message
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
@@ -220,16 +227,15 @@ const Booking = () => {
   return (
     <div className="p-4 max-w-md mx-auto bg-gray-50 dark:bg-zinc-900 text-gray-800 dark:text-gray-200 min-h-screen">
       <div className="text-center mb-6">
-        <img 
-            src={shop.image} 
-            alt={shop.name[lang]} 
-            className="w-full h-48 object-cover rounded-lg shadow-md mb-4"
-            onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/d1d5db/374151?text=Image+Not+Found'; }}
+        <img
+          src={shop.image}
+          alt={shop.name[lang]}
+          className="w-full h-48 object-cover rounded-lg shadow-md mb-4"
+          onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/d1d5db/374151?text=Image+Not+Found'; }}
         />
         <h2 className="text-2xl font-bold">{t('Book Your Visit')}</h2>
         <p className="text-md text-gray-600 dark:text-gray-400">{shop.name[lang]}</p>
       </div>
-
       <div className="space-y-4">
         <div>
           <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">{t("Name")}</label>
@@ -241,7 +247,6 @@ const Booking = () => {
             placeholder={t("Enter your name")}
           />
         </div>
-
         <div>
           <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">{t("Phone Number")}</label>
           <input
@@ -253,7 +258,6 @@ const Booking = () => {
           />
         </div>
       </div>
-      
       <div className="mt-8 text-center">
         <button
           onClick={() => setIsModalOpen(true)}
@@ -262,35 +266,29 @@ const Booking = () => {
           {t('Select Date and Time')}
         </button>
       </div>
-
-      {/* --- NEW: Render the validation modal --- */}
-      <ValidationModal 
+      <ValidationModal
         isOpen={isValidationModalOpen}
         onClose={() => setIsValidationModalOpen(false)}
         message={validationMessage}
         t={t}
       />
-
       {isModalOpen && (
         <div className="fixed inset-0 z-[9999] bg-black/60 flex justify-center items-end">
           <div className="bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-t-2xl sm:rounded-2xl shadow-lg w-full max-w-sm flex flex-col overflow-hidden animate-slideUp">
-            
             <div className="p-3 border-b border-gray-300/50 dark:border-zinc-700/50 flex justify-between items-center">
-                <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-100">{t('Choose a Time')}</h3>
-                <button
-                    className="text-gray-500 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-zinc-700/50 rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold"
-                    onClick={() => setIsModalOpen(false)}
-                >
-                    &times;
-                </button>
+              <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-100">{t('Choose a Time')}</h3>
+              <button
+                className="text-gray-500 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-zinc-700/50 rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold"
+                onClick={() => setIsModalOpen(false)}
+              >
+                &times;
+              </button>
             </div>
-
             <div className="p-4 flex space-x-2 overflow-x-auto border-b border-gray-300/50 dark:border-zinc-700/50">
               {dates.map((date) => {
                 const engDayName = date.toLocaleDateString('en-US', { weekday: 'long' });
                 const translatedDayName = t(`days.${engDayName}`, engDayName);
                 const isAvailable = workingDays.includes(engDayName);
-
                 return (
                   <button
                     key={date.toISOString()}
@@ -311,24 +309,22 @@ const Booking = () => {
                 );
               })}
             </div>
-
             {selectedDate && (
               <div className="flex flex-col p-4 gap-4">
                 {availableHours.length > 0 ? (
-                    <div className="relative flex justify-center items-center h-48">
-                        <div className="absolute inset-x-4 h-10 bg-gray-300/40 dark:bg-zinc-700/40 rounded-lg top-1/2 -translate-y-1/2 pointer-events-none"></div>
-                        <div className="flex w-full max-w-xs">
-                            <ScrollPickerColumn items={availableHours} selectedValue={selectedHour} onSelect={setSelectedHour} />
-                            <div className="flex items-center justify-center text-xl font-semibold text-gray-800 dark:text-gray-100">:</div>
-                            <ScrollPickerColumn items={availableMinutes} selectedValue={selectedMinute} onSelect={setSelectedMinute} />
-                        </div>
+                  <div className="relative flex justify-center items-center h-48">
+                    <div className="absolute inset-x-4 h-10 bg-gray-300/40 dark:bg-zinc-700/40 rounded-lg top-1/2 -translate-y-1/2 pointer-events-none"></div>
+                    <div className="flex w-full max-w-xs">
+                      <ScrollPickerColumn items={availableHours} selectedValue={selectedHour} onSelect={setSelectedHour} />
+                      <div className="flex items-center justify-center text-xl font-semibold text-gray-800 dark:text-gray-100">:</div>
+                      <ScrollPickerColumn items={availableMinutes} selectedValue={selectedMinute} onSelect={setSelectedMinute} />
                     </div>
+                  </div>
                 ) : (
-                    <div className="h-48 flex items-center justify-center">
-                        <p className="text-center text-gray-500 dark:text-gray-400">{t('No available time slots for this day.')}</p>
-                    </div>
+                  <div className="h-48 flex items-center justify-center">
+                    <p className="text-center text-gray-500 dark:text-gray-400">{t('No available time slots for this day.')}</p>
+                  </div>
                 )}
-                
                 <button
                   onClick={handleBooking}
                   disabled={selectedHour === null || loading}
@@ -342,28 +338,13 @@ const Booking = () => {
         </div>
       )}
       <style>{`
-          @keyframes slideUp {
-              from { transform: translateY(100%); opacity: 0; }
-              to { transform: translateY(0); opacity: 1; }
-          }
-          @keyframes popup {
-              from { opacity: 0; transform: scale(0.9); }
-              to { opacity: 1; transform: scale(1); }
-          }
-          .animate-slideUp {
-              animation: slideUp 0.3s ease-out forwards;
-          }
-          .animate-popup {
-              animation: popup 0.2s ease-out forwards;
-          }
-          .no-scrollbar::-webkit-scrollbar {
-              display: none;
-          }
-          .no-scrollbar {
-              -ms-overflow-style: none;
-              scrollbar-width: none;
-          }
-      `}</style>
+                @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+                @keyframes popup { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+                .animate-slideUp { animation: slideUp 0.3s ease-out forwards; }
+                .animate-popup { animation: popup 0.2s ease-out forwards; }
+                .no-scrollbar::-webkit-scrollbar { display: none; }
+                .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+            `}</style>
     </div>
   );
 };

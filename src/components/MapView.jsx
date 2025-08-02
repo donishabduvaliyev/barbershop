@@ -52,7 +52,7 @@ const LocationMarker = ({ setUserLocation, setLocationError, mapRef }) => {
   return null;
 };
 
-const ServiceDetailCard = ({ service, onClose }) => {
+const ServiceDetailCard = ({ service, onClose , navigate }) => {
   if (!service) return null;
   return (
     <div className="absolute bottom-0 left-0 right-0 z-[1001] p-4 animate-slide-up-fast">
@@ -187,7 +187,7 @@ const MapView = () => {
         </div>
       )}
 
-      <ServiceDetailCard service={selectedService} onClose={() => setSelectedService(null)} />
+      <ServiceDetailCard service={selectedService} onClose={() => setSelectedService(null)} navigate={navigate} />
 
       <style>{`
                 /* Custom Leaflet Popup Style */

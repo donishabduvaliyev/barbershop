@@ -8,6 +8,7 @@ import ServicePage from './pages/servicePage.jsx'
 import YandexMap from './components/YandexMap.jsx'
 import Layout from './Outlet/Layout.jsx'
 import NotFound from './pages/NotFound.jsx'
+import SearchPage from './pages/catalogforAll.jsx'
 // import CatalogforAll from './pages/CatalogforAll.jsx'
 
 const App = () => {
@@ -21,7 +22,7 @@ const App = () => {
         {/* <Route path="/map1" element={<YandexMap />} /> */}
 
         <Route path="/booking" element={<Booking />} />
-        {/* <Route path="/search" element={<CatalogforAll />} /> */}
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/service/:id" element={<ServicePage />} />
       </Route>
     </Routes>
