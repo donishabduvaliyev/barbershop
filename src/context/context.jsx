@@ -29,7 +29,7 @@ export const AppProvider = ({ children }) => {
     };
 
 
-    const backEndUrl = "http://localhost:5000"; // Adjust this URL to your backend server
+    const backEndUrl = " https://1a9de26c9bbc.ngrok-free.app"; // Adjust this URL to your backend server
     window.Telegram.WebApp.ready();
     const initData = window.Telegram.WebApp.initData;
 
