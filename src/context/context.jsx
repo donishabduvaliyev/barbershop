@@ -1,8 +1,6 @@
-import React, { createContext, useState, useContext, use } from 'react';
-import { useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-
 
 const AppContext = createContext();
 
@@ -12,11 +10,63 @@ export const AppProvider = ({ children }) => {
     const [booked, setBooked] = useState([]);
     const navigate = useNavigate();
     const [bookingHistory, setBookingHistory] = useState([]);
-    const [userInfo, setUserInfo] = useState([]);
+
+    // --- CHANGE 1: Initialize userInfo as null ---
+    // This helps us know if the user is still loading, authenticated, or failed.
+    const [userInfo, setUserInfo] = useState(null);
+
     const [services, setServices] = useState([]);
     const [categories, setCategories] = useState([]);
-    const loggedInTelegramId = '123456789';
     const [confirmCancel, setConfirmCancel] = useState(null);
+
+    // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
+    useEffect(() => {
+        // This effect runs only ONCE when the component first mounts.
+        const backEndUrl = "https://1a9de26c9bbc.ngrok-free.app";
+        const tg = window.Telegram.WebApp;
+
+        tg.ready(); // Let Telegram know the web app is ready.
+
+        const initData = tg.initData;
+        console.log("initData from Telegram:", initData);
+
+        if (!initData) {
+            console.error("Authentication failed: initData is missing.");
+            // You could show an error page here
+            return;
+        }
+
+        fetch(`${backEndUrl}/api/auth/validate-telegram`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ initData: initData })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.user) {
+                    console.log('Authenticated User:', data.user);
+                    // --- CHANGE 3: Store the user data in state ---
+                    // This is the correct way to handle the response in React.
+                    setUserInfo(data.user);
+                } else {
+                    console.error("Authentication failed:", data.message);
+                    setUserInfo(null);
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error during validation:', error);
+                setUserInfo(null);
+            });
+
+    }, []); // The empty array [] is crucial. It tells React to run this effect only once.
+
+    // --- The rest of your code ---
+
+    // Now, loggedInTelegramId is derived from the state, not hardcoded.
+    const loggedInTelegramId = userInfo ? userInfo.telegramId : 123456789;
+
     const addBookedItem = (item) => {
         if (!booked.includes(item)) {
             setBooked((prevBooked) => [...prevBooked, item]);
@@ -24,47 +74,10 @@ export const AppProvider = ({ children }) => {
             console.warn(`Item ${item} is already booked.`);
         }
     };
+
     const removeBookedItem = (itemToRemove) => {
         setBooked((prevBooked) => prevBooked.filter((item) => item !== itemToRemove));
     };
-
-
-    const backEndUrl = " https://1a9de26c9bbc.ngrok-free.app"; // Adjust this URL to your backend server
-    window.Telegram.WebApp.ready();
-    const initData = window.Telegram.WebApp.initData;
-
-    fetch(`${backEndUrl}/api/auth/validate-telegram`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ initData: initData })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.user) {
-                // SUCCESS! The user is authenticated.
-                console.log('Authenticated User:', data.user);
-                // Now you can display their name, avatar, etc.
-                document.body.innerHTML = `<h1>Welcome, ${data.user.name}!</h1>`;
-            } else {
-                // Handle error
-                console.error(data.message);
-                document.body.innerHTML = `<h1>Authentication Failed</h1>`;
-            }
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-        });
-
-
-
-
-
-
-
-
-
 
     useEffect(() => {
         fetch("/data.json")
@@ -73,54 +86,37 @@ export const AppProvider = ({ children }) => {
             .catch((err) => console.error("Failed to load services", err));
     }, []);
 
-    //   console.log(services);
-
     useEffect(() => {
         fetch("/categories.json")
             .then((res) => res.json())
             .then(setCategories)
             .catch((err) => console.error("Failed to load categories", err));
     }, []);
-    // console.log(categories);
+
     useEffect(() => {
         fetch("/booking.json")
             .then((res) => res.json())
             .then(setBookingHistory)
-            .catch((err) => console.error("Failed to load categories", err));
+            .catch((err) => console.error("Failed to load booking history", err));
     }, []);
-    useEffect(() => {
-        fetch("/user.json")
-            .then((res) => res.json())
-            .then(setUserInfo)
-            .catch((err) => console.error("Failed to load categories", err));
-    }, []);
-
-
 
     const addBooking = (newBooking) => {
-        // Get the current list of bookings for this user, or an empty array if none exist
+        if (!loggedInTelegramId) return; // Don't do anything if not logged in
         const userBookings = bookingHistory[loggedInTelegramId] || [];
-
-        // Update the state
         setBookingHistory({
-            ...bookingHistory, // Keep all other users' bookings
-            [loggedInTelegramId]: [...userBookings, newBooking] // Update the array for the current user
+            ...bookingHistory,
+            [loggedInTelegramId]: [...userBookings, newBooking]
         });
     };
 
-
-
     const deleteBooking = (bookingId) => {
-        // Get the current list of bookings for this user
+        if (!loggedInTelegramId) return;
         const userBookings = bookingHistory[loggedInTelegramId] || [];
-
-        // Create the new list without the deleted booking
         const updatedUserBookings = userBookings.filter(b => b.id !== bookingId);
-        setConfirmCancel(null); // Close the confirmation modal
-        // Update the state
+        setConfirmCancel(null);
         setBookingHistory({
-            ...bookingHistory, // Keep all other users' bookings
-            [loggedInTelegramId]: updatedUserBookings // Set the updated array for the current user
+            ...bookingHistory,
+            [loggedInTelegramId]: updatedUserBookings
         });
     };
 
@@ -132,7 +128,6 @@ export const AppProvider = ({ children }) => {
 };
 
 export const useAppContext = () => {
-
     const context = useContext(AppContext);
     if (context === undefined) {
         throw new Error('useAppContext must be used within an AppProvider');
