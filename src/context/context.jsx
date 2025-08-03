@@ -13,26 +13,55 @@ export const AppProvider = ({ children }) => {
     const navigate = useNavigate();
     const [bookingHistory, setBookingHistory] = useState([]);
     const [userInfo, setUserInfo] = useState([]);
-
     const [services, setServices] = useState([]);
     const [categories, setCategories] = useState([]);
-
     const loggedInTelegramId = '123456789';
     const [confirmCancel, setConfirmCancel] = useState(null);
-    // const [newBooking, setNewBooking] = useState(null);
-
     const addBookedItem = (item) => {
-
         if (!booked.includes(item)) {
             setBooked((prevBooked) => [...prevBooked, item]);
         } else {
             console.warn(`Item ${item} is already booked.`);
         }
     };
-
     const removeBookedItem = (itemToRemove) => {
         setBooked((prevBooked) => prevBooked.filter((item) => item !== itemToRemove));
     };
+
+
+    const backEndUrl = "http://localhost:5000"; // Adjust this URL to your backend server
+    window.Telegram.WebApp.ready();
+    const initData = window.Telegram.WebApp.initData;
+
+    fetch(`${backEndUrl}/api/auth/validate-telegram`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ initData: initData })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.user) {
+                // SUCCESS! The user is authenticated.
+                console.log('Authenticated User:', data.user);
+                // Now you can display their name, avatar, etc.
+                document.body.innerHTML = `<h1>Welcome, ${data.user.name}!</h1>`;
+            } else {
+                // Handle error
+                console.error(data.message);
+                document.body.innerHTML = `<h1>Authentication Failed</h1>`;
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+
+
+
+
+
+
 
 
 
