@@ -1,0 +1,14 @@
+[
+    {
+        "telegramId": "123456789",
+        "name": "Doniyor",
+        "email": "john.d@example.com",
+        "avatar": "https://placehold.co/100x100/a78bfa/FFFFFF?text=JD"
+    },
+    {
+        "telegramId": "987654321",
+        "name": "Jane Smith",
+        "email": "jane.s@example.com",
+        "avatar": "https://placehold.co/100x100/f472b6/FFFFFF?text=JS"
+    }
+]

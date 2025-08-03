@@ -1,5 +1,6 @@
 [
     {
+        "key":"",
         "id": "1",
         "title": {
             "en": "Barbershop",
@@ -8,8 +9,10 @@
         },
         "route": "/barbershops",
         "icon": "✂️"
+
     },
     {
+        "key":"",
         "id": "2",
         "title": {
             "en": "Hair Salon",
@@ -21,6 +24,7 @@
 
     },
     {
+        "key":"",
         "id": "3",
         "title": {
             "en": "Nail Salon",
@@ -32,6 +36,7 @@
 
     },
     {
+        "key":"",
         "id": "4",
         "title": {
             "en": "Beauty Spas",
