@@ -3,13 +3,11 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
 import MapView from './components/MapView.jsx'
 import Home from './pages/Home.jsx'
 import Booking from './pages/Booking.jsx'
-// import CatalogforAll from './pages/catalogforAll.jsx'
 import ServicePage from './pages/servicePage.jsx'
 import YandexMap from './components/YandexMap.jsx'
 import Layout from './Outlet/Layout.jsx'
 import NotFound from './pages/NotFound.jsx'
-import SearchPage from './pages/catalogforAll.jsx'
-// import CatalogforAll from './pages/CatalogforAll.jsx'
+import SearchPage from './pages/SearchPege.jsx'
 
 const App = () => {
   return (
