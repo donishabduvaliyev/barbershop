@@ -18,17 +18,18 @@ export const AppProvider = ({ children }) => {
     const [services, setServices] = useState([]);
     const [categories, setCategories] = useState([]);
     const [confirmCancel, setConfirmCancel] = useState(null);
+    const backEndUrl = "https://1a9de26c9bbc.ngrok-free.app";
+    const tg = window.Telegram.WebApp;
 
+    tg.ready();
+    const initData = tg.initData;
+    console.log("initData from Telegram:", initData);
     // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
     useEffect(() => {
         // This effect runs only ONCE when the component first mounts.
-        const backEndUrl = "https://1a9de26c9bbc.ngrok-free.app";
-        const tg = window.Telegram.WebApp;
+        // Let Telegram know the web app is ready.
 
-        tg.ready(); // Let Telegram know the web app is ready.
 
-        const initData = tg.initData;
-        console.log("initData from Telegram:", initData);
 
         if (!initData) {
             console.error("Authentication failed: initData is missing.");
