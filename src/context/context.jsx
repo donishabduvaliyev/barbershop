@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, use } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ export const AppProvider = ({ children }) => {
     const [booked, setBooked] = useState([]);
     const navigate = useNavigate();
     const [bookingHistory, setBookingHistory] = useState([]);
-
+    const [tgUser, setTgUser] = useState(null);
     // --- CHANGE 1: Initialize userInfo as null ---
     // This helps us know if the user is still loading, authenticated, or failed.
     const [userInfo, setUserInfo] = useState(null);
@@ -61,9 +61,33 @@ export const AppProvider = ({ children }) => {
 
     // }, []); // The empty array [] is crucial. It tells React to run this effect only once.
 
-    // --- The rest of your code ---
 
-    // Now, loggedInTelegramId is derived from the state, not hardcoded.
+
+    useEffect(() => {
+
+        fetch(`${backEndUrl}/api/shops/get-user`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setTgUser(data);
+                console.log(tgUser , 'User data fetched successfully:');
+                 
+              
+            })
+            .catch(error => {
+                // setError(error); 
+                console.error('Error fetching user data:', error); 
+            });
+
+
+
+    }, [])
+
+
     const loggedInTelegramId = userInfo ? userInfo.telegramId : 123456789;
 
     const addBookedItem = (item) => {
@@ -100,7 +124,7 @@ export const AppProvider = ({ children }) => {
     }, []);
 
     const addBooking = (newBooking) => {
-        if (!loggedInTelegramId) return; // Don't do anything if not logged in
+        if (!loggedInTelegramId) return;
         const userBookings = bookingHistory[loggedInTelegramId] || [];
         setBookingHistory({
             ...bookingHistory,
