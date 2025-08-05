@@ -25,7 +25,7 @@ export const AppProvider = ({ children }) => {
     const initData = tg.initData;
     console.log("initData from Telegram:", initData);
     // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
-    useEffect(() => {
+    useEffect((initData) => {
         // This effect runs only ONCE when the component first mounts.
         // Let Telegram know the web app is ready.
 
