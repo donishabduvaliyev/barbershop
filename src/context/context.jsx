@@ -24,42 +24,42 @@ export const AppProvider = ({ children }) => {
     tg.ready();
     // console.log("initData from Telegram:", initData);
     // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
-    useEffect(() => {    // This effect runs only ONCE when the component first mounts.
-        // Let Telegram know the web app is ready.
+    // useEffect(() => {    // This effect runs only ONCE when the component first mounts.
+    //     // Let Telegram know the web app is ready.
 
 
 
-        if (!tg.initData) {
-            console.error("Authentication failed: initData is missing.");
-            // You could show an error page here
-            return;
-        }
+    //     if (!tg.initData) {
+    //         console.error("Authentication failed: initData is missing.");
+    //         // You could show an error page here
+    //         return;
+    //     }
 
-        fetch(`${backEndUrl}/api/auth/validate-telegram`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ initData: initData })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.user) {
-                    console.log('Authenticated User:', data.user);
-                    // --- CHANGE 3: Store the user data in state ---
-                    // This is the correct way to handle the response in React.
-                    setUserInfo(data.user);
-                } else {
-                    console.error("Authentication failed:", data.message);
-                    setUserInfo(null);
-                }
-            })
-            .catch(error => {
-                console.error('Fetch error during validation:', error);
-                setUserInfo(null);
-            });
+    //     fetch(`${backEndUrl}/api/auth/validate-telegram`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ initData: initData })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.user) {
+    //                 console.log('Authenticated User:', data.user);
+    //                 // --- CHANGE 3: Store the user data in state ---
+    //                 // This is the correct way to handle the response in React.
+    //                 setUserInfo(data.user);
+    //             } else {
+    //                 console.error("Authentication failed:", data.message);
+    //                 setUserInfo(null);
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Fetch error during validation:', error);
+    //             setUserInfo(null);
+    //         });
 
-    }, []); // The empty array [] is crucial. It tells React to run this effect only once.
+    // }, []); // The empty array [] is crucial. It tells React to run this effect only once.
 
     // --- The rest of your code ---
 
