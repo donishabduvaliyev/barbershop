@@ -22,16 +22,14 @@ export const AppProvider = ({ children }) => {
     const tg = window.Telegram.WebApp;
 
     tg.ready();
-    console.log("initData from Telegram:", initData);
+    // console.log("initData from Telegram:", initData);
     // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
-    useEffect(() => {
-        const initData = tg.initData;
-        // This effect runs only ONCE when the component first mounts.
+    useEffect(() => {    // This effect runs only ONCE when the component first mounts.
         // Let Telegram know the web app is ready.
 
 
 
-        if (!initData) {
+        if (!tg.initData) {
             console.error("Authentication failed: initData is missing.");
             // You could show an error page here
             return;
