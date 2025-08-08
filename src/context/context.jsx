@@ -62,22 +62,20 @@ export const AppProvider = ({ children }) => {
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    console.log("Telegram WebApp object:", tg);
-    console.log("Init data unsafe:", tg.initDataUnsafe);
-    console.log("User object:", tg.initDataUnsafe?.user);
+    
 
 
     useEffect(() => {
 
 
 
-        const telegramId = tg.initDataUnsafe?.user?.id;
+        const telegramIdfromTelegram = tg.initDataUnsafe?.user?.id;
 
         if (telegramId) {
             fetch(`${backEndUrl}/api/shops/get-user`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: telegramId })
+                body: JSON.stringify({ id: telegramIdfromTelegram })
             })
                 .then(res => res.json())
                 .then(data => {
