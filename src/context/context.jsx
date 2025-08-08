@@ -71,7 +71,7 @@ export const AppProvider = ({ children }) => {
 
         const telegramIdfromTelegram = tg.initDataUnsafe?.user?.id;
 
-        if (telegramId) {
+        if (telegramIdfromTelegram) {
             fetch(`${backEndUrl}/api/shops/get-user`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
