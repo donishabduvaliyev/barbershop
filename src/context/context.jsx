@@ -19,7 +19,7 @@ export const AppProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
     const [confirmCancel, setConfirmCancel] = useState(null);
     const backEndUrl = "https://localhost:5000"; // Update this to your actual backend URL
-   
+
     // console.log("initData from Telegram:", initData);
     // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
     // useEffect(() => {    // This effect runs only ONCE when the component first mounts.
@@ -59,12 +59,17 @@ export const AppProvider = ({ children }) => {
 
     // }, []); // The empty array [] is crucial. It tells React to run this effect only once.
 
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    console.log("Telegram WebApp object:", tg);
+    console.log("Init data unsafe:", tg.initDataUnsafe);
+    console.log("User object:", tg.initDataUnsafe?.user);
 
 
     useEffect(() => {
 
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+
 
         const telegramId = tg.initDataUnsafe?.user?.id;
 
