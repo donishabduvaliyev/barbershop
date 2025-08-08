@@ -18,7 +18,7 @@ export const AppProvider = ({ children }) => {
     const [services, setServices] = useState([]);
     const [categories, setCategories] = useState([]);
     const [confirmCancel, setConfirmCancel] = useState(null);
-    const backEndUrl = "https://1a9de26c9bbc.ngrok-free.app";
+    const backEndUrl = "https://8d150f875cf7.ngrok-free.app/";
     const tg = window.Telegram.WebApp;
 
     tg.ready();
