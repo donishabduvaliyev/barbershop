@@ -18,7 +18,7 @@ export const AppProvider = ({ children }) => {
     const [services, setServices] = useState([]);
     const [categories, setCategories] = useState([]);
     const [confirmCancel, setConfirmCancel] = useState(null);
-    const backEndUrl = "https://localhost:5000"; // Update this to your actual backend URL
+    const backEndUrl = "https://barbershop-backend-t7n7.onrender.com"; // Update this to your actual backend URL
 
     // console.log("initData from Telegram:", initData);
     // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
