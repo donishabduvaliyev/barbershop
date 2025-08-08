@@ -19,9 +19,7 @@ export const AppProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
     const [confirmCancel, setConfirmCancel] = useState(null);
     const backEndUrl = "https://localhost:5000"; // Update this to your actual backend URL
-    const tg = window.Telegram.WebApp;
-
-    tg.ready();
+   
     // console.log("initData from Telegram:", initData);
     // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
     // useEffect(() => {    // This effect runs only ONCE when the component first mounts.
@@ -65,23 +63,26 @@ export const AppProvider = ({ children }) => {
 
     useEffect(() => {
 
-        fetch(`${backEndUrl}/api/shops/get-user`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        const telegramId = tg.initDataUnsafe?.user?.id;
+
+        if (telegramId) {
+            fetch(`${backEndUrl}/api/shops/get-user`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: telegramId })
             })
-            .then(data => {
-                setTgUser(data);
-                console.log(tgUser , 'User data fetched successfully:');
-                 
-              
-            })
-            .catch(error => {
-                // setError(error); 
-                console.error('Error fetching user data:', error); 
-            });
+                .then(res => res.json())
+                .then(data => {
+                    console.log("User from DB:", data.user);
+                    // Now you can display the user info in the UI
+                })
+                .catch(err => console.error("Error fetching user:", err));
+        } else {
+            console.error("No Telegram ID found");
+        }
 
 
 
