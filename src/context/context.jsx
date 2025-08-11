@@ -14,11 +14,13 @@ export const AppProvider = ({ children }) => {
     // --- CHANGE 1: Initialize userInfo as null ---
     // This helps us know if the user is still loading, authenticated, or failed.
     const [userInfo, setUserInfo] = useState(null);
-
+    const [feedData, setFeedData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [services, setServices] = useState([]);
+    const [error, setError] = useState(null);
     const [categories, setCategories] = useState([]);
     const [confirmCancel, setConfirmCancel] = useState(null);
-    const backEndUrl = "https://barbershop-backend-t7n7.onrender.com"; // Update this to your actual backend URL
+    const backEndUrl = "https://barbershop-backend-t7n7.onrender.com";
 
     // console.log("initData from Telegram:", initData);
     // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
@@ -58,9 +60,46 @@ export const AppProvider = ({ children }) => {
     //         });
 
     // }, []); // The empty array [] is crucial. It tells React to run this effect only once.
+    console.log("Initializing Telegram Web App...", feedData);
 
     const tg = window.Telegram.WebApp;
     tg.expand();
+
+
+    useEffect(() => {
+
+
+        function feedData() {
+
+            fetch(`${backEndUrl}/api/shops/home-feed`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setFeedData(data);
+                    console.log("Feed data fetched successfully:", data);
+                })
+                .catch(error => {
+                    setError('Failed to load the feed. Please try again later.');
+                    console.error("Error fetching feed data:", error);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }
+
+
+
+        feedData();
+
+
+
+
+        // Call the function
+    }, []);
 
 
 
