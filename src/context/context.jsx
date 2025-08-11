@@ -62,11 +62,12 @@ export const AppProvider = ({ children }) => {
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    
+
 
 
     useEffect(() => {
 
+        console.log(tg.initDataUnsafe?.user?.id);
 
 
         const telegramIdfromTelegram = tg.initDataUnsafe?.user?.id;
