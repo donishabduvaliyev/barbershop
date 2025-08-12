@@ -11,6 +11,7 @@ const { navigate , services  , categories , feedData} = useAppContext();
  const { i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const { t } = useTranslation();
+console.log(filteredServices);
 
      const visibleCategories =
     selectedCategory === "All"
