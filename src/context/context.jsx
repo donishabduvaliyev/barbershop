@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom';
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
+    const tg = window.Telegram.WebApp;
+    tg.expand();
     const catalog = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     const { i18n } = useTranslation();
     const [booked, setBooked] = useState([]);
     const navigate = useNavigate();
     const [bookingHistory, setBookingHistory] = useState([]);
     const [tgUser, setTgUser] = useState(null);
-    // --- CHANGE 1: Initialize userInfo as null ---
-    // This helps us know if the user is still loading, authenticated, or failed.
     const [userInfo, setUserInfo] = useState(null);
     const [feedData, setFeedData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -22,48 +22,17 @@ export const AppProvider = ({ children }) => {
     const [confirmCancel, setConfirmCancel] = useState(null);
     const backEndUrl = "https://barbershop-backend-t7n7.onrender.com";
 
-    // console.log("initData from Telegram:", initData);
-    // --- CHANGE 2: Wrap all authentication logic in a useEffect hook ---
-    // useEffect(() => {    // This effect runs only ONCE when the component first mounts.
-    //     // Let Telegram know the web app is ready.
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filters, setFilters] = useState({ sortBy: 'rating' }); 
+    const [results, setResults] = useState([]);
+    const [pagination, setPagination] = useState({});
+    const [isSearching, setIsSearching] = useState(false);
 
 
 
-    //     if (!tg.initData) {
-    //         console.error("Authentication failed: initData is missing.");
-    //         // You could show an error page here
-    //         return;
-    //     }
 
-    //     fetch(`${backEndUrl}/api/auth/validate-telegram`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({ initData: initData })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.user) {
-    //                 console.log('Authenticated User:', data.user);
-    //                 // --- CHANGE 3: Store the user data in state ---
-    //                 // This is the correct way to handle the response in React.
-    //                 setUserInfo(data.user);
-    //             } else {
-    //                 console.error("Authentication failed:", data.message);
-    //                 setUserInfo(null);
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Fetch error during validation:', error);
-    //             setUserInfo(null);
-    //         });
 
-    // }, []); // The empty array [] is crucial. It tells React to run this effect only once.
-    console.log("Initializing Telegram Web App...", feedData);
-
-    const tg = window.Telegram.WebApp;
-    tg.expand();
+    // useEffect to fetch data from front end 
 
 
     useEffect(() => {
@@ -101,10 +70,6 @@ export const AppProvider = ({ children }) => {
 
         // Call the function
     }, []);
-
-
-
-
     useEffect(() => {
 
         console.log(tg.initDataUnsafe?.user?.id);
@@ -146,6 +111,8 @@ export const AppProvider = ({ children }) => {
     const removeBookedItem = (itemToRemove) => {
         setBooked((prevBooked) => prevBooked.filter((item) => item !== itemToRemove));
     };
+
+    // useEffect for local development
 
     useEffect(() => {
         fetch("/data.json")
@@ -189,7 +156,7 @@ export const AppProvider = ({ children }) => {
     };
 
     return (
-        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData , isLoading }}>
+        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData, isLoading ,backEndUrl }}>
             {children}
         </AppContext.Provider>
     );
