@@ -51,7 +51,7 @@ const { navigate , services  , categories , feedData} = useAppContext();
                     <div className="flex justify-between items-center p-2">
                       <div className="p-2">
                         <div className="text-sm font-medium text-gray-50 ">
-                          {service.name[lang] || service.name.en}
+                          {service.name.en}
                         </div>
                         <div className="text-xs text-gray-400">
                           ⭐ {service.rating}
