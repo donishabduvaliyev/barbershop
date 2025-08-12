@@ -23,9 +23,11 @@ const ServiceCatalog = ({ selectedCategory }) => {
   return (
     <div className="pt-4 pb-4 px-4 h-[600px]  overflow-y-auto  shadow-md bg-black text-gray-400">
       {visibleCategories.map((category) => {
-        const filteredServices = feedData.filter(
+        const filteredServices = feedData.find(
           (service) => service.category === category.title.en
         );
+
+        const shopsForCategory = filteredServices?.shops || [];
 
         return (
           <div key={category.id} className="mb-6">
@@ -39,30 +41,30 @@ const ServiceCatalog = ({ selectedCategory }) => {
               </button>
             </div>
             <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide">
-              {filteredServices.length > 0 ? (
-                filteredServices.map((service) => (
+              {shopsForCategory.length > 0 ? (
+                shopsForCategory.map((shops) => (
 
                   <div
-                    key={service.id}
+                    key={shops.id}
                     className="min-w-[140px] bg-gray-900 shadow backdrop-blur-xl  rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-yellow-200 transition-shadow duration-200"
                   >
                     <img
-                      src={service.image}
-                      alt={service.name.en}
+                      src={shops.image}
+                      alt={shops.name.en}
                       className="h-24 w-full object-cover"
                     />
                     <div className="flex justify-between items-center p-2">
                       <div className="p-2">
                         <div className="text-sm font-medium text-gray-50 ">
-                          {service.name.en}
+                          {shops.name.en}
                         </div>
                         <div className="text-xs text-gray-400">
-                          ⭐ {service.rating}
+                          ⭐ {shops.rating}
                         </div>
                       </div>
                       <div>
                         <button
-                          onClick={() => navigate(`/service/${service.id}`)}
+                          onClick={() => navigate(`/service/${shops.id}`)}
                           className="p-2 text-gray-500 hover:text-purple-600 transition-colors duration-200"
                         >
                           <ArrowCircleRightIcon className="h-6 w-6 text-yellow-200" />
@@ -71,7 +73,11 @@ const ServiceCatalog = ({ selectedCategory }) => {
                     </div>
                   </div>
                 ))
-              ) : console.log(filteredServices)}
+              ) : (
+                <div className="text-sm text-gray-400 italic">
+                  No services available in this category
+                </div>
+              )}
             </div>
           </div>
         );
