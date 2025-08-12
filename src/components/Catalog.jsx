@@ -45,7 +45,7 @@ const { navigate , services  , categories , feedData} = useAppContext();
                   >
                     <img
                       src={service.image}
-                      alt={service.name[lang] || service.name.en}
+                      alt={ service.name.en}
                       className="h-24 w-full object-cover"
                     />
                     <div className="flex justify-between items-center p-2">
