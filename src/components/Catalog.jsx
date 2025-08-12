@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 
 const ServiceCatalog = ({ selectedCategory }) => {
-const { navigate , services  , categories} = useAppContext();
+const { navigate , services  , categories , feedData} = useAppContext();
  const { i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ const { navigate , services  , categories} = useAppContext();
    return (
     <div className="pt-4 pb-4 px-4 h-[600px]  overflow-y-auto  shadow-md bg-black text-gray-400">
       {visibleCategories.map((category) => {
-        const filteredServices = services.filter(
+        const filteredServices = feedData.filter(
           (service) => service.category === category.title.en
         );
 
