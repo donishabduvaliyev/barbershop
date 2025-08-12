@@ -38,20 +38,20 @@ const { navigate , services  , categories , feedData} = useAppContext();
             </div>
             <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide">
               {filteredServices.length > 0 ? (
-                filteredServices.map((service) => (
+                filteredServices.shops.map((service) => (
                   <div
                     key={service.id}
                     className="min-w-[140px] bg-gray-900 shadow backdrop-blur-xl  rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-yellow-200 transition-shadow duration-200"
                   >
                     <img
                       src={service.image}
-                      // alt={ service.name.en}
+                      alt={ service.name.en}
                       className="h-24 w-full object-cover"
                     />
                     <div className="flex justify-between items-center p-2">
                       <div className="p-2">
                         <div className="text-sm font-medium text-gray-50 ">
-                          {/* {service.name.en} */}
+                          {service.name.en}
                         </div>
                         <div className="text-xs text-gray-400">
                           ⭐ {service.rating}
