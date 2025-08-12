@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowCircleRightIcon } from "@heroicons/react/outline";
 import { useAppContext } from "../context/context";
 import { useTranslation } from "react-i18next";
@@ -7,19 +7,20 @@ import { useTranslation } from "react-i18next";
 
 
 const ServiceCatalog = ({ selectedCategory }) => {
-const { navigate , services  , categories , feedData} = useAppContext();
- const { i18n } = useTranslation();
+  const { navigate, services, categories, feedData } = useAppContext();
+  const { i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const { t } = useTranslation();
-console.log(filteredServices);
 
-     const visibleCategories =
+  // const [filteredServices , setFilteredServices] = useState()
+
+  const visibleCategories =
     selectedCategory === "All"
       ? categories
       : categories.filter((cat) => cat.title.en === selectedCategory);
 
 
-   return (
+  return (
     <div className="pt-4 pb-4 px-4 h-[600px]  overflow-y-auto  shadow-md bg-black text-gray-400">
       {visibleCategories.map((category) => {
         const filteredServices = feedData.filter(
@@ -34,19 +35,20 @@ console.log(filteredServices);
                 className="text-sm text-yellow-200 hover:text-purple-700"
                 onClick={() => (window.location.href = category.route)}
               >
-               {t("SeeAll")}
+                {t("SeeAll")}
               </button>
             </div>
             <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide">
               {filteredServices.length > 0 ? (
-                filteredServices.shops.map((service) => (
+                filteredServices.map((service) => (
+
                   <div
                     key={service.id}
                     className="min-w-[140px] bg-gray-900 shadow backdrop-blur-xl  rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-yellow-200 transition-shadow duration-200"
                   >
                     <img
                       src={service.image}
-                      alt={ service.name.en}
+                      alt={service.name.en}
                       className="h-24 w-full object-cover"
                     />
                     <div className="flex justify-between items-center p-2">
@@ -69,11 +71,7 @@ console.log(filteredServices);
                     </div>
                   </div>
                 ))
-              ) : (
-                <div className="text-sm text-gray-400 italic">
-                  No services available in this category
-                </div>
-              )}
+              ) : console.log(filteredServices)}
             </div>
           </div>
         );
