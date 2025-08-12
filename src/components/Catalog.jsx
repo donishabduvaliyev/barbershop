@@ -50,13 +50,13 @@ const ServiceCatalog = ({ selectedCategory }) => {
                   >
                     <img
                       src={shops.image}
-                      alt={shops.name.en}
+                      alt={shops.name[lang] || shops.name.en}
                       className="h-24 w-full object-cover"
                     />
                     <div className="flex justify-between items-center p-2">
                       <div className="p-2">
                         <div className="text-sm font-medium text-gray-50 ">
-                          {shops.name.en}
+                          {shops.name[lang] || shops.name.en}
                         </div>
                         <div className="text-xs text-gray-400">
                           ⭐ {shops.rating}
