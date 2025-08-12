@@ -79,6 +79,7 @@ export const AppProvider = ({ children }) => {
             })
                 .then(response => response.json())
                 .then(data => {
+                    setIsLoading(true)
                     setFeedData(data);
                     console.log("Feed data fetched successfully:", data);
                 })
@@ -188,7 +189,7 @@ export const AppProvider = ({ children }) => {
     };
 
     return (
-        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel , feedData }}>
+        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData , isLoading }}>
             {children}
         </AppContext.Provider>
     );
