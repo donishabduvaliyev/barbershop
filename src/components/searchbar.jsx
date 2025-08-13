@@ -8,6 +8,8 @@ import { useAppContext } from "../context/context";
 
 const SearchBar = () => {
   const { navigate } = useAppContext();
+  const { i18n, t } = useTranslation();
+  // const lang = i18n.language || 'en';
 
   const [searchTerm, setSearchTerm] = useState('');
 
