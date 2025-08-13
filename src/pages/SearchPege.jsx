@@ -92,7 +92,7 @@ export default function SearchPage() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={t('Search for salons, spas, etc.')}
-              className="w-full pl-10 pr-4 py-3 bg-gray-200 dark:bg-zinc-900 border-transparent rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 text-purple-400 bg-gray-200 dark:bg-zinc-900 border-transparent rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             />
           </div>
         </div>
