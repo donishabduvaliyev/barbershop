@@ -35,11 +35,11 @@ const SearchBar = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder={t('Search for salons, spas, etc.')}
-          className="w-full pl-10 pr-4 py-3 text-purple-300 bg-gray-200 dark:bg-zinc-900 border-transparent rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          className=" pl-10 pr-4 py-3 text-purple-300 bg-gray-200 dark:bg-zinc-900 border-transparent rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
         />
         <button type="submit"
         className=" absolute right-[5%]    bg-yellow-400 text-black px-2 py-1 rounded-xl hover:bg-yellow-500 transition-colors duration-200"
-        >Search</button>
+        >{t('search')}</button>
 
       </form>
 
