@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 import clsx from 'clsx';
 
 // --- Your helper components (pad, ScrollPickerColumn, ValidationModal) remain the same ---
@@ -15,7 +14,7 @@ const Booking = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
-  const { backEndUrl, telegramIdfromTelegram , userInfo } = useAppContext();
+  const { backEndUrl, telegramIdfromTelegram, userInfo } = useAppContext();
 
   // --- State Management ---
   const [shop, setShop] = useState(null);
@@ -44,8 +43,19 @@ const Booking = () => {
     const fetchShopData = async () => {
       try {
         const [shopRes, availabilityRes] = await Promise.all([
-          axios.get(`${backEndUrl}/api/service/${serviceId}/availability`)
+          fetch(`${backEndUrl}/api/shops/service/${serviceId}`),
+          fetch(`${backEndUrl}/api/shops/service/${serviceId}/availability`)
         ]);
+
+        // Manually check if both responses are OK
+        if (!shopResponse.ok || !availabilityResponse.ok) {
+          throw new Error('Failed to fetch shop data.');
+        }
+
+        // Manually parse the JSON from both responses
+        const shopData = await shopResponse.json();
+        const availabilityData = await availabilityResponse.json();
+
         setShop(shopRes.data);
         setAvailability(availabilityRes.data);
       } catch (error) {
@@ -125,19 +135,27 @@ const Booking = () => {
       shopId: shop._id,
       shopName: shop.name[lang],
       userTelegramId: telegramIdfromTelegram,
-      userTelegramUsername: userInfo.name, 
+      userTelegramUsername: userInfo.name,
       userNumber: phone,
-      userTelegramNumber:userInfo.phone ,
+      userTelegramNumber: userInfo.phone,
       userName: name,
       requestedTime: bookingDate.toISOString(),
     };
 
     try {
-      // Call the booking request API
-      await axios.post(`${backEndUrl}/api/shops/booking-requests`, requestBody);
+      const response = await fetch(`${backEndUrl}/api/shops/booking-requests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
 
-      // Show success screen
-      setSuccess(true);
+      // Manually check for HTTP errors
+      if (!response.ok) {
+        const errorData = await response.json(); // Try to get error message from backend
+        throw new Error(errorData.message || 'An error occurred. Please try again.');
+      }
 
     } catch (error) {
       console.error("Booking request failed:", error);
