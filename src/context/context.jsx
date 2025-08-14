@@ -86,6 +86,7 @@ export const AppProvider = ({ children }) => {
                 .then(res => res.json())
                 .then(data => {
                     console.log("User from DB:", data.user);
+                    setUserInfo(data.user);
                     // Now you can display the user info in the UI
                 })
                 .catch(err => console.error("Error fetching user:", err));
@@ -156,7 +157,7 @@ export const AppProvider = ({ children }) => {
     };
 
     return (
-        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData, isLoading ,backEndUrl }}>
+        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData, isLoading ,backEndUrl ,telegramIdfromTelegram , userInfo }}>
             {children}
         </AppContext.Provider>
     );
