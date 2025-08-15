@@ -35,7 +35,7 @@ const Booking = () => {
   const [selectedHour, setSelectedHour] = useState(null);
   const [selectedMinute, setSelectedMinute] = useState(null);
 
-  const serviceId = location.pathname.split('/').pop(); // Get ID from URL path
+ const serviceId = location.state?.serviceId; // Get ID from URL path
 
   // --- 1. Fetch Shop Details and Availability on Load ---
   useEffect(() => {
