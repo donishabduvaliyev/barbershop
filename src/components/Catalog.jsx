@@ -75,7 +75,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
                           </div>
                           <div>
                             <button
-                              onClick={() => navigate(`/service/${shops.id}`)}
+                              onClick={() => navigate(`/service/${shops._id}`)}
                               className="p-2 text-gray-500 hover:text-purple-600 transition-colors duration-200"
                             >
                               <ArrowCircleRightIcon className="h-6 w-6 text-yellow-200" />

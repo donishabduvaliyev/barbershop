@@ -49,13 +49,13 @@ const Booking = () => {
         ]);
 
         // Manually check if both responses are OK
-        if (!shopResponse.ok || !availabilityResponse.ok) {
+        if (!shopRes.ok || !availabilityRes.ok) {
           throw new Error('Failed to fetch shop data.');
         }
 
         // Manually parse the JSON from both responses
-        const shopData = await shopResponse.json();
-        const availabilityData = await availabilityResponse.json();
+        const shopData = await shopRes.json();
+        const availabilityData = await availabilityRes.json();
 
         setShop(shopRes.data);
         setAvailability(availabilityRes.data);

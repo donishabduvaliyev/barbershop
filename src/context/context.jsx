@@ -34,6 +34,31 @@ export const AppProvider = ({ children }) => {
 
     // useEffect to fetch data from front end 
 
+useEffect(() => {
+        function getShops() {
+
+            fetch(`${backEndUrl}/api/shops/allShops`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    setServices(data);
+                    console.log("Shop data fetched successfully:", data);
+                })
+                .catch(error => {
+                    setError('Failed to load the feed. Please try again later.');
+                    console.error("Error fetching feed data:", error);
+                })
+               
+        }
+        getShops();
+    }, []);
+
+
 
     useEffect(() => {
 
@@ -114,13 +139,6 @@ export const AppProvider = ({ children }) => {
     };
 
     // useEffect for local development
-
-    useEffect(() => {
-        fetch("/data.json")
-            .then((res) => res.json())
-            .then(setServices)
-            .catch((err) => console.error("Failed to load services", err));
-    }, []);
 
     useEffect(() => {
         fetch("/categories.json")

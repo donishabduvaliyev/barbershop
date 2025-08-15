@@ -10,7 +10,7 @@ const ServicePage = () => {
   const { id } = useParams();
   // const service = serviceData.find((s) => s.id === id);
   const { services, navigate } = useAppContext();
-  const service = services.find((s) => s.id === Number(id));
+  const service = services.find((s) => s._id === Number(id));
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
@@ -104,7 +104,7 @@ const ServicePage = () => {
 
       <div className='flex items-center justify-center mb-3'>
         <button 
-        onClick={() => navigate("/booking", { state: { serviceId: service.id } })}
+        onClick={() => navigate("/booking", { state: { serviceId: service._id } })}
         className="w-[90%]  sm:w-auto bg-yellow-300 text-black text-base sm:text-lg px-3 py-3 rounded-full shadow-md hover:bg-yellow-400 transition-colors duration-300 active:scale-95">
           {t("BookNow")}
         </button>
