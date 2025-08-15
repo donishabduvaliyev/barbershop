@@ -10,6 +10,8 @@ const ServicePage = () => {
   const { id } = useParams();
   // const service = serviceData.find((s) => s.id === id);
   const { services, navigate } = useAppContext();
+  console.log(services);
+  
   const service = services.find((s) => s._id === Number(id));
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
