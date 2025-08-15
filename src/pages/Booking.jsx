@@ -44,7 +44,7 @@ const Booking = () => {
     const fetchShopData = async () => {
       try {
         const [shopRes, availabilityRes] = await Promise.all([
-          fetch(`${backEndUrl}/api/shops/service/${serviceId}`),
+          fetch(`${backEndUrl}/api/shops/shops/${serviceId}`),
           fetch(`${backEndUrl}/api/shops/service/${serviceId}/availability`)
         ]);
 
