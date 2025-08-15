@@ -15,6 +15,8 @@ const ServicePage = () => {
   const service = services.find((s) => s._id === id);
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
+  console.log(service , "service in servicePage.jsx");
+  
 
 
 
