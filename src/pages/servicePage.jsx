@@ -72,14 +72,14 @@ const ServicePage = () => {
               {service.workingHours.from} - {service.workingHours.to}
             </p>
           </div>
-          {
+          {/* {
             service.workingHours?.days.map((day, idx) => (
               <span key={idx} className="text-sm text-gray-400">
                 {day}
                 {idx < service.workingHours.days.length - 1 ? ', ' : ''}
               </span>)
             )
-          }
+          } */}
 
         </div>
       </div>
