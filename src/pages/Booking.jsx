@@ -37,6 +37,8 @@ const Booking = () => {
 
  const serviceId = location.state?.serviceId; // Get ID from URL path
 
+ console.log(serviceId ,"serviceId in booking.jsx");
+ 
   // --- 1. Fetch Shop Details and Availability on Load ---
   useEffect(() => {
     if (!serviceId) return;
