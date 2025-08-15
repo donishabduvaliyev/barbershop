@@ -19,7 +19,7 @@ const App = () => {
         <Route index element={<Home />} />
         {/* <Route path="/map1" element={<YandexMap />} /> */}
 
-        <Route path="/booking" element={<Booking />} />
+        <Route path="/booking/:id" element={<Booking />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/service/:id" element={<ServicePage />} />
       </Route>
