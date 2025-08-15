@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import { useAppContext } from '../context/context';
 
 // --- Your helper components (pad, ScrollPickerColumn, ValidationModal) remain the same ---
 const pad = (num) => num.toString().padStart(2, '0');
