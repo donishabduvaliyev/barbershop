@@ -14,7 +14,7 @@ const Booking = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
-  const { backEndUrl, telegramIdfromTelegram, userInfo } = useAppContext();
+  const { backEndUrl, loggedInTelegramId, userInfo } = useAppContext();
 
   // --- State Management ---
   const [shop, setShop] = useState(null);
@@ -134,7 +134,7 @@ const Booking = () => {
     const requestBody = {
       shopId: shop._id,
       shopName: shop.name[lang],
-      userTelegramId: telegramIdfromTelegram,
+      userTelegramId: loggedInTelegramId,
       userTelegramUsername: userInfo.name,
       userNumber: phone,
       userTelegramNumber: userInfo.phone,
