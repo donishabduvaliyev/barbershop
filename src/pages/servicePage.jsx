@@ -73,7 +73,7 @@ const ServicePage = () => {
             </p>
           </div>
           {
-            service.workingHours.days.map((day, idx) => (
+            service.workingHours?.days.map((day, idx) => (
               <span key={idx} className="text-sm text-gray-400">
                 {day}
                 {idx < service.workingHours.days.length - 1 ? ', ' : ''}
