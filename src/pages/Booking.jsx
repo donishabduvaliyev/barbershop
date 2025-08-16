@@ -48,17 +48,19 @@ const Booking = () => {
           fetch(`${backEndUrl}/api/shops/service/${serviceId}/availability`)
         ]);
 
-        // Manually check if both responses are OK
+
         if (!shopRes.ok || !availabilityRes.ok) {
           throw new Error('Failed to fetch shop data.');
         }
 
-        // Manually parse the JSON from both responses
+
         const shopData = await shopRes.json();
         const availabilityData = await availabilityRes.json();
 
-        setShop(shopRes.data);
-        setAvailability(availabilityRes.data);
+
+        setShop(shopData);
+        setAvailability(availabilityData);
+
       } catch (error) {
         console.error("Failed to load shop data", error);
         // Handle not found error, maybe navigate away
@@ -75,10 +77,10 @@ const Booking = () => {
     return d;
   }), []);
 
-const { availableHours, availableMinutes } = useMemo(() => {
+  const { availableHours, availableMinutes } = useMemo(() => {
     // Add more robust checks to ensure shop and workingHours exist
     if (!selectedDate || !shop || !shop.workingHours || shop.workingHours.length === 0) {
-        return { availableHours: [], availableMinutes: [] };
+      return { availableHours: [], availableMinutes: [] };
     }
 
     // 1. Find the correct schedule object for the selected day
@@ -87,27 +89,27 @@ const { availableHours, availableMinutes } = useMemo(() => {
 
     // If the shop is not open on the selected day, return empty arrays
     if (!schedule) {
-        return { availableHours: [], availableMinutes: [] };
+      return { availableHours: [], availableMinutes: [] };
     }
 
     // 2. Now, safely get 'from' and 'to' from the schedule object
     const now = new Date();
     const isToday = selectedDate.toDateString() === now.toDateString();
-    
+
     const [fromHour] = schedule.from.split(':').map(Number);
     const [toHour] = schedule.to.split(':').map(Number);
-    
+
     const startHour = isToday ? Math.max(fromHour, now.getHours() + 1) : fromHour;
 
     const hours = [];
     for (let h = startHour; h < toHour; h++) {
-        hours.push(pad(h));
+      hours.push(pad(h));
     }
 
     const minutes = ['00', '15', '30', '45'];
     return { availableHours: hours, availableMinutes: minutes };
 
-}, [selectedDate, shop]);
+  }, [selectedDate, shop]);
 
   // Auto-select first available time when date changes
   useEffect(() => {
