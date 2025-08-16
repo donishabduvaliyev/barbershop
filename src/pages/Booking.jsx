@@ -75,33 +75,39 @@ const Booking = () => {
     return d;
   }), []);
 
-  const { availableHours, availableMinutes } = useMemo(() => {
-    if (!selectedDate || !availability.workingHours.length > 0) return { availableHours: [], availableMinutes: [] };
+const { availableHours, availableMinutes } = useMemo(() => {
+    // Add more robust checks to ensure shop and workingHours exist
+    if (!selectedDate || !shop || !shop.workingHours || shop.workingHours.length === 0) {
+        return { availableHours: [], availableMinutes: [] };
+    }
 
+    // 1. Find the correct schedule object for the selected day
     const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
-    const schedule = availability.workingHours.find(wh => wh.days.includes(dayName));
+    const schedule = shop.workingHours.find(wh => wh.days.includes(dayName));
 
-    if (!schedule) return { availableHours: [], availableMinutes: [] };
+    // If the shop is not open on the selected day, return empty arrays
+    if (!schedule) {
+        return { availableHours: [], availableMinutes: [] };
+    }
 
+    // 2. Now, safely get 'from' and 'to' from the schedule object
     const now = new Date();
     const isToday = selectedDate.toDateString() === now.toDateString();
-
+    
     const [fromHour] = schedule.from.split(':').map(Number);
     const [toHour] = schedule.to.split(':').map(Number);
-
+    
     const startHour = isToday ? Math.max(fromHour, now.getHours() + 1) : fromHour;
 
     const hours = [];
     for (let h = startHour; h < toHour; h++) {
-      // Here you could add more advanced logic to check against availability.bookedSlots
-      // For simplicity, we'll just generate the hour range for now.
-      hours.push(pad(h));
+        hours.push(pad(h));
     }
 
-    const minutes = ['00', '15', '30', '45']; // Example: Only allow 15-minute intervals
+    const minutes = ['00', '15', '30', '45'];
     return { availableHours: hours, availableMinutes: minutes };
 
-  }, [selectedDate, availability]);
+}, [selectedDate, shop]);
 
   // Auto-select first available time when date changes
   useEffect(() => {
