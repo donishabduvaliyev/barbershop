@@ -55,7 +55,8 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
     }
 
     // --- CHANGED: Get user and bookings directly from the fetched profile data ---
-    const { user, bookings } = profileData;
+    const { user } = profileData;
+    const bookings = Array.isArray(profileData?.bookings) ? profileData.bookings : [];
 
     const renderSubPage = () => {
         switch (activeSubPage) {
