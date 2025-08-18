@@ -22,7 +22,7 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
     // --- NEW: useEffect hook to fetch data when the component opens ---
     useEffect(() => {
         // Don't fetch if the modal isn't open or if there's no ID
-        if (!isOpen || !telegramId) return;
+        // if (!isOpen || !telegramId) return;
 
         const fetchProfileData = async () => {
             try {
