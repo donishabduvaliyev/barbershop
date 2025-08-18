@@ -14,7 +14,6 @@ export const UserInfoPage = ({ onBack, user, t }) => (
             <h1 className="text-2xl font-bold mb-4">{t('MyDetails')}</h1>
             <div className="bg-white dark:bg-zinc-900 rounded-2xl p-4 shadow-sm space-y-2">
                 <p><strong>{t('Name')}:</strong> {user.name}</p>
-                <p><strong>{t('Email')}:</strong> {user.email ? user.email : "There is no email"}</p>
                 <p><strong>{t('TelegramID')}:</strong> {user.telegramId}</p>
             </div>
         </div>

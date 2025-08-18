@@ -147,12 +147,12 @@ useEffect(() => {
             .catch((err) => console.error("Failed to load categories", err));
     }, []);
 
-    useEffect(() => {
-        fetch("/booking.json")
-            .then((res) => res.json())
-            .then(setBookingHistory)
-            .catch((err) => console.error("Failed to load booking history", err));
-    }, []);
+    // useEffect(() => {
+    //     fetch("/booking.json")
+    //         .then((res) => res.json())
+    //         .then(setBookingHistory)
+    //         .catch((err) => console.error("Failed to load booking history", err));
+    // }, []);
 
     const addBooking = (newBooking) => {
         if (!loggedInTelegramId) return;
