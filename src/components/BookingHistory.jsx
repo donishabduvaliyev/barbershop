@@ -15,7 +15,7 @@ export const BookingHistoryPage = ({ onBack, bookings, t }) => {
 
         try {
             // FIX #2: Add method: 'PATCH' and headers to the fetch call
-            const response = await fetch(`${backEndUrl}/api/bookings/${bookingToCancel._id}/cancel`, {
+            const response = await fetch(`${backEndUrl}/api/user/bookings/${bookingToCancel._id}/cancel`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
