@@ -56,7 +56,7 @@ export const BookingHistoryPage = ({ onBack, bookings, t }) => {
                                         <button onClick={() => setBookingToCancel(booking)} className="px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800 hover:bg-red-200">Cancel</button>
                                     </div>
                                 ) : (
-                                    <span className={`px-2 py-1 text-xs font-medium ${booking.status === 'completed' ? 'bg-green-400  text-white ' :  ' bg-gray-200 dark:bg-zinc-700 text-gray-800 dark:text-gray-200'}  rounded-full  capitalize`}>{t(booking.status)}</span>
+                                    <span className={`px-2 py-1 text-xs font-medium ${booking.status === 'completed' ? 'bg-green-700  text-white ' :  ' bg-gray-200 dark:bg-zinc-700 text-gray-800 dark:text-gray-200'}  rounded-full  capitalize`}>{t(booking.status)}</span>
                                 )}
                             </li>
                         )) : <p className="p-4 text-center text-gray-500">{t('NoBookings')}</p>}
