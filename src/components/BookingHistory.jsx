@@ -6,29 +6,21 @@ const ChevronLeftIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className=
 export const BookingHistoryPage = ({ onBack, bookings, t }) => {
     const [bookingToCancel, setBookingToCancel] = useState(null);
     const [localBookings, setLocalBookings] = useState(bookings);
-
-    // FIX #1: Destructure from context as an object {}
     const { backEndUrl } = useAppContext();
 
     const handleConfirmCancel = async () => {
         if (!bookingToCancel) return;
 
         try {
-            // FIX #2: Add method: 'PATCH' and headers to the fetch call
             const response = await fetch(`${backEndUrl}/api/user/bookings/${bookingToCancel._id}/cancel`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-
-            // FIX #3: Manually check for HTTP errors
             if (!response.ok) {
-                // This will stop execution and jump to the catch block if the API fails
                 throw new Error('Failed to cancel the booking on the server.');
             }
-
-            // This part only runs if the API call was successful
             const updatedBookings = localBookings.map(b =>
                 b._id === bookingToCancel._id ? { ...b, status: 'cancelled' } : b
             );
@@ -36,9 +28,8 @@ export const BookingHistoryPage = ({ onBack, bookings, t }) => {
 
         } catch (error) {
             console.error("Failed to cancel booking:", error);
-            // Optionally show an error toast/modal to the user here
         } finally {
-            setBookingToCancel(null); // Close the modal regardless of success or failure
+            setBookingToCancel(null);
         }
     };
 

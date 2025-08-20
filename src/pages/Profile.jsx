@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { UserInfoPage } from '../components/UserInfo';
 import { BookingHistoryPage } from '../components/BookingHistory';
-import { useAppContext } from '../context/context'; // Keep for other context values if needed
+import { useAppContext } from '../context/context'; 
 
-// --- Your Icon components remain the same ---
 const UserCircleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>;
 const ClockIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
 const LogoutIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>;
@@ -12,18 +11,13 @@ const XIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" 
 
 
 export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
-    // --- NEW: State for the fetched profile data, loading, and errors ---
     const [profileData, setProfileData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeSubPage, setActiveSubPage] = useState(null);
     const {backEndUrl} = useAppContext()
 
-    // --- NEW: useEffect hook to fetch data when the component opens ---
     useEffect(() => {
-        // Don't fetch if the modal isn't open or if there's no ID
-        // if (!isOpen || !telegramId) return;
-
         const fetchProfileData = async () => {
             try {
                 setIsLoading(true);
@@ -42,11 +36,10 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
         };
 
         fetchProfileData();
-    }, [isOpen, telegramId]); // Re-fetch if the modal is opened with a new user ID
+    }, [isOpen, telegramId]); 
 
     if (!isOpen) return null;
 
-    // --- NEW: Handle loading and error states ---
     if (isLoading) {
         return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">Loading Profile...</div>;
     }
@@ -54,7 +47,6 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
         return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">Error: Could not load profile.</div>;
     }
 
-    // --- CHANGED: Get user and bookings directly from the fetched profile data ---
     const { user } = profileData;
     const bookings = Array.isArray(profileData?.bookings) ? profileData.bookings : [];
 
@@ -78,7 +70,6 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
                     </header>
 
                     <main className="max-w-4xl mx-auto px-4 pb-28">
-                        {/* --- CHANGED: Now uses the 'user' object from our state --- */}
                         <div className="flex items-center space-x-4 p-4 text-gray-500 dark:text-white bg-white dark:bg-zinc-900 rounded-2xl my-4 shadow-sm">
                             <img src={user.avatar} alt="User Avatar" className="w-16 h-16 rounded-full" />
                             <div>
