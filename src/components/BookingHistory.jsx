@@ -6,7 +6,7 @@ const ChevronLeftIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className=
 export const BookingHistoryPage = ({ onBack, bookings, t }) => {
     const [bookingToCancel, setBookingToCancel] = useState(null);
     const [localBookings, setLocalBookings] = useState(bookings);
-    
+
     // FIX #1: Destructure from context as an object {}
     const { backEndUrl } = useAppContext();
 
@@ -43,7 +43,7 @@ export const BookingHistoryPage = ({ onBack, bookings, t }) => {
     };
 
     return (
-        <div className="absolute inset-0 bg-gray-100 dark:bg-black z-30 animate-slide-in">
+        <div className="absolute inset-0 bg-gray-100 dark:bg-black z-30 animate-slide-in text-purple-400 dark:text-white">
             <header className="sticky top-0 p-2 bg-gray-100/80 dark:bg-black/80 backdrop-blur-xl flex items-center">
                 <button onClick={onBack} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-800 flex items-center text-purple-600 dark:text-purple-400">
                     <ChevronLeftIcon /> <span className="font-semibold">{t('Profile')}</span>

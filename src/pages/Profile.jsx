@@ -79,7 +79,7 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
 
                     <main className="max-w-4xl mx-auto px-4 pb-28">
                         {/* --- CHANGED: Now uses the 'user' object from our state --- */}
-                        <div className="flex items-center space-x-4 p-4 bg-white dark:bg-zinc-900 rounded-2xl my-4 shadow-sm">
+                        <div className="flex items-center space-x-4 p-4 text-purple-400 dark:text-white bg-white dark:bg-zinc-900 rounded-2xl my-4 shadow-sm">
                             <img src={user.avatar} alt="User Avatar" className="w-16 h-16 rounded-full" />
                             <div>
                                 <p className="font-bold text-lg text-gray-900 dark:text-white">{user.name}</p>
@@ -87,7 +87,7 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm overflow-hidden">
+                        <div className="bg-white dark:bg-zinc-900 text-purple-400 dark:text-white rounded-2xl shadow-sm overflow-hidden">
                             <ul className="divide-y divide-gray-100 dark:divide-zinc-800">
                                 <li><button onClick={() => setActiveSubPage('userInfo')} className="w-full flex justify-between items-center p-4 hover:bg-gray-50 dark:hover:bg-zinc-800 transition-colors"><div className="flex items-center space-x-3"><UserCircleIcon /><span>{t('MyDetails')}</span></div><ChevronRightIcon /></button></li>
                                 <li><button onClick={() => setActiveSubPage('bookingHistory')} className="w-full flex justify-between items-center p-4 hover:bg-gray-50 dark:hover:bg-zinc-800 transition-colors"><div className="flex items-center space-x-3"><ClockIcon /><span>{t('BookingHistory')}</span></div><ChevronRightIcon /></button></li>
