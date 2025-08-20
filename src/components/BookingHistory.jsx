@@ -43,7 +43,7 @@ export const BookingHistoryPage = ({ onBack, bookings, t }) => {
     };
 
     return (
-        <div className="absolute inset-0 bg-gray-100 dark:bg-black z-30 animate-slide-in text-purple-400 dark:text-white">
+        <div className="absolute inset-0 bg-gray-100 dark:bg-black z-30 animate-slide-in text-black dark:text-white">
             <header className="sticky top-0 p-2 bg-gray-100/80 dark:bg-black/80 backdrop-blur-xl flex items-center">
                 <button onClick={onBack} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-800 flex items-center text-purple-600 dark:text-purple-400">
                     <ChevronLeftIcon /> <span className="font-semibold">{t('Profile')}</span>
