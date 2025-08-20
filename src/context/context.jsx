@@ -103,7 +103,7 @@ useEffect(() => {
         const telegramIdfromTelegram = tg.initDataUnsafe?.user?.id;
 
         if (telegramIdfromTelegram) {
-            fetch(`${backEndUrl}/api/shops/get-user`, {
+            fetch(`${backEndUrl}/api/user/get-user`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: telegramIdfromTelegram })
