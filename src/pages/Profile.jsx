@@ -71,9 +71,9 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
             <div className="absolute inset-0 bg-gray-100 dark:bg-black animate-slide-up overflow-hidden">
                 <div className="h-full overflow-y-auto no-scrollbar">
                     <header className="sticky top-0 z-20 p-2 bg-gray-100/80 dark:bg-black/80 backdrop-blur-xl flex items-center justify-between">
-                        <h1 className="font-bold text-lg">{t('Profile')}</h1>
+                        <h1 className="font-bold text-lg text-purple-400">{t('Profile')}</h1>
                         <div className="w-16 flex justify-end">
-                            <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-800"><XIcon /></button>
+                            <button onClick={onClose} className="p-2 rounded-full bg-gray-600 hover:bg-gray-200 dark:hover:bg-zinc-800"><XIcon /></button>
                         </div>
                     </header>
 
