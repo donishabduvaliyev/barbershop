@@ -11,10 +11,10 @@ export const UserInfoPage = ({ onBack, user, t }) => (
             </button>
         </header>
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">{t('MyDetails')}</h1>
+            <h1 className="text-2xl font-bold mb-4 text-gray-500">{t('MyDetails')}</h1>
             <div className="bg-white dark:bg-zinc-900 rounded-2xl p-4 shadow-sm space-y-2 text-black dark:text-white">
-                <p><strong>{t('Name')}:</strong> {user.name}</p>
-                <p><strong>{t('TelegramID')}:</strong> {user.telegramId}</p>
+                <p className="text-gray-500"><strong className="text-black">{t('Name')}:</strong> {user.name}</p>
+                <p className="text-gray-500"><strong className="text-black">{t('TelegramID')}:</strong> {user.telegramId}</p>
             </div>
         </div>
     </div>

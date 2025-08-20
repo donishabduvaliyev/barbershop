@@ -73,13 +73,13 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
                     <header className="sticky top-0 z-20 p-2 bg-gray-100/80 dark:bg-black/80 backdrop-blur-xl flex items-center justify-between">
                         <h1 className="font-bold text-lg text-purple-400">{t('Profile')}</h1>
                         <div className="w-16 flex justify-end">
-                            <button onClick={onClose} className="p-2 rounded-full bg-gray-600 hover:bg-gray-200 dark:hover:bg-zinc-800"><XIcon /></button>
+                            <button onClick={onClose} className="p-2 rounded-full text-gray-600 bg-gray-300 hover:bg-gray-400 dark:hover:bg-zinc-800"><XIcon /></button>
                         </div>
                     </header>
 
                     <main className="max-w-4xl mx-auto px-4 pb-28">
                         {/* --- CHANGED: Now uses the 'user' object from our state --- */}
-                        <div className="flex items-center space-x-4 p-4 text-purple-400 dark:text-white bg-white dark:bg-zinc-900 rounded-2xl my-4 shadow-sm">
+                        <div className="flex items-center space-x-4 p-4 text-gray-500 dark:text-white bg-white dark:bg-zinc-900 rounded-2xl my-4 shadow-sm">
                             <img src={user.avatar} alt="User Avatar" className="w-16 h-16 rounded-full" />
                             <div>
                                 <p className="font-bold text-lg text-gray-900 dark:text-white">{user.name}</p>
