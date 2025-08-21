@@ -27,48 +27,52 @@ const Home = () => {
     const userName = user ? user.name : 'Guest';
 
     return (
-        <div className='bg-gray-100/80 dark:bg-black/80 backdrop-blur-xl z-20 border-b border-gray-200 dark:border-zinc-800 text-[rgba(60,60,67,0.6)] dark:text-white  flex flex-col overflow-hidden'>
-            <div className="px-4 pt-6 flex justify-between items-center">
-                <div className='flex gap-3  justify-between '>
-                    <span onClick={() => setIsProfileOpen(true)}>
-                        <UserIcon />
+        <div className="h-screen bg-gray-100 dark:bg-black font-sans overflow-y-auto no-scrollbar">
+            {/* Sticky header with blur */}
+            <header className="sticky top-0 bg-gray-100/80 dark:bg-black/80 backdrop-blur-xl z-20 border-b border-gray-200 dark:border-zinc-800">
 
-                    </span>
+                {/* Top row: Profile + Greeting + Actions */}
+                <div className="p-4 flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                        <span onClick={() => setIsProfileOpen(true)} className="cursor-pointer">
+                            <UserIcon />
+                        </span>
+                        <div className="flex flex-col leading-tight">
+                            <h1 className="text-xs text-ios-text-secondary-light dark:text-ios-text-secondary-dark">
+                                {t('welcome_message')} {userName}
+                            </h1>
+                            <h1 className="text-xs font-semibold text-ios-text-primary-light dark:text-ios-text-primary-dark">
+                                {t("greeting")}
+                            </h1>
+                        </div>
+                    </div>
 
-                    <div className='flex flex-col'>
-                        <h1 className="text-[12px] text-red-200"> {t('welcome_message')} {userName}</h1>
-                        <h1 className="text-[12px] font-semibold">{t("greeting")}</h1>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        {booked}
-                    </div>
-                    <div>
+                    <div className="flex items-center space-x-3">
+                        <div>{booked}</div>
                         <LanguageToggleButton />
                     </div>
                 </div>
 
-            </div>
+                {/* Search Bar */}
+                <div className="px-4 pb-3">
+                    <SearchBar />
+                </div>
 
-            <div>
-                <SearchBar />
-            </div>
-            <div>
-                <ServiceCarousel
-                    selected={selectedCategory}
-                    onSelect={setSelectedCategory}
-                />
-            </div>
-            <div>
-                <ServiceCatalog
-                    selectedCategory={selectedCategory}
-                />
-            </div>
+                {/* Category carousel */}
+                <div className="pb-3">
+                    <ServiceCarousel
+                        selected={selectedCategory}
+                        onSelect={setSelectedCategory}
+                    />
+                </div>
+            </header>
 
+            {/* Main content */}
+            <main className="pb-10">
+                <ServiceCatalog selectedCategory={selectedCategory} />
+            </main>
 
-
-
+            {/* Profile Page Modal */}
             <ProfilePage
                 isOpen={isProfileOpen}
                 onClose={() => setIsProfileOpen(false)}
@@ -76,18 +80,20 @@ const Home = () => {
                 i18n={i18n}
                 t={t}
             />
-            <style>{`
-                .no-scrollbar::-webkit-scrollbar { display: none; }
-                .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-                @keyframes slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
-                @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
-                @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-                .animate-slide-in { animation: slide-in 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-                .animate-slide-up { animation: slide-up 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-                .animate-fade-in { animation: fade-in 0.2s ease-out forwards; }
-            `}</style>
 
+            {/* Styles */}
+            <style>{`
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    .animate-slide-in { animation: slide-in 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+    .animate-slide-up { animation: slide-up 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+    .animate-fade-in { animation: fade-in 0.2s ease-out forwards; }
+  `}</style>
         </div>
+
     )
 }
 
