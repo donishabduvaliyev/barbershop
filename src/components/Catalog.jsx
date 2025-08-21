@@ -21,7 +21,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
 
 
   return (
-    <div className="pt-4 pb-4 px-4 h-[600px]  overflow-y-auto  shadow-md bg-black text-gray-400">
+    <div className="pt-4 pb-4 px-4 h-[600px]  overflow-y-auto  shadow-md bg-white text-[rgba(60,60,67,0.6)] dark:bg-black dark:text-gray-400">
       {isLoading ?
         <div>
 
@@ -57,7 +57,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
 
                       <div
                         key={shops.id}
-                        className="min-w-[140px] bg-gray-900 shadow backdrop-blur-xl  rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-yellow-200 transition-shadow duration-200"
+                        className="min-w-[140px] bg-[#F2F2F7] dark:bg-gray-900 shadow backdrop-blur-xl  rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-yellow-200 transition-shadow duration-200"
                       >
                         <img
                           src={shops.image}
@@ -66,7 +66,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
                         />
                         <div className="flex justify-between items-center p-2">
                           <div className="p-2">
-                            <div className="text-sm font-medium text-gray-50 ">
+                            <div className="text-sm font-medium text-gray-800 dark:text-gray-50 ">
                               {shops.name[lang] || shops.name.en}
                             </div>
                             <div className="text-xs text-gray-400">
