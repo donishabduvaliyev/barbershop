@@ -32,7 +32,7 @@ const Home = () => {
             <header className="sticky top-0 bg-[#FFFFFF]/80 dark:bg-[#000000]/80 backdrop-blur-xl z-20 border-b border-gray-200 dark:border-zinc-800">
 
                 {/* Top row: Profile + Greeting + Actions */}
-                <div className="p-4 flex justify-between items-center">
+                <div className="p-3 flex justify-between items-center">
                     <div className="flex items-center gap-3">
                         <span onClick={() => setIsProfileOpen(true)} className="cursor-pointer">
                             <UserIcon />
@@ -54,7 +54,7 @@ const Home = () => {
                 </div>
 
                 {/* Search Bar */}
-                <div className="px-4 pb-2">
+                <div className="px-2 pb-2">
                     <SearchBar />
                 </div>
 
