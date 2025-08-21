@@ -27,7 +27,7 @@ const Home = () => {
     const userName = user ? user.name : 'Guest';
 
     return (
-        <div className='bg-[#FFFFFF]  text-[rgba(60,60,67,0.6)] dark:bg-black dark:text-white flex flex-col overflow-hidden'>
+        <div className='bg-gray-100/80 dark:bg-black/80 backdrop-blur-xl z-20 border-b border-gray-200 dark:border-zinc-800 text-[rgba(60,60,67,0.6)] dark:text-white  flex flex-col overflow-hidden'>
             <div className="px-4 pt-6 flex justify-between items-center">
                 <div className='flex gap-3  justify-between '>
                     <span onClick={() => setIsProfileOpen(true)}>
