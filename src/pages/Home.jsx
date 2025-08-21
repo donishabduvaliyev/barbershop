@@ -27,9 +27,9 @@ const Home = () => {
     const userName = user ? user.name : 'Guest';
 
     return (
-        <div className="h-screen bg-gray-100 dark:bg-black font-sans overflow-y-auto no-scrollbar">
+        <div className="h-screen bg-[#FFFFFF] dark:bg-[#000000] font-sans overflow-y-auto no-scrollbar">
             {/* Sticky header with blur */}
-            <header className="sticky top-0 bg-gray-100/80 dark:bg-black/80 backdrop-blur-xl z-20 border-b border-gray-200 dark:border-zinc-800">
+            <header className="sticky top-0 bg-[#FFFFFF]/80 dark:bg-[#000000]/80 backdrop-blur-xl z-20 border-b border-gray-200 dark:border-zinc-800">
 
                 {/* Top row: Profile + Greeting + Actions */}
                 <div className="p-4 flex justify-between items-center">
@@ -38,10 +38,10 @@ const Home = () => {
                             <UserIcon />
                         </span>
                         <div className="flex flex-col leading-tight">
-                            <h1 className="text-xs text-ios-text-secondary-light dark:text-ios-text-secondary-dark">
+                            <h1 className="text-xs text-[rgba(60,60,67,0.6)] dark:text-[rgba(235,235,245,0.6)]">
                                 {t('welcome_message')} {userName}
                             </h1>
-                            <h1 className="text-xs font-semibold text-ios-text-primary-light dark:text-ios-text-primary-dark">
+                            <h1 className="text-xs font-semibold text-[rgba(0,0,0,1)] dark:text-[rgba(255,255,255,1)]">
                                 {t("greeting")}
                             </h1>
                         </div>
@@ -54,12 +54,12 @@ const Home = () => {
                 </div>
 
                 {/* Search Bar */}
-                <div className="px-4 pb-3">
+                <div className="px-4 pb-2">
                     <SearchBar />
                 </div>
 
                 {/* Category carousel */}
-                <div className="pb-3">
+                <div className="pb-2">
                     <ServiceCarousel
                         selected={selectedCategory}
                         onSelect={setSelectedCategory}
@@ -68,7 +68,7 @@ const Home = () => {
             </header>
 
             {/* Main content */}
-            <main className="pb-10">
+            <main className="pb-5">
                 <ServiceCatalog selectedCategory={selectedCategory} />
             </main>
 
@@ -93,6 +93,7 @@ const Home = () => {
     .animate-fade-in { animation: fade-in 0.2s ease-out forwards; }
   `}</style>
         </div>
+
 
     )
 }
