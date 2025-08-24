@@ -22,7 +22,7 @@ const ServicePage = () => {
 
 
   if (!service) {
-    return <div className="p-4">Service not found</div>;
+    return <div className="p-4">{t('not_found')}</div>;
   }
 
   return (
@@ -40,7 +40,7 @@ const ServicePage = () => {
               ⭐
               <span>{service.rating}</span>
             </div>
-            <span className="text-gray-400 text-[12px]">({service.reviewsCount} reviews)</span>
+            <span className="text-gray-400 text-[12px]">({service.reviewsCount} {t('reviews')})</span>
           </div>
         </div>
 

@@ -86,7 +86,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
                     ))
                   ) : (
                     <div className="text-sm text-gray-400 italic">
-                      No services available in this category
+                      {t("no_services_available")}
                     </div>
                   )}
                 </div>

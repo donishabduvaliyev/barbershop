@@ -112,7 +112,7 @@ export default function SearchPage() {
       </header>
 
       {isLoading ? (
-        <p className="py-16 text-center text-gray-500">Loading...</p>
+        <p className="py-16 text-center text-gray-500">{t('Loading')}</p>
       ) : (
         <>
           <AdCarousel services={shopLists.advertisedShops} lang={lang} navigate={navigate} />
@@ -126,7 +126,7 @@ export default function SearchPage() {
               </>
             ) : (
               <p className="py-16 text-center text-gray-500 dark:text-gray-400">
-                {t('No results found for')} "{activeCategory}"
+                {t('NoResults')} "{activeCategory}"
                 {searchTerm && ` ${t('with')} "${searchTerm}"`}.
               </p>
             )}
