@@ -63,6 +63,15 @@
   "days.": "дней.",
   "No available time slots for this day.": "Нет доступных временных слотов на этот день.",
   "Request Booking": "Запросить бронирование",
-  "Sending Request...": "Отправка запроса..."
+  "Sending Request...": "Отправка запроса...",
+  "Confirm Cancellation": "Подтвердить отмену",
+  "SureCancelation": "Вы уверены, что хотите отменить это бронирование?",
+  "no": "Нет",
+  "yesCancel": "Да, отменить",
+  "pending": "в ожидании",
+  "confirmed": "подтверждено",
+  "completed": "завершено",
+  "canceled": "отменено",
+  "Cancel": "Отменить"
   
 }

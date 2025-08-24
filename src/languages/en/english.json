@@ -63,6 +63,15 @@
     "days.": "days.",
     "No available time slots for this day.": "No available time slots for this day.",
     "Request Booking": "Request Booking",
-    "Sending Request...": "Sending Request..."
+    "Sending Request...": "Sending Request...",
+    "pending": "pending",
+    "confirmed": "confirmed",
+    "completed": "completed",
+    "canceled": "canceled",
+    "Cancel": "Cancel",
+    "Confirm Cancellation": "Confirm Cancellation",
+    "SureCancelation": "Are you sure you want to cancel this booking?",
+    "no": "No",
+    "yesCancel": "Yes, Cancel"
 
 }

@@ -45,7 +45,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
                 <div className="flex justify-between items-center mb-2   z-10 py-2">
                   <h2 className="text-base font-semibold">{category.title[lang]}</h2>
                   <button
-                    className="text-sm text-yellow-200 hover:text-purple-700"
+                    className="text-sm text-purple-600 hover:text-purple-700"
                     onClick={() => (window.location.href = category.route)}
                   >
                     {t("SeeAll")}

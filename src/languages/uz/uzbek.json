@@ -63,6 +63,15 @@
   "days.": "kun.",
   "No available time slots for this day.": "Ushbu kun uchun mavjud vaqt yo'q.",
   "Request Booking": "Buyurtma so'rovi",
-  "Sending Request...": "So'rov yuborilmoqda..."
+  "Sending Request...": "So'rov yuborilmoqda...",
+  "Confirm Cancellation": "Bekor qilishni tasdiqlash",
+  "SureCancelation": "Ushbu buyurtmani bekor qilmoqchimisiz?",
+  "yesCancel": "Ha, bekor qil",   
+  "no": "Yo'q",
+  "pending": "kutilmoqda",
+  "confirmed": "tasdiqlangan",
+  "completed": "yakunlangan",
+  "canceled": "bekor qilingan",
+  "Cancel": "Bekor qilish"
 
   }

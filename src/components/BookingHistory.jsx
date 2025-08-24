@@ -53,7 +53,7 @@ export const BookingHistoryPage = ({ onBack, bookings, t }) => {
                                 {['pending', 'confirmed'].includes(booking.status) ? (
                                     <div className="flex items-center space-x-2">
                                         <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-900/70 text-blue-300 capitalize">{t(booking.status)}</span>
-                                        <button onClick={() => setBookingToCancel(booking)} className="px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800 hover:bg-red-200">Cancel</button>
+                                        <button onClick={() => setBookingToCancel(booking)} className="px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800 hover:bg-red-200">{t('Cancel')}</button>
                                     </div>
                                 ) : (
                                     <span className={`px-2 py-1 text-xs font-medium ${booking.status === 'completed' ? 'bg-green-700  text-white ' :  ' bg-gray-200 dark:bg-zinc-700 text-gray-800 dark:text-gray-200'}  rounded-full  capitalize`}>{t(booking.status)}</span>
@@ -66,11 +66,11 @@ export const BookingHistoryPage = ({ onBack, bookings, t }) => {
             {bookingToCancel && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
                     <div className="bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-xl text-center w-80">
-                        <h3 className="font-bold text-lg">Confirm Cancellation</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 my-4">Are you sure you want to cancel this booking?</p>
+                        <h3 className="font-bold text-lg">{t('Confirm Cancellation')}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 my-4">{t('SureCancelation')}</p>
                         <div className="flex space-x-2">
-                            <button onClick={() => setBookingToCancel(null)} className="flex-1 py-2 bg-gray-200 dark:bg-zinc-700 rounded-lg">No</button>
-                            <button onClick={handleConfirmCancel} className="flex-1 py-2 bg-red-500 text-white rounded-lg">Yes, Cancel</button>
+                            <button onClick={() => setBookingToCancel(null)} className="flex-1 py-2 bg-gray-200 dark:bg-zinc-700 rounded-lg">{t('no')}</button>
+                            <button onClick={handleConfirmCancel} className="flex-1 py-2 bg-red-500 text-white rounded-lg">{t('yesCancel')}</button>
                         </div>
                     </div>
                 </div>
