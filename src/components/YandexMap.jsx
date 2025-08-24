@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const YandexMap = () => {
   const [categoryFilter, setCategoryFilter] = useState("All");
+  const {services} = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const YandexMap = () => {
                   <h4>${service.name}</h4>
                   <p><strong>${service.category}</strong></p>
                   <p>${service.description}</p>
-                  <a href="/service/${service.id}">View More</a>
+                  <a href="/service/${service._id}">View More</a>
                 </div>
               `,
               hintContent: service.name,
@@ -57,7 +58,7 @@ const YandexMap = () => {
           );
 
           placemark.events.add("click", () => {
-            navigate(`/service/${service.id}`);
+            navigate(`/service/${service._id}`);
           });
 
           map.geoObjects.add(placemark);

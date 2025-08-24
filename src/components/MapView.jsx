@@ -64,7 +64,7 @@ const ServiceDetailCard = ({ service, onClose , navigate }) => {
           <h3 className="font-bold text-xl text-gray-900 dark:text-white">{service.name.uz}</h3>
           <p className="font-semibold text-purple-600 dark:text-purple-400 text-sm mb-2">{service.category}</p>
           <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{service.description.uz}</p>
-          <button onClick={()=>navigate(`/service/${service.id}`)} className="w-full py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition">View Details</button>
+          <button onClick={()=>navigate(`/service/${service._id}`)} className="w-full py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition">View Details</button>
         </div>
         <button onClick={onClose} className="absolute top-2 right-2 p-1 bg-black/20 rounded-full text-white">&times;</button>
       </div>
