@@ -47,7 +47,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center space-x-3">
+                    <div className="flex  items-center space-x-3">
                         <div>{booked}</div>
                         <LanguageToggleButton />
                     </div>

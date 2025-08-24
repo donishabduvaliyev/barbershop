@@ -30,11 +30,16 @@
   ],
   "MyDetails": "Mening ma'lumotlarim",
   "BookingHistory": "Buyurtmalar tarixi",
-  " Back": "Ortga",
-  " Completed": "Yakunlangan",
+  "Back": "Ortga",
+  "Completed": "Yakunlangan",
   "Upcoming": "Rejalangan",
-  " NoBookings": "Buyurtmalar yo'q",
-  " Name": "Ism",
-  " Email": "Email",
-  "TelegramID": "Telegram ID"
-}
+  "NoBookings": "Buyurtmalar yo'q",
+  "Name": "Ism",
+  "Email": "Email",
+  "TelegramID": "Telegram ID",
+  "ProfileLoading":"Profil yuklanmoqda...",
+  "ProfileError": "Xato: Profilni yuklashda xatolik yuz berdi",
+  "NoPhone":"Telefon raqami mavjud emas",
+  "Loading": "Yuklanmoqda..."
+
+  }

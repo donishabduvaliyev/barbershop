@@ -30,11 +30,15 @@
     "Profile": "Profile",
     "MyDetails": "My Details",
     "BookingHistory": "Booking History",
-    " Back": "Back",
-    " Completed": "Completed",
+    "Back": "Back",
+    "Completed": "Completed",
     "Upcoming": "Upcoming",
-    " NoBookings": "No bookings found.",
-    " Name": "Name",
-    " Email": "Email",
-    "TelegramID": "Telegram ID"
+    "NoBookings": "No bookings found.",
+    "Name": "Name",
+    "Email": "Email",
+    "TelegramID": "Telegram ID",
+    "ProfileLoading":"Loading Profile...",
+    "ProfileError": "Error: Could not load profile.",
+    "NoPhone":"No phone number",
+    "Loading": "Loading..."
 }

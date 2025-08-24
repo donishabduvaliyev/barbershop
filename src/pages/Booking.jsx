@@ -177,7 +177,7 @@ const Booking = () => {
   };
 
   // --- Rendering Logic ---
-  if (!shop) return <div className="p-4">Loading shop details...</div>; // Initial loading state
+  if (!shop) return <div className="p-4">{t('Loading')}</div>; // Initial loading state
 
   if (success) {
     return (

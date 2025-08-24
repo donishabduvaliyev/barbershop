@@ -50,12 +50,12 @@ export default function LanguageSelector() {
             {/* Modal with Overlay */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-[9999] flex items-end"
+                    className="fixed bottom-[-65vh]  inset-0 z-[9999] flex items-end"
                     // The main div acts as the overlay
                     onClick={toggleModal}
                 >
                     {/* Background Overlay */}
-                    <div className="absolute inset-0 bg-black/40 animate-fade-in"></div>
+                    <div className="absolute bottom-[-70vh] inset-0 bg-black/40 animate-fade-in"></div>
 
                     {/* Action Sheet Content */}
                     <div

@@ -41,10 +41,10 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
     if (!isOpen) return null;
 
     if (isLoading) {
-        return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">Loading Profile...</div>;
+        return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">{t('ProfileLoading')}</div>;
     }
     if (error || !profileData) {
-        return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">Error: Could not load profile.</div>;
+        return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">{t('ProfileError')}</div>;
     }
 
     const { user } = profileData;
@@ -74,7 +74,7 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
                             <img src={user.avatar} alt="User Avatar" className="w-16 h-16 rounded-full" />
                             <div>
                                 <p className="font-bold text-lg text-gray-900 dark:text-white">{user.name}</p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">{user.phone || 'No phone number'}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">{user.phone || t('NoPhone')}</p>
                             </div>
                         </div>
 

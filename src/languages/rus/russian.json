@@ -30,11 +30,16 @@
   ],
   "MyDetails": "Мои данные",
   "BookingHistory": "История бронирований",
-  " Back": "Назад",
-  " Completed": "Завершено",
+  "Back": "Назад",
+  "Completed": "Завершено",
   "Upcoming": "Предстоящее",
-  " NoBookings": "Бронирований не найдено.",
-  " Name": "Имя",
-  " Email": "Электронная почта",
-  "TelegramID": "Telegram ID"
+  "NoBookings": "Бронирований не найдено.",
+  "Name": "Имя",
+  "Email": "Электронная почта",
+  "TelegramID": "Telegram ID",
+  "ProfileError": "Ошибка: Не удалось загрузить профиль.",
+  "ProfileLoading": "Загрузка профиля...",
+  "NoPhone":"Нет номера телефона",
+  "Loading": "Загрузка..."
+  
 }
