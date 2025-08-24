@@ -56,6 +56,8 @@ export default function LanguageSelector() {
                 >
                     {/* Background Overlay */}
                     <div className="absolute bottom-[-70vh] inset-0 bg-black/40 animate-fade-in"></div>
+                    <div className="absolute inset-0 bg-black/40 animate-fade-in"></div>
+
 
                     {/* Action Sheet Content */}
                     <div
@@ -64,7 +66,7 @@ export default function LanguageSelector() {
                         className="relative w-full px-4 pb-4 animate-slide-up"
                     >
                         {/* Language Options Group */}
-                        <div className="w-full max-w-md mx-auto bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-xl overflow-hidden">
+                        <div className="w-full max-w-md mx-auto bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-xl overflow-hidden ">
                             {languages.map((lang, index) => (
                                 <button
                                     key={lang.code}
