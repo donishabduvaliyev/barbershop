@@ -21,7 +21,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
 
 
   return (
-    <div className="pt-4 pb-4 px-4 h-[600px]  overflow-y-auto  shadow-md bg-white text-[rgba(60,60,67,0.6)] dark:bg-black dark:text-gray-400">
+    <div className="pt-4 pb-4 px-4 h-[600px]  overflow-y-auto bg-white text-[rgba(60,60,67,0.6)] dark:bg-black dark:text-[rgba(235,235,245,0.6)]">
       {isLoading ?
         <div>
 
@@ -45,7 +45,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
                 <div className="flex justify-between items-center mb-2   z-10 py-2">
                   <h2 className="text-base font-semibold">{category.title[lang]}</h2>
                   <button
-                    className="text-sm text-purple-600 hover:text-purple-700"
+                    className="text-sm text-accent hover:text-accent/80"
                     onClick={() => (window.location.href = category.route)}
                   >
                     {t("SeeAll")}
@@ -57,7 +57,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
 
                       <div
                         key={shops.id}
-                        className="min-w-[140px] bg-[#F2F2F7] dark:bg-gray-900 shadow backdrop-blur-xl  rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-yellow-200 transition-shadow duration-200"
+                        className="min-w-[140px] bg-zinc-100 dark:bg-zinc-900 rounded-xl overflow-hidden cursor-pointer hover:shadow-md transition-shadow duration-200"
                       >
                         <img
                           src={shops.image}
@@ -66,26 +66,26 @@ const ServiceCatalog = ({ selectedCategory }) => {
                         />
                         <div className="flex justify-between items-center p-2">
                           <div className="p-2">
-                            <div className="text-sm font-medium text-gray-800 dark:text-gray-50 ">
+                            <div className="text-sm font-medium text-zinc-800 dark:text-zinc-50 ">
                               {shops.name[lang] || shops.name.en}
                             </div>
-                            <div className="text-xs text-gray-400">
+                            <div className="text-xs text-amber-500">
                               ⭐ {shops.rating}
                             </div>
                           </div>
                           <div>
                             <button
                               onClick={() => navigate(`/service/${shops._id}`)}
-                              className="p-2 text-gray-500 hover:text-purple-600 transition-colors duration-200"
+                              className="p-2 text-accent hover:text-accent/80 transition-colors duration-200"
                             >
-                              <ArrowCircleRightIcon className="h-6 w-6 text-yellow-200" />
+                              <ArrowCircleRightIcon className="h-6 w-6" />
                             </button>
                           </div>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div className="text-sm text-gray-400 italic">
+                    <div className="text-sm text-zinc-400 italic">
                       {t("no_services_available")}
                     </div>
                   )}

@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-    const tg = window.Telegram.WebApp;
-    tg.expand();
+    const tg = window.Telegram?.WebApp;
+    tg?.expand();
     const catalog = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     const { i18n } = useTranslation();
     const [booked, setBooked] = useState([]);
@@ -97,10 +97,10 @@ useEffect(() => {
     }, []);
     useEffect(() => {
 
-        console.log(tg.initDataUnsafe?.user?.id);
+        console.log(tg?.initDataUnsafe?.user?.id);
 
 
-        const telegramIdfromTelegram = tg.initDataUnsafe?.user?.id;
+        const telegramIdfromTelegram = tg?.initDataUnsafe?.user?.id;
 
         if (telegramIdfromTelegram) {
             fetch(`${backEndUrl}/api/user/get-user`, {

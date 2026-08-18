@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 // import { HomeIcon, SearchIcon, CalendarIcon, UserIcon } from "@heroicons/react/outline";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 // const BottomNav = () => {
 //  
@@ -63,35 +63,31 @@ const HomeIcon = ({ isActive }) => (
 
 
 
-export const BottomNav = ({ activePage, setActivePage }) => {
+export const BottomNav = () => {
   const navItems = [
     { id: 'home', icon: HomeIcon, key: "home", link: "/" },
     { id: 'search', icon: SearchIcon, key: "search", link: "/search" },
     { id: 'profile', icon: MapIcon, key: "profile", link: "/map" },
   ];
-  const [active, setActive] = useState("home");
-
-
+  const location = useLocation();
+  const active = navItems.find(item => item.link === location.pathname)?.key;
 
   return (
-    <div className="sticky bottom-4 left-4 right-4 h-15 bg-white/70 dark:bg-gray-700/90 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/20 border border-white/20">
+    <div className="sticky bottom-4 left-4 right-4 h-15 bg-white/70 dark:bg-zinc-800/80 backdrop-blur-xl rounded-2xl shadow-lg shadow-black/10 border border-black/5 dark:border-white/10">
       <div className="flex justify-around items-center h-full max-w-md mx-auto">
         {navItems.map(item => {
-          // const isActive = activePage === item.id;
           const Icon = item.icon;
+          const isActive = active === item.key;
           return (
-            <button
+            <NavLink
               key={item.id}
-              onClick={() => setActive(item.key)}
-              className={`relative flex flex-col items-center justify-center space-y-1 transition-all duration-300 transform ${active === item.key ? 'text-yellow-200' : 'text-gray-400 hover:text-yellow-200'
+              to={item.link}
+              className={`relative flex flex-col items-center justify-center space-y-1 transition-all duration-300 transform ${isActive ? 'text-accent' : 'text-zinc-400 hover:text-accent'
                 }`}
-            ><NavLink to={item.link} >
-
-
-                <Icon />
-                {active === item.key && <div className="absolute -bottom-1.5 left-2.5 w-1.5 h-1.5 bg-yellow-300 rounded-full"></div>}
-              </NavLink>
-            </button>
+            >
+              <Icon />
+              {isActive && <div className="absolute -bottom-1.5 left-2.5 w-1.5 h-1.5 bg-accent rounded-full"></div>}
+            </NavLink>
           );
         })}
       </div>

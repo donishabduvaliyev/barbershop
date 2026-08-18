@@ -30,7 +30,7 @@ const categoryIcons = {
 };
 
 const userLocationIcon = L.divIcon({
-  html: `<div class="w-5 h-5 bg-blue-500 rounded-full border-2 border-white shadow-md animate-pulse"></div>`,
+  html: `<div class="w-5 h-5 rounded-full border-2 border-white shadow-md animate-pulse" style="background:#0A84FF"></div>`,
   className: 'bg-transparent border-0',
   iconSize: [20, 20],
 });
@@ -61,10 +61,10 @@ const ServiceDetailCard = ({ service, onClose , navigate }) => {
           <img src={service.image} alt={service.name.uz} className="w-full h-full object-cover" />
         </div>
         <div className="p-4">
-          <h3 className="font-bold text-xl text-gray-900 dark:text-white">{service.name.uz}</h3>
-          <p className="font-semibold text-purple-600 dark:text-purple-400 text-sm mb-2">{service.category}</p>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{service.description.uz}</p>
-          <button onClick={()=>navigate(`/service/${service._id}`)} className="w-full py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition">View Details</button>
+          <h3 className="font-bold text-xl text-zinc-900 dark:text-white">{service.name.uz}</h3>
+          <p className="font-semibold text-accent text-sm mb-2">{service.category}</p>
+          <p className="text-sm text-zinc-600 dark:text-zinc-300 mb-4">{service.description.uz}</p>
+          <button onClick={()=>navigate(`/service/${service._id}`)} className="w-full py-2 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition">View Details</button>
         </div>
         <button onClick={onClose} className="absolute top-2 right-2 p-1 bg-black/20 rounded-full text-white">&times;</button>
       </div>
@@ -88,7 +88,7 @@ const MapView = () => {
     return category === "All"
       ? services
       : services.filter((s) => s.category === category);
-  }, [category]);
+  }, [category, services]);
 
   const handleSetUserLocation = useCallback((latlng) => setUserLocation(latlng), []);
   const handleSetLocationError = useCallback((message) => setLocationError(message), []);
@@ -110,7 +110,7 @@ const MapView = () => {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col bg-gray-100 dark:bg-black font-sans relative overflow-hidden">
+    <div className="h-screen w-full flex flex-col bg-zinc-100 dark:bg-black font-sans relative overflow-hidden">
       {/* Header with Filters */}
       <header className="absolute top-0 left-0 right-0 z-[1001] p-3">
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
@@ -119,8 +119,8 @@ const MapView = () => {
               key={cat}
               onClick={() => setCategory(cat)}
               className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 whitespace-nowrap shadow-md ${category === cat
-                  ? "bg-purple-600 text-white"
-                  : "bg-white/70 dark:bg-zinc-800/70 backdrop-blur-md text-gray-800 dark:text-gray-200 hover:bg-white/90"
+                  ? "bg-accent text-white"
+                  : "bg-white/70 dark:bg-zinc-800/70 backdrop-blur-md text-zinc-800 dark:text-zinc-200 hover:bg-white/90"
                 }`}
             >
               {cat}

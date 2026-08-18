@@ -26,7 +26,7 @@ const ServicePage = () => {
   }
 
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="bg-white dark:bg-black text-zinc-900 dark:text-white min-h-screen">
       {/* Top Image */}
       <div className="w-full h-64 bg-cover bg-center" style={{ backgroundImage: `url(${service.image})` }} />
 
@@ -40,34 +40,34 @@ const ServicePage = () => {
               ⭐
               <span>{service.rating}</span>
             </div>
-            <span className="text-gray-400 text-[12px]">({service.reviewsCount} {t('reviews')})</span>
+            <span className="text-zinc-400 text-[12px]">({service.reviewsCount} {t('reviews')})</span>
           </div>
         </div>
 
-        <p className="text-sm text-gray-400">{service.description[lang]}</p>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">{service.description[lang]}</p>
 
         <div className='flex items-center justify-between mt-2'>
           <div className='flex items-center justify-between'>
-            <div className="text-sm text-gray-400 flex items-center gap-2">
+            <div className="text-sm text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
               {/* <MapIcon className="w-4 h-4" /> */}
-              <LocationMarkerIcon className="w-4 h-4 text-yellow-300" />
+              <LocationMarkerIcon className="w-4 h-4 text-accent" />
               <a
                 href={`https://www.google.com/maps?q=${service.location.coordinates[1]},${service.location.coordinates[0]}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className='underline hover:text-yellow-200'
+                className='underline hover:text-accent'
               >{service.address}</a>
             </div>
           </div>
 
-          <div className="text-sm text-gray-400 flex items-center gap-2">
-            <PhoneIncomingIcon className="w-4 h-4 text-yellow-300" />
-            <a href={`tel: ${service.phone}`} className='hover:text-yellow-200 underline' >{service.phone}</a>
+          <div className="text-sm text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+            <PhoneIncomingIcon className="w-4 h-4 text-accent" />
+            <a href={`tel: ${service.phone}`} className='hover:text-accent underline' >{service.phone}</a>
           </div>
         </div>
         <div>
-          <div className=" text-gray-400 flex items-center gap-2">
-            <ClockIcon className="w-4 h-4 text-yellow-300" />
+          <div className=" text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+            <ClockIcon className="w-4 h-4 text-accent" />
             <p>
               {service.workingHours.from} - {service.workingHours.to}
             </p>
@@ -89,10 +89,10 @@ const ServicePage = () => {
         <h3 className="text-lg font-semibold mb-2">{t("Services")}</h3>
         <div className="space-y-2">
           {service.services.map((service, idx) => (
-            <div key={idx} className="bg-gray-900 p-3 rounded-lg flex justify-between items-center">
+            <div key={idx} className="bg-zinc-100 dark:bg-zinc-900 p-3 rounded-lg flex justify-between items-center">
               <div>
                 <h4 className="font-medium">{service.name[lang]}</h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">
                   {t("Duration")}: {service.durationMinutes} {t("minutes")}
                 </p>
               </div>
@@ -109,7 +109,7 @@ const ServicePage = () => {
       <div className='flex items-center justify-center mb-3'>
         <button
           onClick={() => navigate(`/booking/${service._id}`, { state: { serviceId: service._id } })}
-          className="w-[90%]  sm:w-auto bg-yellow-300 text-black text-base sm:text-lg px-3 py-3 rounded-full shadow-md hover:bg-yellow-400 transition-colors duration-300 active:scale-95">
+          className="w-[90%]  sm:w-auto bg-accent text-white text-base sm:text-lg px-3 py-3 rounded-full shadow-md hover:bg-accent/90 transition-colors duration-300 active:scale-95">
           {t("BookNow")}
         </button>
 

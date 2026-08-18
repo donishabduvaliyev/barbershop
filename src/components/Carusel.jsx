@@ -27,8 +27,8 @@ const ServiceCarousel = ({ selected, onSelect }) => {
           onClick={ButtonAllclicked}
           className={`px-4 py-2 rounded-full text-sm flex items-center space-x-1 border transition-all duration-200 whitespace-nowrap
             ${selectedId === "All"
-              ? " text-black border border-white/20 bg-yellow-300"
-              : " bg-white/70 dark:bg-gray-700/90 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/20 "
+              ? "text-white border-transparent bg-accent shadow-sm"
+              : "text-zinc-700 dark:text-zinc-200 bg-zinc-100 dark:bg-zinc-800 border-transparent"
             }`}
         >
           <span>{t("FullCategories")}</span>
@@ -39,8 +39,8 @@ const ServiceCarousel = ({ selected, onSelect }) => {
             onClick={()=> Buttonclicked(service.id, service.title.en)}
             className={`px-4 py-2 rounded-full text-sm flex items-center space-x-1 border transition-all duration-200 whitespace-nowrap
               ${selectedId === service.id
-                ? " text-black border border-white/20 bg-yellow-300"
-                : "bg-white/70 dark:bg-gray-700/90 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/20 "
+                ? "text-white border-transparent bg-accent shadow-sm"
+                : "text-zinc-700 dark:text-zinc-200 bg-zinc-100 dark:bg-zinc-800 border-transparent"
               }`}
           >
             <span>{service.icon}</span>

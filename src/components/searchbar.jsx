@@ -27,7 +27,7 @@ const SearchBar = () => {
     <div className="p-4 flex items-center space-x-3">
 
       <div className="relative flex-grow">
-        <div className="absolute z-10 top-[25%]  left-0 pl-3  pointer-events-none"><SearchIcon className="w-5 h-5 text-yellow-400" /></div>
+        <div className="absolute z-10 top-[25%]  left-0 pl-3  pointer-events-none"><SearchIcon className="w-5 h-5 text-zinc-400" /></div>
         <form action="" onSubmit={handleHomeSearch}
           className="flex items-center space-x-3 relative">
 
@@ -37,10 +37,10 @@ const SearchBar = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder={t('Search for salons, spas, etc.')}
-            className=" w-full pl-10 pr-4 py-3 text-purple-300 bg-gray-200 dark:bg-zinc-900 border-transparent rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            className=" w-full pl-10 pr-4 py-3 text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-900 border-transparent rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent"
           />
           <button type="submit"
-            className=" absolute right-[5%]    bg-yellow-400 text-black px-2 py-1 rounded-xl hover:bg-yellow-500 transition-colors duration-200"
+            className=" absolute right-[5%]    bg-accent text-white px-2 py-1 rounded-xl hover:bg-accent/90 transition-colors duration-200"
           >{t('search')}</button>
 
         </form>
