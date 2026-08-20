@@ -6,7 +6,17 @@ import { AppProvider } from './context/context.jsx'
 import './i18n';
 import { BrowserRouter } from 'react-router-dom'
 
+
 import "leaflet/dist/leaflet.css";
+
+
+const originalFetch = window.fetch;
+window.fetch = (url, options = {}) => {
+  if (typeof url === 'string' && url.includes('ngrok-free.app')) {
+    options = { ...options, headers: { ...options.headers, 'ngrok-skip-browser-warning': 'true' } };
+  }
+  return originalFetch(url, options);
+};
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
