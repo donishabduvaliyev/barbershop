@@ -6,7 +6,7 @@ const ChevronLeftIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className=
 export const BookingHistoryPage = ({ onBack, bookings, t }) => {
     const [bookingToCancel, setBookingToCancel] = useState(null);
     const [localBookings, setLocalBookings] = useState(bookings);
-    const { backEndUrl } = useAppContext();
+    const { backEndUrl, telegramInitData } = useAppContext();
 
     const handleConfirmCancel = async () => {
         if (!bookingToCancel) return;
@@ -17,6 +17,7 @@ export const BookingHistoryPage = ({ onBack, bookings, t }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({ initData: telegramInitData }),
             });
             if (!response.ok) {
                 throw new Error('Failed to cancel the booking on the server.');

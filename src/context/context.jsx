@@ -22,6 +22,11 @@ export const AppProvider = ({ children }) => {
     const [confirmCancel, setConfirmCancel] = useState(null);
     const [notification, setNotification] = useState(null);
     const backEndUrl = import.meta.env.VITE_BACKEND_URL || '';
+    // Raw, HMAC-signed initData string. Only Telegram can produce a valid one —
+    // it's empty outside Telegram (e.g. a plain browser), which the backend
+    // rejects on write actions like booking. Never trust tg.initDataUnsafe for
+    // auth: it's a client-readable convenience object, not a verified value.
+    const telegramInitData = tg?.initData || '';
 
     const showNotification = (message, type = 'success') => {
         setNotification({ id: Date.now(), message, type });
@@ -181,7 +186,7 @@ useEffect(() => {
     };
 
     return (
-        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData, isLoading ,backEndUrl, notification, showNotification, clearNotification   }}>
+        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData, isLoading ,backEndUrl, notification, showNotification, clearNotification, telegramInitData   }}>
             {children}
         </AppContext.Provider>
     );

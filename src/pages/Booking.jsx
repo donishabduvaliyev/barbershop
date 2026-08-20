@@ -22,7 +22,7 @@ const Booking = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
-  const { backEndUrl, loggedInTelegramId, userInfo, showNotification } = useAppContext();
+  const { backEndUrl, userInfo, showNotification, telegramInitData } = useAppContext();
 
   // --- State Management ---
   const [shop, setShop] = useState(null);
@@ -146,6 +146,14 @@ const Booking = () => {
       setIsValidationModalOpen(true);
       return;
     }
+    // Booking requires a verified Telegram identity — this app must be opened
+    // from inside Telegram. The backend enforces this too; this is just a
+    // clearer, immediate message instead of a generic network error.
+    if (!telegramInitData) {
+      setValidationMessage(t('TelegramOnlyBooking'));
+      setIsValidationModalOpen(true);
+      return;
+    }
     setIsSubmitting(true);
 
     try {
@@ -153,14 +161,12 @@ const Booking = () => {
       const bookingDate = new Date(selectedDate);
       bookingDate.setHours(parseInt(selectedHour, 10), parseInt(selectedMinute, 10), 0, 0);
 
-      // Prepare the request for our backend. userInfo can be null (e.g. a
-      // first-time user we haven't loaded a profile for yet), so fall back
-      // instead of throwing on userInfo.name / userInfo.phone.
+      // userTelegramId/username are derived server-side from the verified
+      // initData below — the client can't be trusted to supply them.
       const requestBody = {
+        initData: telegramInitData,
         shopId: shop._id,
         shopName: shop.name[lang],
-        userTelegramId: loggedInTelegramId,
-        userTelegramUsername: userInfo?.name || name,
         userNumber: phone,
         userTelegramNumber: userInfo?.phone || phone,
         userName: name,

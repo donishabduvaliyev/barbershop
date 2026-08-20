@@ -77,6 +77,7 @@
   "LocationPermissionText": "Yaqin atrofdagi salonlarni ko'rish uchun joylashuvga ruxsat bering.",
   "LocationDenied": "Joylashuvingizni aniqlab bo'lmadi. Qayta urinish uchun bosing.",
   "TryAgain": "Qayta urinish",
-  "BookingSent": "Buyurtma so'rovi yuborildi!"
+  "BookingSent": "Buyurtma so'rovi yuborildi!",
+  "TelegramOnlyBooking": "Band qilish uchun ilovani Telegram orqali oching."
 
   }
