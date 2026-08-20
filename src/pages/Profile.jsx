@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { UserInfoPage } from '../components/UserInfo';
 import { BookingHistoryPage } from '../components/BookingHistory';
-import { useAppContext } from '../context/context'; 
+import { useAppContext } from '../context/context';
+import { ProfileSkeleton } from '../components/Skeleton';
 
 const UserCircleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-zinc-500 dark:text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>;
 const ClockIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-zinc-500 dark:text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
@@ -41,14 +42,7 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
 
     if (!isOpen) return null;
 
-    if (isLoading) {
-        return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">{t('ProfileLoading')}</div>;
-    }
-    if (error || !profileData) {
-        return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">{t('ProfileError')}</div>;
-    }
-
-    const { user } = profileData;
+    const user = profileData?.user;
     const bookings = Array.isArray(profileData?.bookings) ? profileData.bookings : [];
 
     const renderSubPage = () => {
@@ -70,29 +64,35 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
                         </div>
                     </header>
 
-                    <main className="max-w-4xl mx-auto px-4 pb-28">
-                        <div className="flex items-center space-x-4 p-4 text-zinc-500 dark:text-white bg-white dark:bg-zinc-900 rounded-2xl my-4 shadow-sm">
-                            <img src={user.avatar} alt="User Avatar" className="w-16 h-16 rounded-full" />
-                            <div>
-                                <p className="font-bold text-lg text-zinc-900 dark:text-white">{user.name}</p>
-                                <p className="text-sm text-zinc-500 dark:text-zinc-400">{user.phone || t('NoPhone')}</p>
+                    {isLoading ? (
+                        <ProfileSkeleton />
+                    ) : (error || !user) ? (
+                        <div className="flex items-center justify-center py-24 text-zinc-500 dark:text-zinc-400">{t('ProfileError')}</div>
+                    ) : (
+                        <main className="max-w-4xl mx-auto px-4 pb-28 animate-pageIn">
+                            <div className="flex items-center space-x-4 p-4 text-zinc-500 dark:text-white bg-white dark:bg-zinc-900 rounded-2xl my-4 shadow-sm">
+                                <img src={user.avatar} alt="User Avatar" className="w-16 h-16 rounded-full" />
+                                <div>
+                                    <p className="font-bold text-lg text-zinc-900 dark:text-white">{user.name}</p>
+                                    <p className="text-sm text-zinc-500 dark:text-zinc-400">{user.phone || t('NoPhone')}</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white rounded-2xl shadow-sm overflow-hidden">
-                            <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
-                                <li><button onClick={() => setActiveSubPage('userInfo')} className="w-full flex justify-between items-center p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"><div className="flex items-center space-x-3"><UserCircleIcon /><span>{t('MyDetails')}</span></div><ChevronRightIcon /></button></li>
-                                <li><button onClick={() => setActiveSubPage('bookingHistory')} className="w-full flex justify-between items-center p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"><div className="flex items-center space-x-3"><ClockIcon /><span>{t('BookingHistory')}</span></div><ChevronRightIcon /></button></li>
-                            </ul>
-                        </div>
+                            <div className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white rounded-2xl shadow-sm overflow-hidden">
+                                <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
+                                    <li><button onClick={() => setActiveSubPage('userInfo')} className="w-full flex justify-between items-center p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"><div className="flex items-center space-x-3"><UserCircleIcon /><span>{t('MyDetails')}</span></div><ChevronRightIcon /></button></li>
+                                    <li><button onClick={() => setActiveSubPage('bookingHistory')} className="w-full flex justify-between items-center p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"><div className="flex items-center space-x-3"><ClockIcon /><span>{t('BookingHistory')}</span></div><ChevronRightIcon /></button></li>
+                                </ul>
+                            </div>
 
-                        <div className="mt-6">
-                            <button className="w-full flex justify-center items-center space-x-3 p-4 bg-white dark:bg-zinc-900 rounded-2xl shadow-sm text-red-500 dark:text-red-500 font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-                                <LogoutIcon />
-                                <span>{t('LogOut')}</span>
-                            </button>
-                        </div>
-                    </main>
+                            <div className="mt-6">
+                                <button className="w-full flex justify-center items-center space-x-3 p-4 bg-white dark:bg-zinc-900 rounded-2xl shadow-sm text-red-500 dark:text-red-500 font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+                                    <LogoutIcon />
+                                    <span>{t('LogOut')}</span>
+                                </button>
+                            </div>
+                        </main>
+                    )}
                 </div>
                 {renderSubPage()}
             </div>

@@ -2,19 +2,43 @@
 
 @theme {
   --color-accent: #0a84ff;
+  --color-accent-2: #5e5ce6;
   --color-success: #34c759;
   --color-danger: #ff3b30;
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
     "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Manrope", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+/* Subtle, consistent tap feedback across the app */
+button, a {
+  transition: transform 0.15s var(--ease-premium), opacity 0.15s var(--ease-premium),
+    background-color 0.2s var(--ease-premium), box-shadow 0.2s var(--ease-premium);
+}
+button:active {
+  transform: scale(0.97);
 }
 
 @keyframes slideUp {
@@ -29,5 +53,31 @@ body {
 }
 
 .animate-slideUp {
-  animation: slideUp 0.3s ease-out;
+  animation: slideUp 0.3s var(--ease-premium);
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(120, 120, 128, 0.12) 25%,
+    rgba(120, 120, 128, 0.24) 37%,
+    rgba(120, 120, 128, 0.12) 63%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* Route-level fade for a smoother feel between pages */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-pageIn {
+  animation: pageIn 0.28s var(--ease-premium) forwards;
 }

@@ -82,11 +82,11 @@ export const BottomNav = () => {
             <NavLink
               key={item.id}
               to={item.link}
-              className={`relative flex flex-col items-center justify-center space-y-1 transition-all duration-300 transform ${isActive ? 'text-accent' : 'text-zinc-400 hover:text-accent'
+              className={`relative flex flex-col items-center justify-center space-y-1 transition-all duration-300 ease-out transform ${isActive ? 'text-accent scale-110' : 'text-zinc-400 hover:text-accent active:scale-90'
                 }`}
             >
               <Icon />
-              {isActive && <div className="absolute -bottom-1.5 left-2.5 w-1.5 h-1.5 bg-accent rounded-full"></div>}
+              <div className={`absolute -bottom-1.5 left-2.5 w-1.5 h-1.5 bg-accent rounded-full transition-all duration-300 ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'}`}></div>
             </NavLink>
           );
         })}

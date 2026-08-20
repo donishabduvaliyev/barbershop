@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ArrowCircleRightIcon } from "@heroicons/react/outline";
 import { useAppContext } from "../context/context";
 import { useTranslation } from "react-i18next";
+import { CatalogSkeleton } from "./Skeleton";
 
 
 
@@ -21,18 +22,13 @@ const ServiceCatalog = ({ selectedCategory }) => {
 
 
   return (
-    <div className="pt-4 pb-4 px-4 h-[600px]  overflow-y-auto bg-white text-[rgba(60,60,67,0.6)] dark:bg-black dark:text-[rgba(235,235,245,0.6)]">
+    <div className="h-[600px] overflow-y-auto bg-white text-[rgba(60,60,67,0.6)] dark:bg-black dark:text-[rgba(235,235,245,0.6)]">
       {isLoading ?
-        <div>
-
-          <h1>loading data ...</h1>
-        </div>
-
-
+        <CatalogSkeleton />
 
         :
 
-        <div>
+        <div className="pt-4 pb-4 px-4">
           {visibleCategories.map((category) => {
             const filteredServices = feedData.find(
               (service) => service.category === category.title.en
@@ -57,7 +53,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
 
                       <div
                         key={shops.id}
-                        className="min-w-[140px] bg-zinc-100 dark:bg-zinc-900 rounded-xl overflow-hidden cursor-pointer hover:shadow-md transition-shadow duration-200"
+                        className="min-w-[140px] bg-zinc-100 dark:bg-zinc-900 rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-out"
                       >
                         <img
                           src={shops.image}
