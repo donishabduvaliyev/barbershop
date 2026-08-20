@@ -12,12 +12,17 @@ i18n
   .use(initReactI18next)
  
   .init({
-    
+
     fallbackLng: 'uz',
-    debug: true, 
+    debug: true,
     detection: {
       order: ['queryString', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
+      // Browsers/Telegram commonly report regional codes ("en-US", "ru-RU").
+      // Normalize to the base language here so i18n.language always matches
+      // the "en"/"uz"/"ru" keys used to index localized fields like
+      // shop.name[lang] throughout the app.
+      convertDetectedLanguage: (lng) => lng.split('-')[0],
     },
    
     resources: {

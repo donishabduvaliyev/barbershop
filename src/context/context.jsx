@@ -20,7 +20,13 @@ export const AppProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const [categories, setCategories] = useState([]);
     const [confirmCancel, setConfirmCancel] = useState(null);
+    const [notification, setNotification] = useState(null);
     const backEndUrl = import.meta.env.VITE_BACKEND_URL || '';
+
+    const showNotification = (message, type = 'success') => {
+        setNotification({ id: Date.now(), message, type });
+    };
+    const clearNotification = () => setNotification(null);
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filters, setFilters] = useState({ sortBy: 'rating' }); 
@@ -175,7 +181,7 @@ useEffect(() => {
     };
 
     return (
-        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData, isLoading ,backEndUrl   }}>
+        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData, isLoading ,backEndUrl, notification, showNotification, clearNotification   }}>
             {children}
         </AppContext.Provider>
     );

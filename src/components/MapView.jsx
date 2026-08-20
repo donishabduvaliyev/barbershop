@@ -9,6 +9,7 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useTranslation } from "react-i18next";
 import { useAppContext } from "../context/context";
 
 
@@ -46,7 +47,7 @@ const LocationMarker = ({ setUserLocation, setLocationError, mapRef }) => {
       map.flyTo(e.latlng, 15);
       setLocationError(null);
     });
-    map.on("locationerror", (e) => setLocationError("Could not retrieve your location."));
+    map.on("locationerror", () => setLocationError("denied"));
     return () => { map.off("locationfound"); map.off("locationerror"); };
   }, [map, setUserLocation, setLocationError, mapRef]);
   return null;
@@ -75,12 +76,60 @@ const ServiceDetailCard = ({ service, onClose , navigate }) => {
 
 // --- MAIN MAP COMPONENT ---
 const MapView = () => {
+  const { t } = useTranslation();
   const [category, setCategory] = useState("All");
   const [userLocation, setUserLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
   const mapRef = useRef(null);
   const { navigate, services } = useAppContext();
+
+  // Explicit, user-gesture-triggered location request. Telegram's in-app WebView
+  // (and several mobile WebKit browsers) can silently ignore geolocation prompts
+  // fired automatically on mount, so this is the reliable path: it runs the
+  // request directly inside a tap handler, and prefers Telegram's own
+  // LocationManager (native permission dialog) when the app is running inside
+  // Telegram, falling back to the browser's geolocation API otherwise.
+  const requestLocation = useCallback(() => {
+    const tg = window.Telegram?.WebApp;
+
+    if (tg?.LocationManager) {
+      tg.LocationManager.init(() => {
+        tg.LocationManager.getLocation((data) => {
+          if (data) {
+            const latlng = { lat: data.latitude, lng: data.longitude };
+            setUserLocation(latlng);
+            setLocationError(null);
+            mapRef.current?.flyTo(latlng, 15);
+          } else {
+            setLocationError("denied");
+          }
+        });
+      });
+      return;
+    }
+
+    if (mapRef.current) {
+      setLocationError(null);
+      mapRef.current.locate({ setView: true, maxZoom: 15, enableHighAccuracy: true });
+      return;
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const latlng = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          setUserLocation(latlng);
+          setLocationError(null);
+        },
+        () => setLocationError("denied"),
+        { enableHighAccuracy: true }
+      );
+      return;
+    }
+
+    setLocationError("denied");
+  }, []);
 
   const categories = ["All", "Barbershop", "Hair Salon", "Nail Salon"];
 
@@ -96,8 +145,8 @@ const MapView = () => {
   const reCenterMap = () => {
     if (mapRef.current && userLocation) {
       mapRef.current.flyTo(userLocation, 15);
-    } else if (mapRef.current) {
-      mapRef.current.locate();
+    } else {
+      requestLocation();
     }
   };
 
@@ -181,10 +230,24 @@ const MapView = () => {
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
       </button>
 
+      {!userLocation && !locationError && (
+        <button
+          onClick={requestLocation}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[1001] px-4 py-3 bg-accent text-white text-sm font-semibold rounded-full shadow-lg flex items-center gap-2 active:scale-95 transition"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+          {t('ShareLocation')}
+        </button>
+      )}
+
       {locationError && (
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[1001] p-3 bg-red-500 text-white text-sm text-center rounded-lg shadow-lg">
-          {locationError}
-        </div>
+        <button
+          onClick={requestLocation}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[1001] p-3 bg-red-500 text-white text-sm text-center rounded-lg shadow-lg max-w-[90%]"
+        >
+          <div>{t('LocationDenied')}</div>
+          <div className="mt-1 font-semibold underline">{t('TryAgain')}</div>
+        </button>
       )}
 
       <ServiceDetailCard service={selectedService} onClose={() => setSelectedService(null)} navigate={navigate} />

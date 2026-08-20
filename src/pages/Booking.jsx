@@ -6,6 +6,12 @@ import { useAppContext } from '../context/context';
 
 // --- Your helper components (pad, ScrollPickerColumn, ValidationModal) remain the same ---
 const pad = (num) => num.toString().padStart(2, '0');
+const MINUTE_OPTIONS = ['00', '15', '30', '45'];
+const isSlotBooked = (bookedTimestamps, date, hour, minute) => {
+  const d = new Date(date);
+  d.setHours(parseInt(hour, 10), parseInt(minute, 10), 0, 0);
+  return bookedTimestamps.has(d.getTime());
+};
 const ScrollPickerColumn = ({ items, selectedValue, onSelect, itemHeight = 40 }) => { const scrollRef = useRef(null); useEffect(() => { if (scrollRef.current) { const selectedIndex = items.indexOf(selectedValue); if (selectedIndex !== -1) { scrollRef.current.scrollTop = selectedIndex * itemHeight; } } }, [selectedValue, items, itemHeight]); const handleScroll = () => { if (scrollRef.current) { const scrollTop = scrollRef.current.scrollTop; const selectedIndex = Math.round(scrollTop / itemHeight); const newValue = items[selectedIndex]; if (newValue !== undefined && newValue !== selectedValue) { onSelect(newValue); } } }; const handleScrollEnd = () => { if (scrollRef.current) { const scrollTop = scrollRef.current.scrollTop; const selectedIndex = Math.round(scrollTop / itemHeight); scrollRef.current.scrollTo({ top: selectedIndex * itemHeight, behavior: 'smooth' }); } }; let scrollEndTimer = null; const onScroll = () => { clearTimeout(scrollEndTimer); scrollEndTimer = setTimeout(handleScrollEnd, 150); handleScroll(); }; return (<div ref={scrollRef} onScroll={onScroll} className="w-full h-48 overflow-y-scroll snap-y snap-mandatory no-scrollbar" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)', }} > <div style={{ height: itemHeight * 2 }}></div> <div className="relative"> {items.map((item) => (<div key={item} className="flex items-center justify-center snap-center text-xl transition-all duration-300" style={{ height: `${itemHeight}px`, opacity: selectedValue === item ? 1 : 0.4, transform: selectedValue === item ? 'scale(1.1)' : 'scale(1)', }} > {item} </div>))} </div> <div style={{ height: itemHeight * 2 }}></div> </div>); };
 const ValidationModal = ({ isOpen, onClose, message, t }) => { if (!isOpen) return null; return (<div className="fixed inset-0 z-[10000] bg-black/60 flex justify-center items-center p-4"> <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-xl w-full max-w-sm text-center p-6 animate-popup"> <h3 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-4">{message}</h3> <button onClick={onClose} className="w-full bg-accent text-white px-4 py-2 rounded-md hover:bg-accent/90 transition" > {t('OK')} </button> </div> </div>); };
 
@@ -15,7 +21,7 @@ const Booking = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
-  const { backEndUrl, loggedInTelegramId, userInfo } = useAppContext();
+  const { backEndUrl, loggedInTelegramId, userInfo, showNotification } = useAppContext();
 
   // --- State Management ---
   const [shop, setShop] = useState(null);
@@ -26,7 +32,6 @@ const Booking = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
   const [validationMessage, setValidationMessage] = useState("");
@@ -77,22 +82,21 @@ const Booking = () => {
     return d;
   }), []);
 
-  const { availableHours, availableMinutes } = useMemo(() => {
-    // Add more robust checks to ensure shop and workingHours exist
+  // Set of already-booked slot timestamps (from confirmed bookings at this shop)
+  const bookedTimestamps = useMemo(() => {
+    return new Set((availability.bookedSlots || []).map(iso => new Date(iso).getTime()));
+  }, [availability.bookedSlots]);
+
+  // 1. Which hours have at least one free (unbooked) slot on the selected day
+  const availableHours = useMemo(() => {
     if (!selectedDate || !shop || !shop.workingHours || shop.workingHours.length === 0) {
-      return { availableHours: [], availableMinutes: [] };
+      return [];
     }
 
-    // 1. Find the correct schedule object for the selected day
     const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
     const schedule = shop.workingHours.find(wh => wh.days.includes(dayName));
+    if (!schedule) return [];
 
-    // If the shop is not open on the selected day, return empty arrays
-    if (!schedule) {
-      return { availableHours: [], availableMinutes: [] };
-    }
-
-    // 2. Now, safely get 'from' and 'to' from the schedule object
     const now = new Date();
     const isToday = selectedDate.toDateString() === now.toDateString();
 
@@ -103,26 +107,34 @@ const Booking = () => {
 
     const hours = [];
     for (let h = startHour; h < toHour; h++) {
-      hours.push(pad(h));
+      const hasFreeSlot = MINUTE_OPTIONS.some(m => !isSlotBooked(bookedTimestamps, selectedDate, h, m));
+      if (hasFreeSlot) hours.push(pad(h));
     }
 
-    const minutes = ['00', '15', '30', '45'];
-    return { availableHours: hours, availableMinutes: minutes };
+    return hours;
+  }, [selectedDate, shop, bookedTimestamps]);
 
-  }, [selectedDate, shop]);
+  // 2. Which minutes are free for the currently selected hour
+  const availableMinutes = useMemo(() => {
+    if (!selectedDate || selectedHour === null) return [];
+    return MINUTE_OPTIONS.filter(m => !isSlotBooked(bookedTimestamps, selectedDate, selectedHour, m));
+  }, [selectedDate, selectedHour, bookedTimestamps]);
 
-  // Auto-select first available time when date changes
+  // Auto-select first available hour when date (or availability) changes
   useEffect(() => {
     if (selectedDate) {
-      if (availableHours.length > 0) {
-        setSelectedHour(availableHours[0]);
-        setSelectedMinute(availableMinutes[0] || '00');
-      } else {
-        setSelectedHour(null);
-        setSelectedMinute(null);
-      }
+      setSelectedHour(availableHours.length > 0 ? availableHours[0] : null);
     }
-  }, [selectedDate, availableHours, availableMinutes]);
+  }, [selectedDate, availableHours]);
+
+  // Auto-select first available minute when hour (or its free minutes) changes
+  useEffect(() => {
+    if (selectedHour !== null) {
+      setSelectedMinute(availableMinutes.length > 0 ? availableMinutes[0] : null);
+    } else {
+      setSelectedMinute(null);
+    }
+  }, [selectedHour, availableMinutes]);
 
 
   // --- 3. Handle Booking Request Submission ---
@@ -135,23 +147,25 @@ const Booking = () => {
     }
     setIsSubmitting(true);
 
-    // Construct the final booking time
-    const bookingDate = new Date(selectedDate);
-    bookingDate.setHours(parseInt(selectedHour, 10), parseInt(selectedMinute, 10), 0, 0);
-
-    // Prepare the request for our backend
-    const requestBody = {
-      shopId: shop._id,
-      shopName: shop.name[lang],
-      userTelegramId: loggedInTelegramId,
-      userTelegramUsername: userInfo.name,
-      userNumber: phone,
-      userTelegramNumber: userInfo.phone,
-      userName: name,
-      requestedTime: bookingDate.toISOString(),
-    };
-
     try {
+      // Construct the final booking time
+      const bookingDate = new Date(selectedDate);
+      bookingDate.setHours(parseInt(selectedHour, 10), parseInt(selectedMinute, 10), 0, 0);
+
+      // Prepare the request for our backend. userInfo can be null (e.g. a
+      // first-time user we haven't loaded a profile for yet), so fall back
+      // instead of throwing on userInfo.name / userInfo.phone.
+      const requestBody = {
+        shopId: shop._id,
+        shopName: shop.name[lang],
+        userTelegramId: loggedInTelegramId,
+        userTelegramUsername: userInfo?.name || name,
+        userNumber: phone,
+        userTelegramNumber: userInfo?.phone || phone,
+        userName: name,
+        requestedTime: bookingDate.toISOString(),
+      };
+
       const response = await fetch(`${backEndUrl}/api/shops/booking-requests`, {
         method: 'POST',
         headers: {
@@ -166,35 +180,25 @@ const Booking = () => {
         throw new Error(errorData.message || 'An error occurred. Please try again.');
       }
 
+      // Success: close the picker and send the user home with a clear confirmation,
+      // instead of leaving them on the picker unsure whether it went through.
+      setIsModalOpen(false);
+      showNotification(
+        `${t('YouRequestFor')} ${shop.name[lang]} ${t('has been sent.')} ${t('ConfirmationSoon')}`
+      );
+      navigate('/');
+
     } catch (error) {
       console.error("Booking request failed:", error);
-      setValidationMessage(error.response?.data?.message || "An error occurred. Please try again.");
+      setValidationMessage(error.message || "An error occurred. Please try again.");
       setIsValidationModalOpen(true);
     } finally {
       setIsSubmitting(false);
-      setIsModalOpen(false);
     }
   };
 
   // --- Rendering Logic ---
   if (!shop) return <div className="p-4">{t('Loading')}</div>; // Initial loading state
-
-  if (success) {
-    return (
-      <div className="p-6 max-w-md mx-auto text-center">
-        <h2 className="text-2xl font-bold text-green-700 dark:text-green-300 mb-2">{t('Request Sent!')}</h2>
-        <p className="text-zinc-700 dark:text-zinc-300">
-          {t('YouRequestFor')} <strong>{shop.name[lang]}</strong> {t('has been sent.')} {t('ConfirmationSoon')}
-        </p>
-        <button
-          onClick={() => navigate('/')}
-          className="mt-6 px-6 py-2 bg-accent text-white font-semibold rounded-md hover:bg-accent/90"
-        >
-          {t('GoHome')}
-        </button>
-      </div>
-    );
-  }
 
   const workingDays = availability.workingHours.flatMap(wh => wh.days);
 

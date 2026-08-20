@@ -72,6 +72,11 @@
     "Confirm Cancellation": "Confirm Cancellation",
     "SureCancelation": "Are you sure you want to cancel this booking?",
     "no": "No",
-    "yesCancel": "Yes, Cancel"
+    "yesCancel": "Yes, Cancel",
+    "ShareLocation": "Share My Location",
+    "LocationPermissionText": "Allow location access to see nearby shops on the map.",
+    "LocationDenied": "Could not access your location. Tap to try again.",
+    "TryAgain": "Try Again",
+    "BookingSent": "Booking request sent!"
 
 }
