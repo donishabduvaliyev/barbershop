@@ -62,7 +62,7 @@ useEffect(() => {
 
     useEffect(() => {
 
-
+// fix function to fetch data from backend and set it to feedData state
         function feedData() {
 
             fetch(`${backEndUrl}/api/shops/home-feed`, {
