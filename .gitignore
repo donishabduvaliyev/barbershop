@@ -24,3 +24,6 @@ node_modules
 
 # Ignore secret files in src
 src/Mock-test-variations
+
+# Local backend URL (ngrok tunnel changes on every restart)
+.env
