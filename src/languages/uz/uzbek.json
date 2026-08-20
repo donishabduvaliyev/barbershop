@@ -78,6 +78,16 @@
   "LocationDenied": "Joylashuvingizni aniqlab bo'lmadi. Qayta urinish uchun bosing.",
   "TryAgain": "Qayta urinish",
   "BookingSent": "Buyurtma so'rovi yuborildi!",
-  "TelegramOnlyBooking": "Band qilish uchun ilovani Telegram orqali oching."
+  "TelegramOnlyBooking": "Band qilish uchun ilovani Telegram orqali oching.",
+  "FavoriteRequiresAccount": "Sevimlilarni saqlash uchun avval botda ro'yxatdan o'ting.",
+  "Favorites": "Sevimlilar",
+  "NoFavorites": "Siz hali sevimlilar qo'shmagansiz.",
+  "RemoveFavorite": "Sevimlilardan olib tashlash",
+  "AddFavorite": "Sevimlilarga qo'shish",
+  "Rebook": "Qayta band qilish",
+  "YourRating": "Sizning bahoyingiz",
+  "MeetTheTeam": "Jamoamiz bilan tanishing",
+  "AnyAvailable": "Istalgan mavjud",
+  "ChooseBarber": "Sartaroshni tanlang"
 
   }

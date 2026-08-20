@@ -4,6 +4,7 @@ import { useAppContext } from '../context/context';
 import { useTranslation } from "react-i18next";
 // import { StarIcon, PhoneIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import { ClockIcon, LocationMarkerIcon, MapIcon, PhoneIncomingIcon } from '@heroicons/react/outline';
+import FavoriteButton from '../components/FavoriteButton';
 
 
 const ServicePage = () => {
@@ -28,7 +29,9 @@ const ServicePage = () => {
   return (
     <div className="bg-white dark:bg-black text-zinc-900 dark:text-white min-h-screen">
       {/* Top Image */}
-      <div className="w-full h-64 bg-cover bg-center" style={{ backgroundImage: `url(${service.image})` }} />
+      <div className="relative w-full h-64 bg-cover bg-center" style={{ backgroundImage: `url(${service.image})` }}>
+        <FavoriteButton shopId={service._id} className="absolute top-3 right-3 w-9 h-9 bg-black/30" />
+      </div>
 
       {/* Main Info */}
       <div className="p-4 space-y-2">
@@ -104,7 +107,29 @@ const ServicePage = () => {
         </div>
       </div>
 
-
+      {/* Meet the Team — only shows once a shop actually has staff entries */}
+      {service.staff?.length > 0 && (
+        <div className="p-4">
+          <h3 className="text-lg font-semibold mb-2">{t("MeetTheTeam")}</h3>
+          <div className="flex space-x-4 overflow-x-auto pb-2 no-scrollbar">
+            {service.staff.map((member) => (
+              <div key={member._id} className="min-w-[96px] flex flex-col items-center text-center">
+                <img
+                  src={member.photo || 'https://placehold.co/200x200/d1d5db/374151?text=%F0%9F%92%88'}
+                  alt={member.name}
+                  className="w-16 h-16 rounded-full object-cover shadow-sm"
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/d1d5db/374151?text=%F0%9F%92%88'; }}
+                />
+                <p className="text-sm font-medium mt-2 truncate w-full">{member.name}</p>
+                {member.title && <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate w-full">{member.title}</p>}
+                {member.reviewsCount > 0 && (
+                  <p className="text-xs text-amber-500 mt-0.5">⭐ {member.rating.toFixed(1)}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className='flex items-center justify-center mb-3'>
         <button

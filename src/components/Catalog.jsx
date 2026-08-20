@@ -3,6 +3,7 @@ import { ArrowCircleRightIcon } from "@heroicons/react/outline";
 import { useAppContext } from "../context/context";
 import { useTranslation } from "react-i18next";
 import { CatalogSkeleton } from "./Skeleton";
+import FavoriteButton from "./FavoriteButton";
 
 
 
@@ -53,13 +54,17 @@ const ServiceCatalog = ({ selectedCategory }) => {
 
                       <div
                         key={shops.id}
+                        onClick={() => navigate(`/service/${shops._id}`)}
                         className="min-w-[140px] bg-zinc-100 dark:bg-zinc-900 rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-out"
                       >
-                        <img
-                          src={shops.image}
-                          alt={shops.name[lang] || shops.name.en}
-                          className="h-24 w-full object-cover"
-                        />
+                        <div className="relative">
+                          <img
+                            src={shops.image}
+                            alt={shops.name[lang] || shops.name.en}
+                            className="h-24 w-full object-cover"
+                          />
+                          <FavoriteButton shopId={shops._id} className="absolute top-1.5 right-1.5 w-7 h-7 bg-black/30" />
+                        </div>
                         <div className="flex justify-between items-center p-2">
                           <div className="p-2">
                             <div className="text-sm font-medium text-zinc-800 dark:text-zinc-50 ">

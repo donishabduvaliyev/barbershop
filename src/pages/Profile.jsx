@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { UserInfoPage } from '../components/UserInfo';
 import { BookingHistoryPage } from '../components/BookingHistory';
+import { FavoritesPage } from '../components/Favorites';
 import { useAppContext } from '../context/context';
 import { ProfileSkeleton } from '../components/Skeleton';
 
@@ -9,6 +10,7 @@ const ClockIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w
 const LogoutIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>;
 const ChevronRightIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>;
 const XIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>;
+const HeartIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-zinc-500 dark:text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21l-7.682-8.318a4.5 4.5 0 010-6.364z" /></svg>;
 
 
 export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
@@ -49,6 +51,7 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
         switch (activeSubPage) {
             case 'userInfo': return <UserInfoPage onBack={() => setActiveSubPage(null)} user={user} t={t} />;
             case 'bookingHistory': return <BookingHistoryPage onBack={() => setActiveSubPage(null)} bookings={bookings} t={t} />;
+            case 'favorites': return <FavoritesPage onBack={() => setActiveSubPage(null)} telegramId={telegramId} i18n={i18n} t={t} />;
             default: return null;
         }
     };
@@ -82,6 +85,7 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
                                 <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
                                     <li><button onClick={() => setActiveSubPage('userInfo')} className="w-full flex justify-between items-center p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"><div className="flex items-center space-x-3"><UserCircleIcon /><span>{t('MyDetails')}</span></div><ChevronRightIcon /></button></li>
                                     <li><button onClick={() => setActiveSubPage('bookingHistory')} className="w-full flex justify-between items-center p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"><div className="flex items-center space-x-3"><ClockIcon /><span>{t('BookingHistory')}</span></div><ChevronRightIcon /></button></li>
+                                    <li><button onClick={() => setActiveSubPage('favorites')} className="w-full flex justify-between items-center p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"><div className="flex items-center space-x-3"><HeartIcon /><span>{t('Favorites')}</span></div><ChevronRightIcon /></button></li>
                                 </ul>
                             </div>
 

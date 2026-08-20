@@ -33,6 +33,43 @@ export const AppProvider = ({ children }) => {
     };
     const clearNotification = () => setNotification(null);
 
+    // Favorites live on the user document (userInfo.favorites) so they persist
+    // across devices/sessions — this just mirrors that array as a Set for O(1)
+    // "is this shop favorited" lookups from card components.
+    const favoriteIds = new Set((userInfo?.favorites || []).map((id) => id.toString()));
+
+    const toggleFavorite = async (shopId) => {
+        if (!telegramInitData) {
+            showNotification(i18n.t('TelegramOnlyBooking'), 'error');
+            return;
+        }
+        if (!userInfo) {
+            showNotification(i18n.t('FavoriteRequiresAccount'), 'error');
+            return;
+        }
+
+        const wasFavorited = favoriteIds.has(shopId);
+        const previousFavorites = userInfo.favorites || [];
+        const optimisticFavorites = wasFavorited
+            ? previousFavorites.filter((id) => id.toString() !== shopId)
+            : [...previousFavorites, shopId];
+        setUserInfo((prev) => (prev ? { ...prev, favorites: optimisticFavorites } : prev));
+
+        try {
+            const res = await fetch(`${backEndUrl}/api/user/favorites/toggle`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ initData: telegramInitData, shopId }),
+            });
+            if (!res.ok) throw new Error('Failed to update favorites');
+            const data = await res.json();
+            setUserInfo((prev) => (prev ? { ...prev, favorites: data.favorites } : prev));
+        } catch (err) {
+            console.error('Failed to toggle favorite:', err);
+            setUserInfo((prev) => (prev ? { ...prev, favorites: previousFavorites } : prev));
+        }
+    };
+
     const [searchTerm, setSearchTerm] = useState('');
     const [filters, setFilters] = useState({ sortBy: 'rating' }); 
     const [results, setResults] = useState([]);
@@ -186,7 +223,7 @@ useEffect(() => {
     };
 
     return (
-        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData, isLoading ,backEndUrl, notification, showNotification, clearNotification, telegramInitData   }}>
+        <AppContext.Provider value={{ catalog, booked, addBookedItem, removeBookedItem, navigate, i18n, services, categories, userInfo, bookingHistory, addBooking, deleteBooking, loggedInTelegramId, confirmCancel, setConfirmCancel, feedData, isLoading ,backEndUrl, notification, showNotification, clearNotification, telegramInitData, favoriteIds, toggleFavorite   }}>
             {children}
         </AppContext.Provider>
     );

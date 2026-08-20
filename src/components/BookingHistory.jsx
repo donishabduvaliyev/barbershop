@@ -6,7 +6,12 @@ const ChevronLeftIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className=
 export const BookingHistoryPage = ({ onBack, bookings, t }) => {
     const [bookingToCancel, setBookingToCancel] = useState(null);
     const [localBookings, setLocalBookings] = useState(bookings);
-    const { backEndUrl, telegramInitData } = useAppContext();
+    const { backEndUrl, telegramInitData, navigate } = useAppContext();
+
+    const handleRebook = (booking) => {
+        const shopId = booking.shopId?._id || booking.shopId;
+        if (shopId) navigate(`/booking/${shopId}`);
+    };
 
     const handleConfirmCancel = async () => {
         if (!bookingToCancel) return;
@@ -46,18 +51,24 @@ export const BookingHistoryPage = ({ onBack, bookings, t }) => {
                 <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm">
                     <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
                         {localBookings.length > 0 ? localBookings.map(booking => (
-                            <li key={booking._id} className="p-4 flex justify-between items-center">
-                                <div>
-                                    <p className="font-semibold text-zinc-900 dark:text-white">{booking.shopName}</p>
+                            <li key={booking._id} className="p-4 flex justify-between items-center gap-2">
+                                <div className="min-w-0">
+                                    <p className="font-semibold text-zinc-900 dark:text-white truncate">{booking.shopName}</p>
                                     <p className="text-sm text-zinc-500 dark:text-zinc-400">{new Date(booking.requestedTime).toLocaleString()}</p>
+                                    {booking.rating && (
+                                        <p className="text-xs text-amber-500 mt-0.5">{t('YourRating')}: {'⭐'.repeat(booking.rating)}</p>
+                                    )}
                                 </div>
                                 {['pending', 'confirmed'].includes(booking.status) ? (
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-center space-x-2 flex-shrink-0">
                                         <span className="px-2 py-1 text-xs font-medium rounded-full bg-accent/15 text-accent dark:bg-accent/25 dark:text-accent capitalize">{t(booking.status)}</span>
                                         <button onClick={() => setBookingToCancel(booking)} className="px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800 hover:bg-red-200">{t('Cancel')}</button>
                                     </div>
                                 ) : (
-                                    <span className={`px-2 py-1 text-xs font-medium ${booking.status === 'completed' ? 'bg-green-700  text-white ' :  ' bg-zinc-200 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200'}  rounded-full  capitalize`}>{t(booking.status)}</span>
+                                    <div className="flex items-center space-x-2 flex-shrink-0">
+                                        <span className={`px-2 py-1 text-xs font-medium ${booking.status === 'completed' ? 'bg-green-700  text-white ' :  ' bg-zinc-200 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200'}  rounded-full  capitalize`}>{t(booking.status)}</span>
+                                        <button onClick={() => handleRebook(booking)} className="px-3 py-1 text-xs font-medium rounded-full bg-accent/15 text-accent hover:bg-accent/25">{t('Rebook')}</button>
+                                    </div>
                                 )}
                             </li>
                         )) : <p className="p-4 text-center text-zinc-500">{t('NoBookings')}</p>}

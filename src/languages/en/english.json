@@ -78,6 +78,16 @@
     "LocationDenied": "Could not access your location. Tap to try again.",
     "TryAgain": "Try Again",
     "BookingSent": "Booking request sent!",
-    "TelegramOnlyBooking": "Please open this app from Telegram to book an appointment."
+    "TelegramOnlyBooking": "Please open this app from Telegram to book an appointment.",
+    "FavoriteRequiresAccount": "Please register with the bot first to save favorites.",
+    "Favorites": "Favorites",
+    "NoFavorites": "You haven't saved any favorites yet.",
+    "RemoveFavorite": "Remove from favorites",
+    "AddFavorite": "Add to favorites",
+    "Rebook": "Rebook",
+    "YourRating": "Your rating",
+    "MeetTheTeam": "Meet the Team",
+    "AnyAvailable": "Any available",
+    "ChooseBarber": "Choose a Barber"
 
 }
