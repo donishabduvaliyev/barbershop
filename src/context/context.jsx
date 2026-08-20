@@ -20,7 +20,7 @@ export const AppProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const [categories, setCategories] = useState([]);
     const [confirmCancel, setConfirmCancel] = useState(null);
-    const backEndUrl = "https://barbershop-backend-t7n7.onrender.com";
+    const backEndUrl = "http://localhost:3000";
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filters, setFilters] = useState({ sortBy: 'rating' }); 
