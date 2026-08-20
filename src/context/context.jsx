@@ -20,7 +20,7 @@ export const AppProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const [categories, setCategories] = useState([]);
     const [confirmCancel, setConfirmCancel] = useState(null);
-    const backEndUrl = "http://localhost:3000";
+    const backEndUrl = import.meta.env.VITE_BACKEND_URL || '';
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filters, setFilters] = useState({ sortBy: 'rating' }); 
