@@ -18,12 +18,19 @@ const HorizontalCarousel = ({ title, services, lang, navigate }) => { if (!servi
 export default function SearchPage() {
   const [searchParams] = useSearchParams();
   const queryFromUrl = searchParams.get('query');
+  const categoryFromUrl = searchParams.get('category');
 
   const { i18n, t } = useTranslation();
   const { navigate, backEndUrl } = useAppContext();
   const lang = i18n.language || 'en';
   const [searchTerm, setSearchTerm] = useState(queryFromUrl || '');
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState(categoryFromUrl || 'All');
+
+  // Keep the selected category in sync when navigated here with a different
+  // ?category= (e.g. tapping "See All" on another category from Home).
+  useEffect(() => {
+    if (categoryFromUrl) setActiveCategory(categoryFromUrl);
+  }, [categoryFromUrl]);
   const [shopLists, setShopLists] = useState({
     advertisedShops: [],
     editorsChoiceShops: [],
