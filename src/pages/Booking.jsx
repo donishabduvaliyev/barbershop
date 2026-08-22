@@ -16,7 +16,7 @@ const pad = (num) => num.toString().padStart(2, '0');
 // hide that same hour for a different barber, or for a shop with no staff
 // (single shared slot) vs a shop with several (full only once every staff
 // member is booked that hour).
-const isHourTaken = (bookedSlots, date, hour, staffId, staffCount) => {
+const isHourTaken = (bookedSlots, date, hour, staffId, staffCount, capacity) => {
   const target = new Date(date);
   target.setHours(hour, 0, 0, 0);
   const targetTime = target.getTime();
@@ -26,7 +26,8 @@ const isHourTaken = (bookedSlots, date, hour, staffId, staffCount) => {
     return atHour.some((b) => b.staffId === staffId);
   }
   if (!staffCount) {
-    return atHour.length > 0;
+    // No named staff — capacity is the shop's plain "how many chairs" number.
+    return atHour.length >= (capacity || 1);
   }
   const distinctStaffBooked = new Set(atHour.filter((b) => b.staffId).map((b) => b.staffId)).size;
   return distinctStaffBooked >= staffCount;
@@ -110,6 +111,7 @@ const Booking = () => {
 
   const bookedSlots = useMemo(() => availability.bookedSlots || [], [availability.bookedSlots]);
   const staffCount = availability.staffCount || 0;
+  const capacity = availability.capacity || 1;
 
   // Which hourly slots are free on the selected day, for the currently
   // selected barber (or shop-wide/"any available" capacity when none is
@@ -134,13 +136,13 @@ const Booking = () => {
 
     const hours = [];
     for (let h = startHour; h < toHour; h++) {
-      if (!isHourTaken(bookedSlots, selectedDate, h, selectedStaffId, staffCount)) {
+      if (!isHourTaken(bookedSlots, selectedDate, h, selectedStaffId, staffCount, capacity)) {
         hours.push(`${pad(h)}:00`);
       }
     }
 
     return hours;
-  }, [selectedDate, shop, bookedSlots, staffCount, selectedStaffId]);
+  }, [selectedDate, shop, bookedSlots, staffCount, capacity, selectedStaffId]);
 
   // Auto-select first available hour when date, barber, or availability changes
   useEffect(() => {
@@ -190,6 +192,7 @@ const Booking = () => {
         requestedTime: bookingDate.toISOString(),
         staffId: selectedStaffId || undefined,
         serviceId: selectedServiceId,
+        lang,
       };
 
       const response = await fetch(`${backEndUrl}/api/shops/booking-requests`, {
