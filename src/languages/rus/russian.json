@@ -88,6 +88,8 @@
   "YourRating": "Ваша оценка",
   "MeetTheTeam": "Наша команда",
   "AnyAvailable": "Любой доступный",
-  "ChooseBarber": "Выберите мастера"
+  "ChooseBarber": "Выберите мастера",
+  "ChooseService": "Выберите услугу",
+  "PleaseSelectService": "Пожалуйста, выберите услугу"
 
 }

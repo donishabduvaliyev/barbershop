@@ -88,6 +88,8 @@
     "YourRating": "Your rating",
     "MeetTheTeam": "Meet the Team",
     "AnyAvailable": "Any available",
-    "ChooseBarber": "Choose a Barber"
+    "ChooseBarber": "Choose a Barber",
+    "ChooseService": "Choose a Service",
+    "PleaseSelectService": "Please select a service"
 
 }
