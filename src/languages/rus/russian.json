@@ -87,9 +87,11 @@
   "Rebook": "Забронировать снова",
   "YourRating": "Ваша оценка",
   "MeetTheTeam": "Наша команда",
+  "Gallery": "Галерея",
   "AnyAvailable": "Любой доступный",
   "ChooseBarber": "Выберите мастера",
   "ChooseService": "Выберите услугу",
-  "PleaseSelectService": "Пожалуйста, выберите услугу"
+  "PleaseSelectService": "Пожалуйста, выберите услугу",
+  "StaffOffThatDay": "{{name}} не работает в этот день — выберите другую дату или мастера."
 
 }

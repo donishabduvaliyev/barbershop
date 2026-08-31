@@ -87,9 +87,11 @@
   "Rebook": "Qayta band qilish",
   "YourRating": "Sizning bahoyingiz",
   "MeetTheTeam": "Jamoamiz bilan tanishing",
+  "Gallery": "Galereya",
   "AnyAvailable": "Istalgan mavjud",
   "ChooseBarber": "Sartaroshni tanlang",
   "ChooseService": "Xizmatni tanlang",
-  "PleaseSelectService": "Iltimos, xizmatni tanlang"
+  "PleaseSelectService": "Iltimos, xizmatni tanlang",
+  "StaffOffThatDay": "{{name}} bu kuni ishlamaydi — boshqa sana yoki ustani tanlang."
 
   }

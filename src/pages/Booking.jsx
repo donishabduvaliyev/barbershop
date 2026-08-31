@@ -8,6 +8,15 @@ import { BookingSkeleton } from '../components/Skeleton';
 // --- Your helper components (pad, ScrollPickerColumn, ValidationModal) remain the same ---
 const pad = (num) => num.toString().padStart(2, '0');
 
+// Matches the backend's utils/dateKey.js — a 'YYYY-MM-DD' key in local time,
+// used to check a staff member's scheduled days off against a whole day.
+const toDateKey = (date) => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+};
+
 // Appointments are booked in fixed 1-hour slots (matches the backend, see
 // utils/bookingTime.js) — one client occupies a barber for about an hour,
 // so there's no need for finer-grained minute selection.
@@ -15,8 +24,12 @@ const pad = (num) => num.toString().padStart(2, '0');
 // Availability is staff-aware: a slot already taken by one barber must not
 // hide that same hour for a different barber, or for a shop with no staff
 // (single shared slot) vs a shop with several (full only once every staff
-// member is booked that hour).
-const isHourTaken = (bookedSlots, date, hour, staffId, staffCount, capacity) => {
+// member is booked that hour). A staff member's scheduled day off blocks
+// every hour that day — enforced server-side too, this is just so the
+// picker doesn't offer a slot the server would reject anyway.
+const isHourTaken = (bookedSlots, date, hour, staffId, staffCount, capacity, isStaffOff) => {
+  if (staffId && isStaffOff) return true;
+
   const target = new Date(date);
   target.setHours(hour, 0, 0, 0);
   const targetTime = target.getTime();
@@ -113,17 +126,54 @@ const Booking = () => {
   const staffCount = availability.staffCount || 0;
   const capacity = availability.capacity || 1;
 
+  // Only staff who perform the selected service are offered as a pick —
+  // an empty serviceIds list on a staff member means "does everything"
+  // (the backward-compatible default for staff no one has restricted yet).
+  const availableStaffForService = useMemo(() => {
+    if (!shop?.staff) return [];
+    if (!selectedServiceId) return shop.staff;
+    return shop.staff.filter((m) => !m.serviceIds?.length || m.serviceIds.includes(selectedServiceId));
+  }, [shop, selectedServiceId]);
+
+  // If the customer picked a barber and then changes the service to
+  // something that barber doesn't do, fall back to "Any available" instead
+  // of silently leaving an now-invalid selection in place.
+  useEffect(() => {
+    if (selectedStaffId && !availableStaffForService.some((m) => m._id === selectedStaffId)) {
+      setSelectedStaffId(null);
+    }
+  }, [availableStaffForService, selectedStaffId]);
+
+  // A specific staff member's own hours (if they have any set) take
+  // precedence over the shop's blanket hours — matches the backend's
+  // resolution in routes/shops.js exactly.
+  const effectiveWorkingHours = useMemo(() => {
+    if (selectedStaffId) {
+      const member = shop?.staff?.find((m) => m._id === selectedStaffId);
+      if (member?.workingHours?.length) return member.workingHours;
+    }
+    return shop?.workingHours || [];
+  }, [shop, selectedStaffId]);
+
+  // Drives the "so-and-so is off that day" message below, separately from
+  // the availableHours calculation so the render doesn't have to reach into it.
+  const selectedStaffOffThatDay = useMemo(() => {
+    if (!selectedDate || !selectedStaffId || !shop) return null;
+    const member = shop.staff?.find((m) => m._id === selectedStaffId);
+    return member?.daysOff?.includes(toDateKey(selectedDate)) ? member.name : null;
+  }, [selectedDate, selectedStaffId, shop]);
+
   // Which hourly slots are free on the selected day, for the currently
   // selected barber (or shop-wide/"any available" capacity when none is
   // picked) — recomputes whenever the barber selection changes, since a
   // slot taken by one barber must not hide a different barber's open hour.
   const availableHours = useMemo(() => {
-    if (!selectedDate || !shop || !shop.workingHours || shop.workingHours.length === 0) {
+    if (!selectedDate || !effectiveWorkingHours || effectiveWorkingHours.length === 0) {
       return [];
     }
 
     const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
-    const schedule = shop.workingHours.find(wh => wh.days.includes(dayName));
+    const schedule = effectiveWorkingHours.find(wh => wh.days.includes(dayName));
     if (!schedule) return [];
 
     const now = new Date();
@@ -134,15 +184,27 @@ const Booking = () => {
 
     const startHour = isToday ? Math.max(fromHour, now.getHours() + 1) : fromHour;
 
+    const dateKey = toDateKey(selectedDate);
+    const selectedMember = selectedStaffId ? shop.staff?.find((m) => m._id === selectedStaffId) : null;
+    const isStaffOff = !!selectedMember?.daysOff?.includes(dateKey);
+    // "Any available" capacity only counts staff actually working that day
+    // and who perform the selected service — someone off, or who doesn't
+    // do this, shouldn't hold open a slot nobody qualified can fill.
+    const workingStaffCount = staffCount
+      ? (shop.staff || []).filter((m) =>
+          !m.daysOff?.includes(dateKey) && (!m.serviceIds?.length || !selectedServiceId || m.serviceIds.includes(selectedServiceId))
+        ).length
+      : staffCount;
+
     const hours = [];
     for (let h = startHour; h < toHour; h++) {
-      if (!isHourTaken(bookedSlots, selectedDate, h, selectedStaffId, staffCount, capacity)) {
+      if (!isHourTaken(bookedSlots, selectedDate, h, selectedStaffId, workingStaffCount, capacity, isStaffOff)) {
         hours.push(`${pad(h)}:00`);
       }
     }
 
     return hours;
-  }, [selectedDate, shop, bookedSlots, staffCount, capacity, selectedStaffId]);
+  }, [selectedDate, shop, effectiveWorkingHours, bookedSlots, staffCount, capacity, selectedStaffId, selectedServiceId]);
 
   // Auto-select first available hour when date, barber, or availability changes
   useEffect(() => {
@@ -229,14 +291,14 @@ const Booking = () => {
   // --- Rendering Logic ---
   if (!shop) return <BookingSkeleton />; // Initial loading state
 
-  const workingDays = availability.workingHours.flatMap(wh => wh.days);
+  const workingDays = effectiveWorkingHours.flatMap(wh => wh.days);
 
   return (
     // Your existing JSX for the form and modal remains largely the same.
     // Just make sure the final "Confirm Booking" button calls handleRequestBooking
     // Example: <button onClick={handleRequestBooking} disabled={isSubmitting}> ... </button>
     <div className="p-4 max-w-md mx-auto bg-zinc-50 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 min-h-screen animate-pageIn">
-      <div className="text-center mb-6"> <img src={shop.image} alt={shop.name[lang]} className="w-full h-48 object-cover rounded-lg shadow-md mb-4" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/d1d5db/374151?text=Image+Not+Found'; }} /> <h2 className="text-2xl font-bold">{t('Book Your Visit')}</h2> <p className="text-md text-zinc-600 dark:text-zinc-400">{shop.name[lang]}</p> </div> <div className="space-y-4"> <div> <label className="block mb-1 text-sm font-medium text-zinc-700 dark:text-zinc-300">{t("Name")}</label> <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-md focus:ring-accent focus:border-accent" placeholder={t("Enter your name")} /> </div> <div> <label className="block mb-1 text-sm font-medium text-zinc-700 dark:text-zinc-300">{t("Phone Number")}</label> <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full px-4 py-2 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-md focus:ring-accent focus:border-accent" placeholder="+998 (33) 3333333" /> </div> </div> <div className="mt-8 text-center"> <button onClick={() => setIsModalOpen(true)} className="w-full bg-accent text-white text-lg px-6 py-3 rounded-lg shadow-md hover:bg-accent/90 transition-all duration-300 active:scale-95 focus:outline-none focus:ring-4 focus:ring-accent/30 dark:focus:ring-accent/40" > {t('Select Date and Time')} </button> </div> <ValidationModal isOpen={isValidationModalOpen} onClose={() => setIsValidationModalOpen(false)} message={validationMessage} t={t} /> {isModalOpen && (<div className="fixed inset-0 z-[9999] bg-black/60 flex justify-center items-end"> <div className="bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-t-2xl sm:rounded-2xl shadow-lg w-full max-w-sm flex flex-col overflow-hidden animate-slideUp"> <div className="p-3 border-b border-zinc-300/50 dark:border-zinc-700/50 flex justify-between items-center"> <h3 className="font-semibold text-lg text-zinc-800 dark:text-zinc-100">{t('Choose a Time')}</h3> <button className="text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold" onClick={() => setIsModalOpen(false)} > &times; </button> </div> {shop.services?.length > 0 && (<div className="p-4 border-b border-zinc-300/50 dark:border-zinc-700/50"> <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-2">{t('ChooseService')}</p> <div className="flex space-x-2 overflow-x-auto no-scrollbar"> {shop.services.map((service) => (<button key={service._id} onClick={() => setSelectedServiceId(service._id)} className={clsx('flex flex-col items-start min-w-[120px] px-3 py-2 rounded-xl border text-xs transition-all', selectedServiceId === service._id ? 'bg-accent text-white border-accent shadow-sm' : 'bg-white/50 dark:bg-zinc-700/50 text-zinc-700 dark:text-zinc-200 border-zinc-300 dark:border-zinc-600')} > <span className="font-semibold truncate w-full text-left">{service.name?.[lang] || service.name?.en}</span> <span className="opacity-80">{service.price?.toLocaleString()} · {service.durationMinutes} {t('min', 'min')}</span> </button>))} </div> </div>)} {shop.staff?.length > 0 && (<div className="p-4 border-b border-zinc-300/50 dark:border-zinc-700/50"> <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-2">{t('ChooseBarber')}</p> <div className="flex space-x-2 overflow-x-auto no-scrollbar"> <button onClick={() => setSelectedStaffId(null)} className={clsx('flex flex-col items-center min-w-[64px] px-2 py-1.5 rounded-xl border text-xs transition-all', selectedStaffId === null ? 'bg-accent text-white border-accent shadow-sm' : 'bg-white/50 dark:bg-zinc-700/50 text-zinc-700 dark:text-zinc-200 border-zinc-300 dark:border-zinc-600')} > <span className="w-9 h-9 rounded-full bg-zinc-200 dark:bg-zinc-600 flex items-center justify-center text-lg mb-1">✨</span> {t('AnyAvailable')} </button> {shop.staff.map((member) => (<button key={member._id} onClick={() => setSelectedStaffId(member._id)} className={clsx('flex flex-col items-center min-w-[64px] px-2 py-1.5 rounded-xl border text-xs transition-all', selectedStaffId === member._id ? 'bg-accent text-white border-accent shadow-sm' : 'bg-white/50 dark:bg-zinc-700/50 text-zinc-700 dark:text-zinc-200 border-zinc-300 dark:border-zinc-600')} > <img src={member.photo || 'https://placehold.co/100x100/d1d5db/374151?text=%F0%9F%92%88'} alt={member.name} className="w-9 h-9 rounded-full object-cover mb-1" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/100x100/d1d5db/374151?text=%F0%9F%92%88'; }} /> <span className="truncate w-full text-center">{member.name}</span> </button>))} </div> </div>)} <div className="p-4 flex space-x-2 overflow-x-auto border-b border-zinc-300/50 dark:border-zinc-700/50"> {dates.map((date) => { const engDayName = date.toLocaleDateString('en-US', { weekday: 'long' }); const translatedDayName = t(`days.${engDayName}`, engDayName); const isAvailable = workingDays.includes(engDayName); return (<button key={date.toISOString()} disabled={!isAvailable} onClick={() => setSelectedDate(date)} className={clsx('px-3 py-2 rounded-lg border text-sm min-w-[100px] transition-all text-center', { 'bg-accent text-white border-accent font-semibold shadow-md': selectedDate?.toDateString() === date.toDateString(), 'bg-white/50 dark:bg-zinc-700/50 text-zinc-700 dark:text-zinc-200 border-zinc-300 dark:border-zinc-600 hover:border-accent/60 dark:hover:border-accent/60': selectedDate?.toDateString() !== date.toDateString(), 'opacity-50 cursor-not-allowed bg-zinc-100 dark:bg-zinc-800': !isAvailable, })} > <div className="font-semibold">{translatedDayName}</div> <div className="text-xs">{date.toLocaleDateString(lang, { month: 'short', day: 'numeric' })}</div> </button>); })} </div> {selectedDate && (<div className="flex flex-col p-4 gap-4"> {availableHours.length > 0 ? (<div className="relative flex justify-center items-center h-48"> <div className="absolute inset-x-4 h-10 bg-zinc-300/40 dark:bg-zinc-700/40 rounded-lg top-1/2 -translate-y-1/2 pointer-events-none"></div> <div className="flex w-full max-w-[140px]"> <ScrollPickerColumn items={availableHours} selectedValue={selectedHour} onSelect={setSelectedHour} /> </div> </div>) : (<div className="h-48 flex items-center justify-center"> <p className="text-center text-zinc-500 dark:text-zinc-400">{t('No available time slots for this day.')}</p> </div>)} <button onClick={handleRequestBooking} disabled={selectedHour === null || !selectedServiceId || isSubmitting} className="w-full py-3 px-4 bg-accent text-white font-semibold rounded-md hover:bg-accent/90 transition disabled:opacity-50 disabled:cursor-not-allowed" > {isSubmitting ? t('Sending Request...') : t('Request Booking')} </button> </div>)} </div> </div>)}
+      <div className="text-center mb-6"> <img src={shop.image} alt={shop.name[lang]} className="w-full h-48 object-cover rounded-lg shadow-md mb-4" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/d1d5db/374151?text=Image+Not+Found'; }} /> <h2 className="text-2xl font-bold">{t('Book Your Visit')}</h2> <p className="text-md text-zinc-600 dark:text-zinc-400">{shop.name[lang]}</p> </div> <div className="space-y-4"> <div> <label className="block mb-1 text-sm font-medium text-zinc-700 dark:text-zinc-300">{t("Name")}</label> <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-md focus:ring-accent focus:border-accent" placeholder={t("Enter your name")} /> </div> <div> <label className="block mb-1 text-sm font-medium text-zinc-700 dark:text-zinc-300">{t("Phone Number")}</label> <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full px-4 py-2 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-md focus:ring-accent focus:border-accent" placeholder="+998 (33) 3333333" /> </div> </div> <div className="mt-8 text-center"> <button onClick={() => setIsModalOpen(true)} className="w-full bg-accent text-white text-lg px-6 py-3 rounded-lg shadow-md hover:bg-accent/90 transition-all duration-300 active:scale-95 focus:outline-none focus:ring-4 focus:ring-accent/30 dark:focus:ring-accent/40" > {t('Select Date and Time')} </button> </div> <ValidationModal isOpen={isValidationModalOpen} onClose={() => setIsValidationModalOpen(false)} message={validationMessage} t={t} /> {isModalOpen && (<div className="fixed inset-0 z-[9999] bg-black/60 flex justify-center items-end"> <div className="bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-t-2xl sm:rounded-2xl shadow-lg w-full max-w-sm flex flex-col overflow-hidden animate-slideUp"> <div className="p-3 border-b border-zinc-300/50 dark:border-zinc-700/50 flex justify-between items-center"> <h3 className="font-semibold text-lg text-zinc-800 dark:text-zinc-100">{t('Choose a Time')}</h3> <button className="text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold" onClick={() => setIsModalOpen(false)} > &times; </button> </div> {shop.services?.length > 0 && (<div className="p-4 border-b border-zinc-300/50 dark:border-zinc-700/50"> <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-2">{t('ChooseService')}</p> <div className="flex space-x-2 overflow-x-auto no-scrollbar"> {shop.services.map((service) => (<button key={service._id} onClick={() => setSelectedServiceId(service._id)} className={clsx('flex flex-col items-start min-w-[120px] px-3 py-2 rounded-xl border text-xs transition-all', selectedServiceId === service._id ? 'bg-accent text-white border-accent shadow-sm' : 'bg-white/50 dark:bg-zinc-700/50 text-zinc-700 dark:text-zinc-200 border-zinc-300 dark:border-zinc-600')} > <span className="font-semibold truncate w-full text-left">{service.name?.[lang] || service.name?.en}</span> <span className="opacity-80">{service.price?.toLocaleString()} · {service.durationMinutes} {t('min', 'min')}</span> </button>))} </div> </div>)} {availableStaffForService.length > 0 && (<div className="p-4 border-b border-zinc-300/50 dark:border-zinc-700/50"> <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-2">{t('ChooseBarber')}</p> <div className="flex space-x-2 overflow-x-auto no-scrollbar"> <button onClick={() => setSelectedStaffId(null)} className={clsx('flex flex-col items-center min-w-[64px] px-2 py-1.5 rounded-xl border text-xs transition-all', selectedStaffId === null ? 'bg-accent text-white border-accent shadow-sm' : 'bg-white/50 dark:bg-zinc-700/50 text-zinc-700 dark:text-zinc-200 border-zinc-300 dark:border-zinc-600')} > <span className="w-9 h-9 rounded-full bg-zinc-200 dark:bg-zinc-600 flex items-center justify-center text-lg mb-1">✨</span> {t('AnyAvailable')} </button> {availableStaffForService.map((member) => (<button key={member._id} onClick={() => setSelectedStaffId(member._id)} className={clsx('flex flex-col items-center min-w-[64px] px-2 py-1.5 rounded-xl border text-xs transition-all', selectedStaffId === member._id ? 'bg-accent text-white border-accent shadow-sm' : 'bg-white/50 dark:bg-zinc-700/50 text-zinc-700 dark:text-zinc-200 border-zinc-300 dark:border-zinc-600')} > <img src={member.photo || 'https://placehold.co/100x100/d1d5db/374151?text=%F0%9F%92%88'} alt={member.name} className="w-9 h-9 rounded-full object-cover mb-1" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/100x100/d1d5db/374151?text=%F0%9F%92%88'; }} /> <span className="truncate w-full text-center">{member.name}</span> </button>))} </div> </div>)} <div className="p-4 flex space-x-2 overflow-x-auto border-b border-zinc-300/50 dark:border-zinc-700/50"> {dates.map((date) => { const engDayName = date.toLocaleDateString('en-US', { weekday: 'long' }); const translatedDayName = t(`days.${engDayName}`, engDayName); const isAvailable = workingDays.includes(engDayName); return (<button key={date.toISOString()} disabled={!isAvailable} onClick={() => setSelectedDate(date)} className={clsx('px-3 py-2 rounded-lg border text-sm min-w-[100px] transition-all text-center', { 'bg-accent text-white border-accent font-semibold shadow-md': selectedDate?.toDateString() === date.toDateString(), 'bg-white/50 dark:bg-zinc-700/50 text-zinc-700 dark:text-zinc-200 border-zinc-300 dark:border-zinc-600 hover:border-accent/60 dark:hover:border-accent/60': selectedDate?.toDateString() !== date.toDateString(), 'opacity-50 cursor-not-allowed bg-zinc-100 dark:bg-zinc-800': !isAvailable, })} > <div className="font-semibold">{translatedDayName}</div> <div className="text-xs">{date.toLocaleDateString(lang, { month: 'short', day: 'numeric' })}</div> </button>); })} </div> {selectedDate && (<div className="flex flex-col p-4 gap-4"> {availableHours.length > 0 ? (<div className="relative flex justify-center items-center h-48"> <div className="absolute inset-x-4 h-10 bg-zinc-300/40 dark:bg-zinc-700/40 rounded-lg top-1/2 -translate-y-1/2 pointer-events-none"></div> <div className="flex w-full max-w-[140px]"> <ScrollPickerColumn items={availableHours} selectedValue={selectedHour} onSelect={setSelectedHour} /> </div> </div>) : (<div className="h-48 flex items-center justify-center px-4"> <p className="text-center text-zinc-500 dark:text-zinc-400">{selectedStaffOffThatDay ? t('StaffOffThatDay', { name: selectedStaffOffThatDay }) : t('No available time slots for this day.')}</p> </div>)} <button onClick={handleRequestBooking} disabled={selectedHour === null || !selectedServiceId || isSubmitting} className="w-full py-3 px-4 bg-accent text-white font-semibold rounded-md hover:bg-accent/90 transition disabled:opacity-50 disabled:cursor-not-allowed" > {isSubmitting ? t('Sending Request...') : t('Request Booking')} </button> </div>)} </div> </div>)}
       <style>{`@keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } } @keyframes popup { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } } .animate-slideUp { animation: slideUp 0.3s ease-out forwards; } .animate-popup { animation: popup 0.2s ease-out forwards; } .no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
     </div>
   );

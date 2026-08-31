@@ -6,6 +6,18 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 5173
+    },
+    {
+      "name": "backend-dev",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--env-file=/Users/a1/Downloads/barbershop-Backend-main/.env", "/Users/a1/Downloads/barbershop-Backend-main/server.js"],
+      "port": 3000
+    },
+    {
+      "name": "admin-panel-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/a1/barbershop-admin-panel", "run", "dev", "--", "--port", "5174"],
+      "port": 5174
     }
   ]
 }

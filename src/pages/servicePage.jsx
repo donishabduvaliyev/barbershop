@@ -107,6 +107,24 @@ const ServicePage = () => {
         </div>
       </div>
 
+      {/* Gallery — only shows once the shop has uploaded extra photos */}
+      {service.images?.length > 0 && (
+        <div className="p-4">
+          <h3 className="text-lg font-semibold mb-2">{t("Gallery")}</h3>
+          <div className="flex space-x-2 overflow-x-auto pb-2 no-scrollbar">
+            {service.images.map((url, idx) => (
+              <img
+                key={idx}
+                src={url}
+                alt={`${service.name[lang]} ${idx + 1}`}
+                className="w-28 h-28 rounded-lg object-cover shrink-0 shadow-sm"
+                onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/d1d5db/374151?text=Image+Not+Found'; }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Meet the Team — only shows once a shop actually has staff entries */}
       {service.staff?.length > 0 && (
         <div className="p-4">

@@ -87,9 +87,11 @@
     "Rebook": "Rebook",
     "YourRating": "Your rating",
     "MeetTheTeam": "Meet the Team",
+    "Gallery": "Gallery",
     "AnyAvailable": "Any available",
     "ChooseBarber": "Choose a Barber",
     "ChooseService": "Choose a Service",
-    "PleaseSelectService": "Please select a service"
+    "PleaseSelectService": "Please select a service",
+    "StaffOffThatDay": "{{name}} is off that day — try another date or barber."
 
 }
