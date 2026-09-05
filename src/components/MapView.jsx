@@ -220,12 +220,12 @@ const MapView = () => {
 
       {/* iOS-style UI Controls */}
       <div className="absolute top-20 right-3 z-[1000] flex flex-col space-y-2">
-        <button onClick={() => mapRef.current?.zoomIn()} className="w-10 h-10 bg-white/80 dark:bg-zinc-800/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-xl">+</button>
-        <button onClick={() => mapRef.current?.zoomOut()} className="w-10 h-10 bg-white/80 dark:bg-zinc-800/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-xl">-</button>
+        <button onClick={() => mapRef.current?.zoomIn()} className="w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-xl text-text">+</button>
+        <button onClick={() => mapRef.current?.zoomOut()} className="w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-xl text-text">-</button>
       </div>
       <button
         onClick={reCenterMap}
-        className="absolute top-44 right-3 z-[1000] w-10 h-10 bg-white/80 dark:bg-zinc-800/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center"
+        className="absolute top-44 right-3 z-[1000] w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-text"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
       </button>
@@ -233,7 +233,7 @@ const MapView = () => {
       {!userLocation && !locationError && (
         <button
           onClick={requestLocation}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[1001] px-4 py-3 bg-accent text-white text-sm font-semibold rounded-full shadow-lg flex items-center gap-2 active:scale-95 transition"
+          className="absolute bottom-28 left-1/2 -translate-x-1/2 z-[1001] px-4 py-3 bg-accent text-black text-sm font-semibold rounded-full shadow-lg flex items-center gap-2 active:scale-95 transition"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
           {t('ShareLocation')}
@@ -243,7 +243,7 @@ const MapView = () => {
       {locationError && (
         <button
           onClick={requestLocation}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[1001] p-3 bg-red-500 text-white text-sm text-center rounded-lg shadow-lg max-w-[90%]"
+          className="absolute bottom-28 left-1/2 -translate-x-1/2 z-[1001] p-3 bg-danger text-white text-sm text-center rounded-lg shadow-lg max-w-[90%]"
         >
           <div>{t('LocationDenied')}</div>
           <div className="mt-1 font-semibold underline">{t('TryAgain')}</div>
