@@ -9,10 +9,13 @@ const Layout = () => {
   return (
     <div className='flex flex-col justify-between min-h-screen bg-bg'>
       <Toast />
-      {/* BottomNav is fixed (out of flow) — this reserves space so trailing
-          page content (e.g. a page-ending button) never ends up hidden
-          behind it. */}
-      <div key={location.pathname} className="animate-pageIn flex-1 pb-24">
+      {/* BottomNav is fixed (out of flow) now, so it never reserves layout
+          space here — each page reserves its own bottom clearance instead
+          (its own overflow-y-auto container's padding, or the page root's
+          padding for normal-flow pages). A blanket padding here would add
+          unwanted scroll to full-screen pages like MapView that manage
+          their own height. */}
+      <div key={location.pathname} className="animate-pageIn flex-1">
         <Outlet />
       </div>
       <BottomNav />

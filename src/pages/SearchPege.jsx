@@ -124,7 +124,7 @@ export default function SearchPage() {
       ) : (
         <>
           <AdCarousel services={shopLists.advertisedShops} lang={lang} navigate={navigate} />
-          <main className="pb-10">
+          <main className="pb-28">
             {hasResults ? (
               <>
                 <HorizontalCarousel title={t("Editor's Choice")} services={shopLists.editorsChoiceShops} lang={lang} navigate={navigate} />

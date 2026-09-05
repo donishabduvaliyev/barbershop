@@ -67,7 +67,7 @@ const Home = () => {
             </header>
 
             {/* Main content */}
-            <main className="pb-5">
+            <main className="pb-28">
                 <ServiceCatalog selectedCategory={selectedCategory} />
             </main>
 

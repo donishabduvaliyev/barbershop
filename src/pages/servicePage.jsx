@@ -27,7 +27,7 @@ const ServicePage = () => {
   }
 
   return (
-    <div className="bg-bg text-text min-h-screen">
+    <div className="bg-bg text-text min-h-screen pb-24">
       {/* Top Image */}
       <div className="relative w-full h-64 bg-cover bg-center" style={{ backgroundImage: `url(${service.image})` }}>
         <FavoriteButton shopId={service._id} className="absolute top-3 right-3 w-9 h-9 bg-black/30" />
