@@ -23,7 +23,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
 
 
   return (
-    <div className="h-[600px] overflow-y-auto bg-white text-[rgba(60,60,67,0.6)] dark:bg-black dark:text-[rgba(235,235,245,0.6)]">
+    <div className="h-[600px] overflow-y-auto bg-bg text-text-muted">
       {isLoading ?
         <CatalogSkeleton />
 
@@ -55,7 +55,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
                       <div
                         key={shops.id}
                         onClick={() => navigate(`/service/${shops._id}`)}
-                        className="min-w-[140px] bg-zinc-100 dark:bg-zinc-900 rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-out"
+                        className="min-w-[140px] bg-surface rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-out border border-border-soft"
                       >
                         <div className="relative">
                           <img
@@ -67,17 +67,17 @@ const ServiceCatalog = ({ selectedCategory }) => {
                         </div>
                         <div className="flex justify-between items-center p-2">
                           <div className="p-2">
-                            <div className="text-sm font-medium text-zinc-800 dark:text-zinc-50 ">
+                            <div className="text-sm font-medium text-text ">
                               {shops.name[lang] || shops.name.en}
                             </div>
-                            <div className="text-xs text-amber-500">
+                            <div className="text-xs text-warning">
                               ⭐ {shops.rating}
                             </div>
                           </div>
                           <div>
                             <button
                               onClick={() => navigate(`/service/${shops._id}`)}
-                              className="p-2 text-accent hover:text-accent/80 transition-colors duration-200"
+                              className="p-2 text-accent hover:text-accent-hover transition-colors duration-200"
                             >
                               <ArrowCircleRightIcon className="h-6 w-6" />
                             </button>
@@ -86,7 +86,7 @@ const ServiceCatalog = ({ selectedCategory }) => {
                       </div>
                     ))
                   ) : (
-                    <div className="text-sm text-zinc-400 italic">
+                    <div className="text-sm text-text-faint italic">
                       {t("no_services_available")}
                     </div>
                   )}

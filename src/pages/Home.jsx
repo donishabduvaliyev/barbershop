@@ -8,7 +8,7 @@ import LanguageToggleButton from '../components/languageDropdown.jsx';
 import { ProfilePage } from './Profile.jsx';
 
 const UserIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" className="w-9 h-9 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-700 rounded-full p-1">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" className="w-9 h-9 text-text-faint border border-border rounded-full p-1">
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
     </svg>
 );
@@ -27,9 +27,9 @@ const Home = () => {
     const userName = user ? user.name : 'Guest';
 
     return (
-        <div className="h-screen bg-white dark:bg-black font-sans overflow-y-auto no-scrollbar">
+        <div className="h-screen bg-bg font-sans overflow-y-auto no-scrollbar">
             {/* Sticky header with blur */}
-            <header className="sticky top-0 bg-white/80 dark:bg-black/80 backdrop-blur-xl z-20 border-b border-zinc-200 dark:border-zinc-800">
+            <header className="sticky top-0 bg-bg/80 backdrop-blur-xl z-20 border-b border-border-soft">
 
                 {/* Top row: Profile + Greeting + Actions */}
                 <div className="p-3 flex justify-between items-center">
@@ -38,10 +38,10 @@ const Home = () => {
                             <UserIcon />
                         </span>
                         <div className="flex flex-col leading-tight">
-                            <h1 className="text-xs text-[rgba(60,60,67,0.6)] dark:text-[rgba(235,235,245,0.6)]">
+                            <h1 className="text-xs text-text-muted">
                                 {t('welcome_message')} {userName}
                             </h1>
-                            <h1 className="text-xs font-semibold text-[rgba(0,0,0,1)] dark:text-[rgba(255,255,255,1)]">
+                            <h1 className="text-xs font-semibold text-text">
                                 {t("greeting")}
                             </h1>
                         </div>

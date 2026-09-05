@@ -16,14 +16,14 @@ export default function NotFound() {
   
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center text-center px-4 bg-white dark:bg-black">
-      <h1 className="text-4xl font-bold mb-4 text-zinc-900 dark:text-white">{t("ErrorPage")}</h1>
-      <p className="mb-6 text-lg text-zinc-500 dark:text-zinc-400">
+    <div className="h-screen flex flex-col justify-center items-center text-center px-4 bg-bg">
+      <h1 className="text-4xl font-bold mb-4 text-text">{t("ErrorPage")}</h1>
+      <p className="mb-6 text-lg text-text-muted">
        {t("movePage")}
       </p>
       <button
         onClick={() => navigate("/")}
-        className="bg-accent text-white px-6 py-2 rounded-full font-semibold"
+        className="bg-accent text-black px-6 py-2 rounded-full font-semibold"
       >
       {t("GoHome")}
       </button>
