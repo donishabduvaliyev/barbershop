@@ -42,7 +42,7 @@ export default function LanguageSelector() {
             {/* Button to open the language selector */}
             <button
                 onClick={toggleModal}
-                className="p-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full shadow-sm hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40"
+                className="p-2 bg-surface-2 text-text-muted rounded-full shadow-sm hover:bg-surface-3 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40"
                 aria-label="Open language selector"
             >
                 <TranslateIcon className="h-6 w-6" />
@@ -66,7 +66,7 @@ export default function LanguageSelector() {
                         className="relative w-full px-4 pb-4 animate-slide-up"
                     >
                         {/* Language Options Group */}
-                        <div className="w-full max-w-md mx-auto bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-xl overflow-hidden ">
+                        <div className="w-full max-w-md mx-auto bg-surface/90 backdrop-blur-xl rounded-xl overflow-hidden ">
                             {languages.map((lang, index) => (
                                 <button
                                     key={lang.code}
@@ -74,9 +74,9 @@ export default function LanguageSelector() {
                                     className={`w-full p-4 text-center text-lg transition-colors duration-200
                                         ${i18n.language === lang.code
                                             ? 'text-accent font-semibold'
-                                            : 'text-zinc-800 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5'
+                                            : 'text-text hover:bg-surface-2'
                                         }
-                                        ${index < languages.length - 1 ? 'border-b border-zinc-300/50 dark:border-zinc-700/50' : ''}
+                                        ${index < languages.length - 1 ? 'border-b border-border-soft' : ''}
                                     `}
                                 >
                                     {lang.name}
@@ -88,7 +88,7 @@ export default function LanguageSelector() {
                         <div className="w-full max-w-md mx-auto mt-3">
                             <button
                                 onClick={toggleModal}
-                                className="w-full p-4 text-center text-lg font-semibold bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-xl text-accent hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200"
+                                className="w-full p-4 text-center text-lg font-semibold bg-surface/90 backdrop-blur-xl rounded-xl text-accent hover:bg-surface-2 transition-colors duration-200"
                             >
                                 Cancel
                             </button>
