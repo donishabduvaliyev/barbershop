@@ -32,8 +32,14 @@
   --color-warning: #f0b84c;
 }
 
+/* Deliberately a plain CSS rule, NOT nested inside @theme — Tailwind v4
+   flattens @theme at build time regardless of any enclosing @media, which
+   would make these overrides win unconditionally instead of only in dark
+   mode. A plain :root override here works the normal CSS way: the utility
+   classes (bg-bg, text-text, etc.) just reference var(--color-bg) etc., and
+   that resolves via the ordinary cascade at runtime. */
 @media (prefers-color-scheme: dark) {
-  @theme {
+  :root {
     --color-bg: #0a0a0c;
     --color-surface: #131317;
     --color-surface-2: #1a1a1f;
