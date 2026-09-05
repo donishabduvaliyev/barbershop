@@ -34,7 +34,7 @@ const FavoriteButton = ({ shopId, className = '' }) => {
                 toggleFavorite(shopId);
             }}
             aria-label={isFavorited ? t('RemoveFavorite') : t('AddFavorite')}
-            className={`flex items-center justify-center rounded-full backdrop-blur-md transition-all duration-200 active:scale-90 ${isFavorited ? 'text-red-500' : 'text-white'
+            className={`flex items-center justify-center rounded-full backdrop-blur-md transition-all duration-200 active:scale-90 ${isFavorited ? 'text-danger' : 'text-white'
                 } ${className}`}
         >
             <HeartIcon filled={isFavorited} />

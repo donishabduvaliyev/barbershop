@@ -18,8 +18,8 @@ const Toast = () => {
         <div className="fixed top-4 left-1/2 z-[10000] w-[92%] max-w-sm animate-toast-in">
             <div
                 className={`flex items-start gap-3 rounded-xl shadow-lg px-4 py-3 backdrop-blur-xl border ${isError
-                        ? 'bg-red-500/90 border-red-400 text-white'
-                        : 'bg-emerald-500/90 border-emerald-400 text-white'
+                        ? 'bg-danger/90 border-danger text-white'
+                        : 'bg-success/90 border-success text-white'
                     }`}
             >
                 <span className="text-lg leading-none">{isError ? '⚠️' : '✅'}</span>

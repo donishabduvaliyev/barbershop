@@ -53,14 +53,14 @@ export const BookingSkeleton = () => (
 
 export const ProfileSkeleton = () => (
     <div className="max-w-4xl mx-auto px-4 pb-28">
-        <div className="flex items-center space-x-4 p-4 bg-white dark:bg-zinc-900 rounded-2xl my-4 shadow-sm">
+        <div className="flex items-center space-x-4 p-4 bg-surface rounded-2xl my-4 shadow-sm">
             <Skeleton className="w-16 h-16 rounded-full" />
             <div className="flex-1 space-y-2">
                 <Skeleton className="h-4 w-32" />
                 <Skeleton className="h-3 w-24" />
             </div>
         </div>
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm overflow-hidden divide-y divide-zinc-100 dark:divide-zinc-800">
+        <div className="bg-surface rounded-2xl shadow-sm overflow-hidden divide-y divide-border-soft">
             {[0, 1].map((row) => (
                 <div key={row} className="flex items-center justify-between p-4">
                     <div className="flex items-center space-x-3">

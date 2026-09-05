@@ -27,7 +27,7 @@ const ServicePage = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-black text-zinc-900 dark:text-white min-h-screen">
+    <div className="bg-bg text-text min-h-screen">
       {/* Top Image */}
       <div className="relative w-full h-64 bg-cover bg-center" style={{ backgroundImage: `url(${service.image})` }}>
         <FavoriteButton shopId={service._id} className="absolute top-3 right-3 w-9 h-9 bg-black/30" />
@@ -43,15 +43,15 @@ const ServicePage = () => {
               ⭐
               <span>{service.rating}</span>
             </div>
-            <span className="text-zinc-400 text-[12px]">({service.reviewsCount} {t('reviews')})</span>
+            <span className="text-text-faint text-[12px]">({service.reviewsCount} {t('reviews')})</span>
           </div>
         </div>
 
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">{service.description[lang]}</p>
+        <p className="text-sm text-text-muted">{service.description[lang]}</p>
 
         <div className='flex items-center justify-between mt-2'>
           <div className='flex items-center justify-between'>
-            <div className="text-sm text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+            <div className="text-sm text-text-muted flex items-center gap-2">
               {/* <MapIcon className="w-4 h-4" /> */}
               <LocationMarkerIcon className="w-4 h-4 text-accent" />
               <a
@@ -63,13 +63,13 @@ const ServicePage = () => {
             </div>
           </div>
 
-          <div className="text-sm text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+          <div className="text-sm text-text-muted flex items-center gap-2">
             <PhoneIncomingIcon className="w-4 h-4 text-accent" />
             <a href={`tel: ${service.phone}`} className='hover:text-accent underline' >{service.phone}</a>
           </div>
         </div>
         <div>
-          <div className=" text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+          <div className=" text-text-muted flex items-center gap-2">
             <ClockIcon className="w-4 h-4 text-accent" />
             <p>
               {service.workingHours.from} - {service.workingHours.to}
@@ -92,10 +92,10 @@ const ServicePage = () => {
         <h3 className="text-lg font-semibold mb-2">{t("Services")}</h3>
         <div className="space-y-2">
           {service.services.map((service, idx) => (
-            <div key={idx} className="bg-zinc-100 dark:bg-zinc-900 p-3 rounded-lg flex justify-between items-center">
+            <div key={idx} className="bg-surface p-3 rounded-lg flex justify-between items-center border border-border-soft">
               <div>
                 <h4 className="font-medium">{service.name[lang]}</h4>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                <p className="text-xs text-text-muted">
                   {t("Duration")}: {service.durationMinutes} {t("minutes")}
                 </p>
               </div>
@@ -139,9 +139,9 @@ const ServicePage = () => {
                   onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/d1d5db/374151?text=%F0%9F%92%88'; }}
                 />
                 <p className="text-sm font-medium mt-2 truncate w-full">{member.name}</p>
-                {member.title && <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate w-full">{member.title}</p>}
+                {member.title && <p className="text-xs text-text-muted truncate w-full">{member.title}</p>}
                 {member.reviewsCount > 0 && (
-                  <p className="text-xs text-amber-500 mt-0.5">⭐ {member.rating.toFixed(1)}</p>
+                  <p className="text-xs text-warning mt-0.5">⭐ {member.rating.toFixed(1)}</p>
                 )}
               </div>
             ))}
