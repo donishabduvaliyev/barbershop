@@ -16,7 +16,7 @@ import { useAppContext } from "../context/context";
 // --- CUSTOM ICONS ---
 const createCustomIcon = (icon) => {
   return L.divIcon({
-    html: `<div class="p-2 bg-white/80 dark:bg-zinc-800/80 backdrop-blur-md rounded-full shadow-lg">${icon}</div>`,
+    html: `<div class="p-2 bg-surface/80 backdrop-blur-md rounded-full shadow-lg">${icon}</div>`,
     className: 'bg-transparent border-0',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
@@ -56,16 +56,16 @@ const LocationMarker = ({ setUserLocation, setLocationError, mapRef }) => {
 const ServiceDetailCard = ({ service, onClose , navigate }) => {
   if (!service) return null;
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-[1001] p-4 animate-slide-up-fast">
-      <div className="bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden">
+    <div className="absolute bottom-24 left-0 right-0 z-[1001] p-4 animate-slide-up-fast">
+      <div className="bg-surface/90 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden">
         <div className="h-32 w-full">
           <img src={service.image} alt={service.name.uz} className="w-full h-full object-cover" />
         </div>
         <div className="p-4">
-          <h3 className="font-bold text-xl text-zinc-900 dark:text-white">{service.name.uz}</h3>
+          <h3 className="font-bold text-xl text-text">{service.name.uz}</h3>
           <p className="font-semibold text-accent text-sm mb-2">{service.category}</p>
-          <p className="text-sm text-zinc-600 dark:text-zinc-300 mb-4">{service.description.uz}</p>
-          <button onClick={()=>navigate(`/service/${service._id}`)} className="w-full py-2 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition">View Details</button>
+          <p className="text-sm text-text-muted mb-4">{service.description.uz}</p>
+          <button onClick={()=>navigate(`/service/${service._id}`)} className="w-full py-2 bg-accent text-black font-semibold rounded-lg hover:bg-accent-hover transition">View Details</button>
         </div>
         <button onClick={onClose} className="absolute top-2 right-2 p-1 bg-black/20 rounded-full text-white">&times;</button>
       </div>
@@ -159,7 +159,7 @@ const MapView = () => {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col bg-zinc-100 dark:bg-black font-sans relative overflow-hidden">
+    <div className="h-screen w-full flex flex-col bg-bg font-sans relative overflow-hidden">
       {/* Header with Filters */}
       <header className="absolute top-0 left-0 right-0 z-[1001] p-3">
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
@@ -168,8 +168,8 @@ const MapView = () => {
               key={cat}
               onClick={() => setCategory(cat)}
               className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 whitespace-nowrap shadow-md ${category === cat
-                  ? "bg-accent text-white"
-                  : "bg-white/70 dark:bg-zinc-800/70 backdrop-blur-md text-zinc-800 dark:text-zinc-200 hover:bg-white/90"
+                  ? "bg-accent text-black"
+                  : "bg-surface/70 backdrop-blur-md text-text hover:bg-surface"
                 }`}
             >
               {cat}

@@ -73,7 +73,7 @@ export const BottomNav = () => {
   const active = navItems.find(item => item.link === location.pathname)?.key;
 
   return (
-    <div className="sticky bottom-4 left-4 right-4 h-15 bg-white/70 dark:bg-zinc-800/80 backdrop-blur-xl rounded-2xl shadow-lg shadow-black/10 border border-black/5 dark:border-white/10">
+    <div className="fixed bottom-4 left-4 right-4 z-30 h-15 bg-surface/80 backdrop-blur-xl rounded-2xl shadow-lg shadow-black/10 border border-border-soft">
       <div className="flex justify-around items-center h-full max-w-md mx-auto">
         {navItems.map(item => {
           const Icon = item.icon;
@@ -82,7 +82,7 @@ export const BottomNav = () => {
             <NavLink
               key={item.id}
               to={item.link}
-              className={`relative flex flex-col items-center justify-center space-y-1 transition-all duration-300 ease-out transform ${isActive ? 'text-accent scale-110' : 'text-zinc-400 hover:text-accent active:scale-90'
+              className={`relative flex flex-col items-center justify-center space-y-1 transition-all duration-300 ease-out transform ${isActive ? 'text-accent scale-110' : 'text-text-faint hover:text-accent active:scale-90'
                 }`}
             >
               <Icon />

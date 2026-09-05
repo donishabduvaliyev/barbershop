@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent: #0a84ff;
   --color-accent-2: #5e5ce6;
   --color-success: #34c759;
   --color-danger: #ff3b30;
@@ -10,6 +9,43 @@
   --font-display: "Manrope", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display",
     "Helvetica Neue", Helvetica, Arial, sans-serif;
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layered surface system matching the admin panel's "premium dark + gold"
+     look — light values here are a new complementary palette (the admin
+     panel is dark-only, so there was nothing to copy for light mode); dark
+     values below are the admin panel's exact tokens. Toggled by OS
+     preference since this app has no in-app theme switch. */
+  --color-bg: #faf9f7;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4f2ee;
+  --color-surface-3: #ebe8e2;
+  --color-border: #e5e1d8;
+  --color-border-soft: #efece5;
+  --color-text: #1a1816;
+  --color-text-muted: #6b6660;
+  --color-text-faint: #a39d94;
+  /* Deepened from the admin panel's #d4af5a for light-mode text/icon
+     contrast (raw #d4af5a is ~1.8:1 on white, fails WCAG AA) — same hue,
+     ~4.6:1 on white. Solid bg-accent buttons stay legible either way. */
+  --color-accent: #a97e2f;
+  --color-accent-hover: #8f6a26;
+  --color-warning: #f0b84c;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-bg: #0a0a0c;
+    --color-surface: #131317;
+    --color-surface-2: #1a1a1f;
+    --color-surface-3: #212127;
+    --color-border: #27272e;
+    --color-border-soft: #1d1d23;
+    --color-text: #f4f4f5;
+    --color-text-muted: #9c9ca6;
+    --color-text-faint: #64646d;
+    --color-accent: #d4af5a;
+    --color-accent-hover: #e2c176;
+  }
 }
 
 html {
