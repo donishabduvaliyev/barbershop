@@ -115,10 +115,16 @@ button:active {
   animation: shimmer 1.6s ease-in-out infinite;
 }
 
-/* Route-level fade for a smoother feel between pages */
+/* Route-level fade for a smoother feel between pages. Deliberately
+   opacity-only — animating `transform` here (even a resting translateY(0))
+   leaves a lingering non-`none` transform once the `forwards` fill-mode
+   holds the final frame, which creates an unintended CSS stacking context
+   on this wrapper. That trapped any high-z-index modal rendered inside it
+   (e.g. Booking's time-picker sheet) so it could no longer out-rank a
+   sibling fixed element like the bottom nav, regardless of z-index. */
 @keyframes pageIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 .animate-pageIn {
   animation: pageIn 0.28s var(--ease-premium) forwards;
