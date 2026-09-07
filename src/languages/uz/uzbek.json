@@ -108,5 +108,6 @@
     "ClearSearch": "Tozalash",
     "PleaseEnterService": "Iltimos, kerakli xizmatni kiriting.",
     "PleaseSelectDateAndTime": "Iltimos, sana va vaqtni tanlang.",
-    "AvailableNowFetchError": "Mavjudlikni qidirib bo'lmadi. Qaytadan urinib ko'ring."
+    "AvailableNowFetchError": "Mavjudlikni qidirib bo'lmadi. Qaytadan urinib ko'ring.",
+    "PickACategory": "Toifani tanlang"
 }

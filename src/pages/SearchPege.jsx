@@ -13,12 +13,52 @@ const StarIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w
 
 const BoltIcon = ({ className = "w-5 h-5" }) => (<svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M11.983 1.907a.75.75 0 00-1.292-.657L4.42 10.108a.75.75 0 00.585 1.217h4.077l-1.056 6.85a.75.75 0 001.292.657l6.271-8.858a.75.75 0 00-.585-1.217h-4.077l1.056-6.85z" clipRule="evenodd" /></svg>);
 
-// Bottom sheet where the customer picks a service + date + hour and
+// Same category set as the page's own browse filter below — kept as one
+// shared list so "Find available now" and normal browsing never drift.
+const SHOP_CATEGORIES = ['Barbershop', 'Nail Salon', 'Hair Salon', 'Massage Therapy', 'Beauty Spas'];
+
+// Services have no shared taxonomy across shops (each owner types a
+// service name freely — see routes/superAdmin.js/Services.jsx elsewhere in
+// this codebase) — this is a curated list of common service names per
+// category, per language, used purely as tap-to-fill suggestions for the
+// cross-shop search below (POST /available-now still does a substring
+// match, so "Haircut" also matches a shop's "Kids Haircut Deluxe" etc.).
+const SERVICE_SUGGESTIONS = {
+  'Barbershop': {
+    en: ['Haircut', 'Beard Trim', 'Shave', 'Hair Wash'],
+    ru: ['Стрижка', 'Оформление бороды', 'Бритьё', 'Мытьё головы'],
+    uz: ['Soch olish', 'Soqol olish', 'Soqol qirish', 'Soch yuvish'],
+  },
+  'Nail Salon': {
+    en: ['Manicure', 'Pedicure', 'Nail Polish', 'Gel Nails'],
+    ru: ['Маникюр', 'Педикюр', 'Покрытие лаком', 'Гель-лак'],
+    uz: ['Manikyur', 'Pedikyur', 'Lak qoplash', 'Gel lak'],
+  },
+  'Hair Salon': {
+    en: ['Haircut', 'Hair Coloring', 'Blowout', 'Hair Treatment'],
+    ru: ['Стрижка', 'Окрашивание', 'Укладка', 'Уход за волосами'],
+    uz: ['Soch olish', "Soch bo'yash", 'Fen bilan turmaklash', 'Soch parvarishi'],
+  },
+  'Massage Therapy': {
+    en: ['Relaxation Massage', 'Deep Tissue Massage', 'Sports Massage'],
+    ru: ['Расслабляющий массаж', 'Глубокий массаж', 'Спортивный массаж'],
+    uz: ['Dam olish massaji', 'Chuqur massaj', 'Sport massaji'],
+  },
+  'Beauty Spas': {
+    en: ['Facial', 'Spa Treatment', 'Skin Care'],
+    ru: ['Уход за лицом', 'Спа-процедура', 'Уход за кожей'],
+    uz: ['Yuz parvarishi', 'Spa protsedura', 'Teri parvarishi'],
+  },
+};
+
+// Bottom sheet where the customer picks a category (which suggests common
+// services for it, tap to fill — no free typing), then a date + hour, and
 // searches every shop for an open slot — reuses the exact portal +
 // slideUp pattern already proven in Booking.jsx's time picker (that file's
 // comment explains a prior stacking-context bug this pattern fixes).
 const AvailableNowSheet = ({ open, onClose, onSearch, isSearching, t, lang }) => {
-  const [queryText, setQueryText] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedHour, setSelectedHour] = useState(null);
 
@@ -29,13 +69,25 @@ const AvailableNowSheet = ({ open, onClose, onSearch, isSearching, t, lang }) =>
     return d;
   }), []);
 
-  // Reset to a fresh default (today, first future hour) every time the
-  // sheet opens, rather than lingering on whatever was picked last time.
+  // Reset to a fresh default every time the sheet opens, rather than
+  // lingering on whatever was picked last time.
   useEffect(() => {
     if (!open) return;
+    setSelectedCategory(null);
+    setSelectedService(null);
     setSelectedDate(dates[0]);
     setSelectedHour(null);
   }, [open, dates]);
+
+  // A service chosen under one category isn't meaningful once the category
+  // changes — the suggestion list (and what's valid) changes with it.
+  useEffect(() => {
+    setSelectedService(null);
+  }, [selectedCategory]);
+
+  const suggestedServices = selectedCategory
+    ? (SERVICE_SUGGESTIONS[selectedCategory]?.[lang] || SERVICE_SUGGESTIONS[selectedCategory]?.en || [])
+    : [];
 
   const hours = React.useMemo(() => {
     if (!selectedDate) return [];
@@ -55,13 +107,13 @@ const AvailableNowSheet = ({ open, onClose, onSearch, isSearching, t, lang }) =>
 
   if (!open) return null;
 
-  const canSearch = queryText.trim().length > 0 && selectedDate && selectedHour !== null && !isSearching;
+  const canSearch = !!selectedService && selectedDate && selectedHour !== null && !isSearching;
 
   const submit = () => {
     if (!canSearch) return;
     const requestedDate = new Date(selectedDate);
     requestedDate.setHours(selectedHour, 0, 0, 0);
-    onSearch(queryText.trim(), requestedDate);
+    onSearch(selectedService, requestedDate);
   };
 
   return createPortal(
@@ -76,16 +128,36 @@ const AvailableNowSheet = ({ open, onClose, onSearch, isSearching, t, lang }) =>
         </div>
         <div className="overflow-y-auto p-4 space-y-4">
           <div>
-            <p className="text-xs font-medium text-text-muted mb-2">{t('WhatServiceNeeded')}</p>
-            <input
-              type="text"
-              value={queryText}
-              onChange={(e) => setQueryText(e.target.value)}
-              placeholder={t('ServiceQueryPlaceholder')}
-              autoFocus
-              className="w-full px-4 py-2.5 text-text bg-surface-2 border-transparent rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent"
-            />
+            <p className="text-xs font-medium text-text-muted mb-2">{t('PickACategory')}</p>
+            <div className="flex flex-wrap gap-2">
+              {SHOP_CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-3 py-1.5 rounded-full border text-sm font-medium transition-all ${selectedCategory === cat ? 'bg-accent text-black border-accent shadow-sm' : 'bg-surface-2/70 text-text-muted border-border hover:border-accent/60'}`}
+                >
+                  {t(cat)}
+                </button>
+              ))}
+            </div>
           </div>
+
+          {selectedCategory && (
+            <div>
+              <p className="text-xs font-medium text-text-muted mb-2">{t('WhatServiceNeeded')}</p>
+              <div className="flex flex-wrap gap-2">
+                {suggestedServices.map((service) => (
+                  <button
+                    key={service}
+                    onClick={() => setSelectedService(service)}
+                    className={`px-3 py-1.5 rounded-full border text-sm font-medium transition-all ${selectedService === service ? 'bg-accent text-black border-accent shadow-sm' : 'bg-surface-2/70 text-text-muted border-border hover:border-accent/60'}`}
+                  >
+                    {service}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div>
             <p className="text-xs font-medium text-text-muted mb-2">{t('PickADate')}</p>
@@ -214,7 +286,7 @@ export default function SearchPage() {
   const [isLoading, setIsLoading] = useState(true);
   const debounceTimeout = useRef(null);
 
-  const categories = ['All', 'Barbershop', 'Nail Salon', 'Hair Salon', 'Massage Therapy', 'Beauty Spas'];
+  const categories = ['All', ...SHOP_CATEGORIES];
 
 
   useEffect(() => {

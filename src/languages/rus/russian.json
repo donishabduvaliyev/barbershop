@@ -110,5 +110,6 @@
     "ClearSearch": "Очистить",
     "PleaseEnterService": "Пожалуйста, укажите нужную услугу.",
     "PleaseSelectDateAndTime": "Пожалуйста, выберите дату и время.",
-    "AvailableNowFetchError": "Не удалось выполнить поиск. Попробуйте снова."
+    "AvailableNowFetchError": "Не удалось выполнить поиск. Попробуйте снова.",
+    "PickACategory": "Выберите категорию"
 }

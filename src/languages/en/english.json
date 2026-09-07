@@ -108,5 +108,6 @@
     "ClearSearch": "Clear",
     "PleaseEnterService": "Please enter what service you need.",
     "PleaseSelectDateAndTime": "Please select a date and time.",
-    "AvailableNowFetchError": "Couldn't search for availability. Please try again."
+    "AvailableNowFetchError": "Couldn't search for availability. Please try again.",
+    "PickACategory": "Pick a category"
 }
