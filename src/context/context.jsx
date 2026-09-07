@@ -186,6 +186,19 @@ useEffect(() => {
         setBooked((prevBooked) => prevBooked.filter((item) => item !== itemToRemove));
     };
 
+    // Fire-and-forget visit tracking for the super-admin dashboard — never
+    // awaited, never blocks the UI, and a failure here is silently ignored
+    // since it must never affect the customer experience. See
+    // routes/track.js and models/pageView.js in the backend.
+    useEffect(() => {
+        fetch(`${backEndUrl}/api/track`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'app_open', userTelegramId: tg?.initDataUnsafe?.user?.id || null }),
+        }).catch(() => {});
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     // useEffect for local development
 
     useEffect(() => {

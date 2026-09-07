@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useAppContext } from '../context/context';
 import { useTranslation } from "react-i18next";
@@ -10,14 +10,24 @@ import FavoriteButton from '../components/FavoriteButton';
 const ServicePage = () => {
   const { id } = useParams();
   // const service = serviceData.find((s) => s.id === id);
-  const { services, navigate } = useAppContext();
+  const { services, navigate, backEndUrl } = useAppContext();
   console.log(services);
 
   const service = services.find((s) => s._id === id);
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   console.log(service , "service in servicePage.jsx");
-  
+
+  // Fire-and-forget shop-view tracking for the super-admin dashboard — see
+  // routes/track.js / models/pageView.js in the backend.
+  useEffect(() => {
+    if (!service?._id) return;
+    fetch(`${backEndUrl}/api/track`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'shop_view', shopId: service._id }),
+    }).catch(() => {});
+  }, [service?._id]);
 
 
 
