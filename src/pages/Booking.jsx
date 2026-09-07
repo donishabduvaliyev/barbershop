@@ -120,6 +120,21 @@ const Booking = () => {
     fetchShopData();
   }, [serviceId]);
 
+  // Consumes an optional preset passed via navigate(..., { state }) from the
+  // Search page's "Find available now" results (SearchPege.jsx) — deep-links
+  // straight into the date/hour/service the customer already picked there,
+  // instead of making them re-select it. Runs once shop data is in, after
+  // the effect above's default-service-selection, so it correctly overrides
+  // that default when a preset is present. A normal navigation here (e.g.
+  // servicePage.jsx's "Book Now") never sets these state fields, so this is
+  // a no-op for the existing flow.
+  useEffect(() => {
+    if (!shop || !location.state?.presetHour) return;
+    if (location.state.presetDate) setSelectedDate(new Date(location.state.presetDate));
+    setSelectedHour(location.state.presetHour);
+    if (location.state.presetServiceId) setSelectedServiceId(location.state.presetServiceId);
+  }, [shop]);
+
   // --- 2. Generate Dates and Available Times (Now using fetched data) ---
   const dates = useMemo(() => [...Array(4)].map((_, i) => {
     const d = new Date();
