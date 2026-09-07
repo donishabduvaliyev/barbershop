@@ -227,11 +227,17 @@ const Booking = () => {
     return hours;
   }, [selectedDate, shop, effectiveWorkingHours, bookedSlots, staffCount, capacity, selectedStaffId, selectedServiceId]);
 
-  // Auto-select first available hour when date, barber, or availability changes
+  // Auto-select first available hour when date, barber, or availability
+  // changes — but only if the current selection is no longer valid for the
+  // new list. Without this guard, a deep-linked preset hour (see the
+  // preset effect above, which also sets selectedDate in the same update)
+  // gets immediately clobbered back to availableHours[0] the moment this
+  // effect re-runs off the selectedDate change.
   useEffect(() => {
-    if (selectedDate) {
-      setSelectedHour(availableHours.length > 0 ? availableHours[0] : null);
-    }
+    if (!selectedDate) return;
+    if (selectedHour !== null && availableHours.includes(selectedHour)) return;
+    setSelectedHour(availableHours.length > 0 ? availableHours[0] : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDate, availableHours]);
 
 
