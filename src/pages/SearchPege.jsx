@@ -259,6 +259,40 @@ export default function SearchPage() {
   const hasResults = Object.values(shopLists).some(list => Array.isArray(list) && list.length > 0);
   console.log(shopLists);
 
+  const handleAvailableNowSearch = async (serviceQuery, requestedDate) => {
+    setIsAvailableNowLoading(true);
+    try {
+      const response = await fetch(`${backEndUrl}/api/shops/available-now`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ serviceQuery, requestedTime: requestedDate.toISOString() }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.message || 'Search failed.');
+      }
+      const data = await response.json();
+      setAvailableNowResults(data.results || []);
+      setAvailableNowMeta({
+        query: serviceQuery,
+        presetDate: requestedDate.toISOString(),
+        presetHour: `${String(requestedDate.getHours()).padStart(2, '0')}:00`,
+        timeLabel: requestedDate.toLocaleString(lang, { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      });
+      setIsAvailableSheetOpen(false);
+    } catch (error) {
+      console.error('Failed to search availability:', error);
+      showNotification(t('AvailableNowFetchError'), 'error');
+    } finally {
+      setIsAvailableNowLoading(false);
+    }
+  };
+
+  const clearAvailableNow = () => {
+    setAvailableNowResults(null);
+    setAvailableNowMeta(null);
+  };
+
   return (
     <div className="h-screen bg-bg font-sans overflow-y-auto no-scrollbar">
       <header className="sticky top-0 bg-bg/80 backdrop-blur-xl z-20 border-b border-border-soft">
@@ -288,9 +322,47 @@ export default function SearchPage() {
             ))}
           </div>
         </div>
+        <div className="px-4 pb-3">
+          <button
+            onClick={() => setIsAvailableSheetOpen(true)}
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-accent/40 bg-accent/10 text-accent text-sm font-semibold hover:bg-accent/15 transition-colors"
+          >
+            <BoltIcon className="w-4 h-4" />
+            {t('FindAvailableNow')}
+          </button>
+        </div>
       </header>
 
-      {isLoading ? (
+      {availableNowMeta ? (
+        <main className="pb-28 px-4 pt-4">
+          <div className="flex items-center justify-between gap-2 mb-4">
+            <p className="text-sm text-text-muted">
+              {t('AvailableNowResultsTitle', { count: availableNowResults?.length || 0, query: availableNowMeta.query })}
+              {' · '}{availableNowMeta.timeLabel}
+            </p>
+            <button onClick={clearAvailableNow} className="text-xs font-semibold text-accent shrink-0">{t('ClearSearch')}</button>
+          </div>
+          {availableNowResults?.length > 0 ? (
+            <div className="space-y-3">
+              {availableNowResults.map((shop) => (
+                <AvailableShopResultCard
+                  key={shop.shopId}
+                  shop={shop}
+                  lang={lang}
+                  navigate={navigate}
+                  presetDate={availableNowMeta.presetDate}
+                  presetHour={availableNowMeta.presetHour}
+                  t={t}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="py-16 text-center text-text-muted">
+              {t('NoAvailableShopsFound', { query: availableNowMeta.query })}
+            </p>
+          )}
+        </main>
+      ) : isLoading ? (
         <p className="py-16 text-center text-text-muted">{t('Loading')}</p>
       ) : (
         <>
@@ -312,6 +384,14 @@ export default function SearchPage() {
           </main>
         </>
       )}
+      <AvailableNowSheet
+        open={isAvailableSheetOpen}
+        onClose={() => setIsAvailableSheetOpen(false)}
+        onSearch={handleAvailableNowSearch}
+        isSearching={isAvailableNowLoading}
+        t={t}
+        lang={lang}
+      />
       <style>{`.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
     </div>
   );
