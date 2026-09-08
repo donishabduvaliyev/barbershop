@@ -199,6 +199,19 @@ useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // Lands the customer straight on a specific shop's page when the app is
+    // opened via a per-shop QR code — those encode a Telegram Mini App
+    // direct link (t.me/<bot>/<shortname>?startapp=shop_<id>, generated in
+    // the super-admin panel), and Telegram delivers that payload here via
+    // start_param rather than appending it to the loaded URL. Normal app
+    // opens (no start_param) are a no-op.
+    useEffect(() => {
+        const startParam = tg?.initDataUnsafe?.start_param;
+        const match = startParam?.match(/^shop_([a-f0-9]{24})$/);
+        if (match) navigate(`/service/${match[1]}`);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     // useEffect for local development
 
     useEffect(() => {
