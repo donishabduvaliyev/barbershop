@@ -5,20 +5,22 @@ import FavoriteButton from './FavoriteButton';
 const ChevronLeftIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>;
 
 export const FavoritesPage = ({ onBack, telegramId, i18n, t }) => {
-    const { backEndUrl, navigate, favoriteIds } = useAppContext();
+    const { backEndUrl, navigate, favoriteIds, telegramInitData } = useAppContext();
     const [favorites, setFavorites] = useState(null);
     const lang = i18n.language || 'en';
 
     useEffect(() => {
         if (!telegramId) return;
-        fetch(`${backEndUrl}/api/user/favorites/${telegramId}`)
+        fetch(`${backEndUrl}/api/user/favorites/${telegramId}`, {
+            headers: { 'x-telegram-init-data': telegramInitData },
+        })
             .then((res) => res.json())
             .then((data) => setFavorites(data.favorites || []))
             .catch((err) => {
                 console.error('Failed to load favorites', err);
                 setFavorites([]);
             });
-    }, [telegramId, backEndUrl]);
+    }, [telegramId, backEndUrl, telegramInitData]);
 
     // Re-filter locally whenever a heart gets toggled elsewhere/here, so an
     // unfavorited shop disappears immediately without another round-trip.

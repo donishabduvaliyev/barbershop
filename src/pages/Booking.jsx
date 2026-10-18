@@ -194,16 +194,15 @@ const Booking = () => {
     }
 
     const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
-    const schedule = effectiveWorkingHours.find(wh => wh.days.includes(dayName));
-    if (!schedule) return [];
+    // A day can have more than one working-hours entry (a lunch break splits
+    // it into two ranges, e.g. 09:00-13:00 and 14:00-21:00) — matches the
+    // backend's utils/bookingTime.js schedulesForDay exactly. Using only the
+    // first match here previously hid every slot after the break entirely.
+    const schedules = effectiveWorkingHours.filter(wh => wh.days.includes(dayName));
+    if (schedules.length === 0) return [];
 
     const now = new Date();
     const isToday = selectedDate.toDateString() === now.toDateString();
-
-    const [fromHour] = schedule.from.split(':').map(Number);
-    const [toHour] = schedule.to.split(':').map(Number);
-
-    const startHour = isToday ? Math.max(fromHour, now.getHours() + 1) : fromHour;
 
     const dateKey = toDateKey(selectedDate);
     const selectedMember = selectedStaffId ? shop.staff?.find((m) => m._id === selectedStaffId) : null;
@@ -217,14 +216,19 @@ const Booking = () => {
         ).length
       : staffCount;
 
-    const hours = [];
-    for (let h = startHour; h < toHour; h++) {
-      if (!isHourTaken(bookedSlots, selectedDate, h, selectedStaffId, workingStaffCount, capacity, isStaffOff)) {
-        hours.push(`${pad(h)}:00`);
+    const hours = new Set();
+    for (const schedule of schedules) {
+      const [fromHour] = schedule.from.split(':').map(Number);
+      const [toHour] = schedule.to.split(':').map(Number);
+      const startHour = isToday ? Math.max(fromHour, now.getHours() + 1) : fromHour;
+      for (let h = startHour; h < toHour; h++) {
+        if (!isHourTaken(bookedSlots, selectedDate, h, selectedStaffId, workingStaffCount, capacity, isStaffOff)) {
+          hours.add(h);
+        }
       }
     }
 
-    return hours;
+    return [...hours].sort((a, b) => a - b).map((h) => `${pad(h)}:00`);
   }, [selectedDate, shop, effectiveWorkingHours, bookedSlots, staffCount, capacity, selectedStaffId, selectedServiceId]);
 
   // Auto-select first available hour when date, barber, or availability

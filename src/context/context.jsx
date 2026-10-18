@@ -144,32 +144,27 @@ useEffect(() => {
         // Call the function
     }, []);
     useEffect(() => {
-
-        console.log(tg?.initDataUnsafe?.user?.id);
-
-
-        const telegramIdfromTelegram = tg?.initDataUnsafe?.user?.id;
-
-        if (telegramIdfromTelegram) {
+        // The backend verifies telegramInitData itself and derives the
+        // caller's own id from it — never trust a client-supplied id for a
+        // request that returns personal data (name/phone/email/favorites).
+        if (telegramInitData) {
             fetch(`${backEndUrl}/api/user/get-user`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: telegramIdfromTelegram })
+                body: JSON.stringify({ initData: telegramInitData })
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log("User from DB:", data.user);
                     setUserInfo(data.user);
-                    // Now you can display the user info in the UI
                 })
                 .catch(err => console.error("Error fetching user:", err));
         } else {
-            console.error("No Telegram ID found");
+            console.error("No Telegram init data found");
         }
 
 
 
-    }, [])
+    }, [telegramInitData])
 
 
     const loggedInTelegramId = userInfo ? userInfo.telegramId : 123456789;

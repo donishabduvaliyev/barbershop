@@ -27,3 +27,4 @@ src/Mock-test-variations
 
 # Local backend URL (ngrok tunnel changes on every restart)
 .env
+.agents

@@ -246,9 +246,13 @@ const AvailableShopResultCard = ({ shop, lang, navigate, presetDate, presetHour,
 
 const AdCarousel = ({ services, lang, navigate }) => { const [currentIndex, setCurrentIndex] = useState(0); const timeoutRef = useRef(null); useEffect(() => { const resetTimeout = () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }; resetTimeout(); timeoutRef.current = setTimeout(() => setCurrentIndex((prevIndex) => (prevIndex === services.length - 1 ? 0 : prevIndex + 1)), 3500); return () => resetTimeout(); }, [currentIndex, services.length]); if (!services || services.length === 0) return null; return (<div className="relative h-48 w-full overflow-hidden"> <div className="absolute inset-0 flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}> {services.map(service => (<div key={service.id} onClick={() => navigate(`/service/${service.id}`)} className="relative w-full flex-shrink-0"> <img src={service.image} alt={service.name[lang]} className="w-full h-full object-cover" /> <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div> <div className="absolute top-3 left-3 bg-black/60 text-white text-xs font-bold px-2 py-1 rounded-full z-10 backdrop-blur-sm">Ad</div> <div className="absolute bottom-0 left-0 p-4 text-white"> <h3 className="font-bold text-xl">{service.name[lang]}</h3> <p className="text-sm opacity-80">{service.category}</p> </div> </div>))} </div> <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-2"> {services.map((_, idx) => (<div key={idx} className={`w-2 h-2 rounded-full transition-colors ${currentIndex === idx ? 'bg-white' : 'bg-white/50'}`}></div>))} </div> </div>); };
 
-const ServiceCard = ({ service, lang, navigate }) => (<div onClick={() => navigate(`/service/${service._id}`)} className="w-44 flex-shrink-0 group cursor-pointer"> <div className="relative rounded-2xl overflow-hidden shadow-sm transition-transform group-hover:-translate-y-1"> <img src={service.image} alt={service.name[lang]} className="w-full h-28 object-cover" /> {service.isEditorsChoice && <div className="absolute top-2 left-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded-full">Editor's Choice</div>} <FavoriteButton shopId={service._id} className="absolute top-2 right-2 w-7 h-7 bg-black/30" /> </div> <div className="pt-2 px-1"> <h4 className="font-semibold text-sm text-text truncate">{service.name[lang]}</h4> <div className="flex items-center justify-between mt-1 text-xs text-text-muted"> <span>{service.category}</span> <span className="flex items-center font-medium"><StarIcon /><span className="ml-1">{service.rating}</span></span> </div> </div> </div>);
+// `badge`, when passed, is the shelf's own label — a shop earns the ribbon
+// by being curated into that shelf (see routes/superAdminCategories.js),
+// not from a standalone per-shop flag, so it always matches what the admin
+// actually configured rather than a boolean that could drift from it.
+const ServiceCard = ({ service, lang, navigate, badge }) => (<div onClick={() => navigate(`/service/${service._id}`)} className="w-44 flex-shrink-0 group cursor-pointer"> <div className="relative rounded-2xl overflow-hidden shadow-sm transition-transform group-hover:-translate-y-1"> <img src={service.image} alt={service.name[lang]} className="w-full h-28 object-cover" /> {badge && <div className="absolute top-2 left-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded-full">{badge}</div>} <FavoriteButton shopId={service._id} className="absolute top-2 right-2 w-7 h-7 bg-black/30" /> </div> <div className="pt-2 px-1"> <h4 className="font-semibold text-sm text-text truncate">{service.name[lang]}</h4> <div className="flex items-center justify-between mt-1 text-xs text-text-muted"> <span>{service.category}</span> <span className="flex items-center font-medium"><StarIcon /><span className="ml-1">{service.rating}</span></span> </div> </div> </div>);
 
-const HorizontalCarousel = ({ title, services, lang, navigate }) => { if (!services || services.length === 0) return null; return (<div className="my-6"> <h2 className="font-bold text-xl text-text px-4 mb-3">{title}</h2> <div className="flex space-x-4 overflow-x-auto pb-4 -mx-4 px-4 no-scrollbar"> {services.map(service => <ServiceCard key={service._id} service={service} lang={lang} navigate={navigate} />)} </div> </div>); };
+const HorizontalCarousel = ({ title, services, lang, navigate, badge }) => { if (!services || services.length === 0) return null; return (<div className="my-6"> <h2 className="font-bold text-xl text-text px-4 mb-3">{title}</h2> <div className="flex space-x-4 overflow-x-auto pb-4 -mx-4 px-4 no-scrollbar"> {services.map(service => <ServiceCard key={service._id} service={service} lang={lang} navigate={navigate} badge={badge} />)} </div> </div>); };
 
 export default function SearchPage() {
   const [searchParams] = useSearchParams();
@@ -275,12 +279,12 @@ export default function SearchPage() {
   useEffect(() => {
     if (categoryFromUrl) setActiveCategory(categoryFromUrl);
   }, [categoryFromUrl]);
+  // `categories` is a dynamic, admin-curated list of shelves (see
+  // routes/superAdminCategories.js) — each one carries its own label/icon,
+  // so this page no longer hardcodes which shelves exist or their titles.
   const [shopLists, setShopLists] = useState({
     advertisedShops: [],
-    editorsChoiceShops: [],
-    topRatedShops: [],
-    bestPriceShops: [],
-    nearYouShops: [],
+    categories: [],
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -328,8 +332,7 @@ export default function SearchPage() {
 
   }, [searchTerm, activeCategory]);
 
-  const hasResults = Object.values(shopLists).some(list => Array.isArray(list) && list.length > 0);
-  console.log(shopLists);
+  const hasResults = shopLists.advertisedShops.length > 0 || shopLists.categories.some((cat) => cat.shops.length > 0);
 
   const handleAvailableNowSearch = async (serviceQuery, requestedDate) => {
     setIsAvailableNowLoading(true);
@@ -442,10 +445,16 @@ export default function SearchPage() {
           <main className="pb-28">
             {hasResults ? (
               <>
-                <HorizontalCarousel title={t("Editor's Choice")} services={shopLists.editorsChoiceShops} lang={lang} navigate={navigate} />
-                <HorizontalCarousel title={t("Top Rated")} services={shopLists.topRatedShops} lang={lang} navigate={navigate} />
-                <HorizontalCarousel title={t("Best Prices")} services={shopLists.bestPriceShops} lang={lang} navigate={navigate} />
-                <HorizontalCarousel title={t("Near You")} services={shopLists.nearYouShops} lang={lang} navigate={navigate} />
+                {shopLists.categories.map((cat) => (
+                  <HorizontalCarousel
+                    key={cat.key}
+                    title={`${cat.icon ? `${cat.icon} ` : ''}${cat.label?.[lang] || cat.label?.en || cat.key}`}
+                    services={cat.shops}
+                    lang={lang}
+                    navigate={navigate}
+                    badge={cat.key === 'editors-choice' ? (cat.label?.[lang] || cat.label?.en) : null}
+                  />
+                ))}
               </>
             ) : (
               <p className="py-16 text-center text-text-muted">

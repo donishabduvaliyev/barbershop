@@ -18,7 +18,7 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeSubPage, setActiveSubPage] = useState(null);
-    const {backEndUrl} = useAppContext()
+    const {backEndUrl, telegramInitData} = useAppContext()
 
     useEffect(() => {
         if (!isOpen) return;
@@ -26,7 +26,9 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
             try {
                 setIsLoading(true);
                 setError(null);
-                const response = await fetch(`${backEndUrl}/api/user/profile/${telegramId}`);
+                const response = await fetch(`${backEndUrl}/api/user/profile/${telegramId}`, {
+                    headers: { 'x-telegram-init-data': telegramInitData },
+                });
                 if (!response.ok) {
                     throw new Error('Failed to fetch profile data.');
                 }
