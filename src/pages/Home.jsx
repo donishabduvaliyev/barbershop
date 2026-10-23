@@ -8,9 +8,11 @@ import LanguageToggleButton from '../components/languageDropdown.jsx';
 import { ProfilePage } from './Profile.jsx';
 
 const UserIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" className="w-9 h-9 text-text-faint border border-border rounded-full p-1">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-    </svg>
+    <div className="w-10 h-10 rounded-full bg-surface-2 border border-border flex items-center justify-center text-accent shadow-sm hover:border-accent/60 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+    </div>
 );
 
 
@@ -27,22 +29,27 @@ const Home = () => {
     const userName = user ? user.name : 'Guest';
 
     return (
-        <div className="h-screen bg-bg font-sans overflow-y-auto no-scrollbar">
+        <div className="min-h-screen bg-bg font-sans overflow-y-auto no-scrollbar">
             {/* Sticky header with blur */}
-            <header className="sticky top-0 bg-bg/80 backdrop-blur-xl z-20 border-b border-border-soft">
+            <header className="sticky top-0 bg-bg/90 backdrop-blur-xl z-20 border-b border-border-soft">
 
                 {/* Top row: Profile + Greeting + Actions */}
                 <div className="p-3 flex justify-between items-center">
                     <div className="flex items-center gap-3">
-                        <span onClick={() => setIsProfileOpen(true)} className="cursor-pointer">
+                        <button 
+                            type="button" 
+                            onClick={() => setIsProfileOpen(true)} 
+                            className="press-spring cursor-pointer focus:outline-none"
+                            aria-label="Open profile"
+                        >
                             <UserIcon />
-                        </span>
+                        </button>
                         <div className="flex flex-col leading-tight">
-                            <h1 className="text-xs text-text-muted">
-                                {t('welcome_message')} {userName}
-                            </h1>
-                            <h1 className="text-xs font-semibold text-text">
-                                {t("greeting")}
+                            <span className="text-[11px] font-medium uppercase tracking-wider text-accent">
+                                {t('welcome_message')}
+                            </span>
+                            <h1 className="text-sm font-semibold text-text truncate max-w-[180px]">
+                                {userName}
                             </h1>
                         </div>
                     </div>

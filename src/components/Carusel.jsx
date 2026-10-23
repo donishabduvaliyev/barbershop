@@ -21,29 +21,32 @@ const ServiceCarousel = ({ selected, onSelect }) => {
 
 
   return (
-    <div className="mt-4 px-4 overflow-x-auto whitespace-nowrap">
-      <div className="flex space-x-3">
-           <button
+    <div className="mt-2 px-3 overflow-x-auto whitespace-nowrap scrollbar-hide py-1">
+      <div className="flex space-x-2">
+        <button
+          type="button"
           onClick={ButtonAllclicked}
-          className={`px-4 py-2 rounded-full text-sm flex items-center space-x-1 border transition-all duration-200 whitespace-nowrap active:scale-90
+          className={`px-3.5 py-1.5 rounded-full text-xs font-medium flex items-center space-x-1.5 border press-spring transition-all duration-200 whitespace-nowrap cursor-pointer
             ${selectedId === "All"
-              ? "text-black border-transparent bg-accent shadow-sm"
-              : "text-text-muted bg-surface-2 border-transparent"
+              ? "text-bg bg-accent border-accent/60 shadow-sm shadow-accent/25 font-semibold"
+              : "text-text-muted bg-surface-2 border-border-soft hover:text-text hover:border-border"
             }`}
         >
+          <span>✨</span>
           <span>{t("FullCategories")}</span>
         </button>
         {categories.map((service) => (
           <button
+            type="button"
             key={service.id}
-            onClick={()=> Buttonclicked(service.id, service.title.en)}
-            className={`px-4 py-2 rounded-full text-sm flex items-center space-x-1 border transition-all duration-200 whitespace-nowrap active:scale-90
+            onClick={() => Buttonclicked(service.id, service.title.en)}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium flex items-center space-x-1.5 border press-spring transition-all duration-200 whitespace-nowrap cursor-pointer
               ${selectedId === service.id
-                ? "text-black border-transparent bg-accent shadow-sm"
-                : "text-text-muted bg-surface-2 border-transparent"
+                ? "text-bg bg-accent border-accent/60 shadow-sm shadow-accent/25 font-semibold"
+                : "text-text-muted bg-surface-2 border-border-soft hover:text-text hover:border-border"
               }`}
           >
-            <span>{service.icon}</span>
+            <span className="text-sm">{service.icon}</span>
             <span>{service.title[lang]}</span>
           </button>
         ))}

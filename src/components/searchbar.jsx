@@ -24,29 +24,38 @@ const SearchBar = () => {
 
 
   return (
-    <div className="p-4 flex items-center space-x-3">
-
-      <div className="relative flex-grow">
-        <div className="absolute z-10 top-[25%]  left-0 pl-3  pointer-events-none"><SearchIcon className="w-5 h-5 text-text-faint" /></div>
-        <form action="" onSubmit={handleHomeSearch}
-          className="flex items-center space-x-3 relative">
-
-
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder={t('Search for salons, spas, etc.')}
-            className=" w-full pl-10 pr-4 py-3 text-text bg-surface-2 border-transparent rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent"
-          />
-          <button type="submit"
-            className=" absolute right-[5%]    bg-accent text-black px-2 py-1 rounded-xl hover:bg-accent-hover transition-colors duration-200"
-          >{t('search')}</button>
-
-        </form>
-
-
-      </div>
+    <div className="px-1 py-1">
+      <form onSubmit={handleHomeSearch} className="relative flex items-center">
+        <div className="absolute left-3.5 z-10 pointer-events-none flex items-center text-accent">
+          <SearchIcon className="w-4 h-4" />
+        </div>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder={t('Search for salons, spas, etc.')}
+          className="w-full pl-10 pr-24 py-2.5 text-xs text-text bg-surface-2 border border-border-soft rounded-2xl focus:outline-none focus:border-accent/70 focus:ring-1 focus:ring-accent/30 placeholder:text-text-faint transition-all duration-200"
+        />
+        <div className="absolute right-1.5 flex items-center space-x-1">
+          {searchTerm.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setSearchTerm('')}
+              className="p-1 text-text-faint hover:text-text press-spring cursor-pointer rounded-full"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+          <button
+            type="submit"
+            className="bg-accent text-bg px-3 py-1.5 rounded-xl text-xs font-semibold hover:bg-accent-hover press-spring shadow-sm shadow-accent/20 cursor-pointer"
+          >
+            {t('search')}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

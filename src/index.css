@@ -9,6 +9,10 @@
   --font-display: "Manrope", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display",
     "Helvetica Neue", Helvetica, Arial, sans-serif;
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  --spring-snappy: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   /* Layered surface system matching the admin panel's "premium dark + gold"
      look — light values here are a new complementary palette (the admin
@@ -129,3 +133,28 @@ button:active {
 .animate-pageIn {
   animation: pageIn 0.28s var(--ease-premium) forwards;
 }
+
+/* Emil Kowalski Card Lift & Spring Micro-interactions */
+.card-lift {
+  transition: transform 0.2s var(--ease-out-quint), box-shadow 0.2s var(--ease-out-quint), border-color 0.2s var(--ease-out-quint);
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.35);
+  border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border));
+}
+
+.press-spring {
+  transition: transform 0.12s var(--ease-out-quint), opacity 0.12s var(--ease-out-quint);
+}
+.press-spring:active {
+  transform: scale(0.97);
+}
+
+.glass-pill {
+  background: color-mix(in srgb, var(--color-surface) 75%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-soft);
+}
+
