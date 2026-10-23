@@ -185,10 +185,14 @@ const MapView = () => {
         style={{ height: '100%', width: '100%', zIndex: 0 }}
         zoomControl={false} // Disable default zoom control
       >
-        {/* CARTO Voyager Tile Layer with verified API Key */}
+        {/* CARTO Voyager Tile Layer (or OpenStreetMap fallback if no key) */}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url={`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=${import.meta.env.VITE_CARTO_API_KEY || 'cb1_4svh_1_148b6eef82b39fbd2cd85f4b'}`}
+          url={
+            import.meta.env.VITE_CARTO_API_KEY
+              ? `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=${import.meta.env.VITE_CARTO_API_KEY}`
+              : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          }
         />
 
         <LocationMarker
