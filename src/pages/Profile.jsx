@@ -51,7 +51,7 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
 
     const renderSubPage = () => {
         switch (activeSubPage) {
-            case 'userInfo': return <UserInfoPage onBack={() => setActiveSubPage(null)} user={user} t={t} />;
+            case 'userInfo': return <UserInfoPage onBack={() => setActiveSubPage(null)} user={user} bookings={bookings} t={t} />;
             case 'bookingHistory': return <BookingHistoryPage onBack={() => setActiveSubPage(null)} bookings={bookings} t={t} />;
             case 'favorites': return <FavoritesPage onBack={() => setActiveSubPage(null)} telegramId={telegramId} i18n={i18n} t={t} />;
             default: return null;
@@ -75,15 +75,42 @@ export const ProfilePage = ({ isOpen, onClose, telegramId, i18n, t }) => {
                         <div className="flex items-center justify-center py-24 text-text-muted">{t('ProfileError')}</div>
                     ) : (
                         <main className="max-w-4xl mx-auto px-4 pb-28 animate-pageIn">
-                            <div className="flex items-center space-x-4 p-4 text-text-muted bg-surface rounded-2xl my-4 shadow-sm">
-                                <img src={user.avatar} alt="User Avatar" className="w-16 h-16 rounded-full" />
-                                <div>
-                                    <p className="font-bold text-lg text-text">{user.name}</p>
-                                    <p className="text-sm text-text-muted">{user.phone || t('NoPhone')}</p>
+                            <div className="flex items-center space-x-4 p-4 text-text bg-surface border border-border-soft rounded-2xl my-4 shadow-sm">
+                                <img
+                                    src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'U')}&background=D4AF5A&color=0A0A0C`}
+                                    alt="User Avatar"
+                                    className="w-16 h-16 rounded-full object-cover shrink-0"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'U')}&background=D4AF5A&color=0A0A0C`;
+                                    }}
+                                />
+                                <div className="min-w-0 flex-1">
+                                    <p className="font-bold text-lg text-text truncate">{user.name}</p>
+                                    <p className="text-sm text-text-muted font-mono">{user.phone || t('NoPhone', 'Telefon raqam kiritilmagan')}</p>
+                                    {user.username && <p className="text-xs text-accent mt-0.5">@{user.username}</p>}
                                 </div>
                             </div>
 
-                            <div className="bg-surface text-text rounded-2xl shadow-sm overflow-hidden">
+                            {/* Refined Quick Summary KPIs */}
+                            <div className="grid grid-cols-3 gap-2.5 mb-4 text-center">
+                                <div className="bg-surface border border-border-soft rounded-xl p-3 shadow-sm">
+                                    <span className="text-[11px] text-text-muted block font-medium">{t('TotalVisits', 'Jami tashrif')}</span>
+                                    <span className="text-lg font-bold text-text tabular-nums">{bookings.length}</span>
+                                </div>
+                                <div className="bg-surface border border-border-soft rounded-xl p-3 shadow-sm">
+                                    <span className="text-[11px] text-text-muted block font-medium">{t('Completed', 'Bajarilgan')}</span>
+                                    <span className="text-lg font-bold text-emerald-400 tabular-nums">
+                                        {bookings.filter(b => b.status === 'completed').length}
+                                    </span>
+                                </div>
+                                <div className="bg-surface border border-border-soft rounded-xl p-3 shadow-sm">
+                                    <span className="text-[11px] text-text-muted block font-medium">{t('Favorites', 'Sevimlilar')}</span>
+                                    <span className="text-lg font-bold text-accent tabular-nums">{user.favorites?.length || 0}</span>
+                                </div>
+                            </div>
+
+                            <div className="bg-surface text-text rounded-2xl shadow-sm overflow-hidden border border-border-soft">
                                 <ul className="divide-y divide-border-soft">
                                     <li><button onClick={() => setActiveSubPage('userInfo')} className="w-full flex justify-between items-center p-4 hover:bg-surface-2 transition-colors"><div className="flex items-center space-x-3"><UserCircleIcon /><span>{t('MyDetails')}</span></div><ChevronRightIcon /></button></li>
                                     <li><button onClick={() => setActiveSubPage('bookingHistory')} className="w-full flex justify-between items-center p-4 hover:bg-surface-2 transition-colors"><div className="flex items-center space-x-3"><ClockIcon /><span>{t('BookingHistory')}</span></div><ChevronRightIcon /></button></li>
