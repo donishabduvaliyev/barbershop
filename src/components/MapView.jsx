@@ -53,21 +53,82 @@ const LocationMarker = ({ setUserLocation, setLocationError, mapRef }) => {
   return null;
 };
 
-const ServiceDetailCard = ({ service, onClose , navigate }) => {
+const ServiceDetailCard = ({ service, onClose, navigate, lang = 'uz', t }) => {
   if (!service) return null;
+  const name = service.name?.[lang] || service.name?.uz || service.name?.en || service.name;
+  const desc = service.description?.[lang] || service.description?.uz || service.description?.en || '';
+  const coords = service.location?.coordinates;
+  const lat = coords?.[1] || 41.3111;
+  const lng = coords?.[0] || 69.2797;
+
+  const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+  const yandexMapsUrl = `https://yandex.uz/maps/?text=${encodeURIComponent(service.address || name)}&ll=${lng},${lat}&z=16`;
+
   return (
-    <div className="absolute bottom-24 left-0 right-0 z-[1001] p-4 animate-slide-up-fast">
-      <div className="bg-surface/90 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden">
-        <div className="h-32 w-full">
-          <img src={service.image} alt={service.name.uz} className="w-full h-full object-cover" />
+    <div className="absolute bottom-20 left-0 right-0 z-[1001] p-4 animate-slide-up-fast max-w-md mx-auto">
+      <div className="bg-surface/95 backdrop-blur-xl border border-border-soft rounded-2xl shadow-2xl overflow-hidden">
+        <div className="relative h-32 w-full bg-surface-2">
+          <img src={service.image} alt={name} className="w-full h-full object-cover" />
+          <button
+            onClick={onClose}
+            className="absolute top-2.5 right-2.5 w-7 h-7 bg-black/60 backdrop-blur-md rounded-full text-white flex items-center justify-center text-sm hover:bg-black/80 transition"
+          >
+            &times;
+          </button>
         </div>
-        <div className="p-4">
-          <h3 className="font-bold text-xl text-text">{service.name.uz}</h3>
-          <p className="font-semibold text-accent text-sm mb-2">{service.category}</p>
-          <p className="text-sm text-text-muted mb-4">{service.description.uz}</p>
-          <button onClick={()=>navigate(`/service/${service._id}`)} className="w-full py-2 bg-accent text-black font-semibold rounded-lg hover:bg-accent-hover transition">View Details</button>
+        <div className="p-4 space-y-2.5">
+          <div className="flex items-start justify-between gap-2">
+            <div>
+              <h3 className="font-bold text-lg text-text leading-tight">{name}</h3>
+              <p className="font-semibold text-accent text-xs mt-0.5">{service.category}</p>
+            </div>
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-warning/10 border border-warning/20 text-warning text-xs font-semibold shrink-0">
+              <span>⭐</span>
+              <span>{Number(service.rating || 5.0).toFixed(1)}</span>
+            </div>
+          </div>
+
+          {service.address && (
+            <p className="text-xs text-text-muted flex items-center gap-1.5 truncate">
+              <span className="text-accent shrink-0">📍</span>
+              <span className="truncate">{service.address}</span>
+            </p>
+          )}
+
+          {desc ? (
+            <p className="text-xs text-text-muted line-clamp-2">{desc}</p>
+          ) : null}
+
+          {/* External Navigation Shortcuts */}
+          <div className="flex gap-2 pt-1">
+            <a
+              href={googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 py-1.5 px-2 bg-surface-2 hover:bg-surface-3 border border-border-soft rounded-xl text-center text-xs font-semibold text-text flex items-center justify-center gap-1 transition"
+            >
+              <span>📍</span>
+              <span>Google Maps</span>
+            </a>
+            <a
+              href={yandexMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 py-1.5 px-2 bg-surface-2 hover:bg-surface-3 border border-border-soft rounded-xl text-center text-xs font-semibold text-text flex items-center justify-center gap-1 transition"
+            >
+              <span>🟡</span>
+              <span>Yandex Maps</span>
+            </a>
+          </div>
+
+          <button
+            onClick={() => navigate(`/service/${service._id}`)}
+            className="w-full py-2.5 bg-accent text-black font-bold text-sm rounded-xl hover:bg-accent-hover transition flex items-center justify-center gap-1.5 shadow-md shadow-accent/20 cursor-pointer"
+          >
+            <span>✂️</span>
+            <span>{t ? t('ViewDetails', 'View Details & Book') : 'View Details & Book'}</span>
+          </button>
         </div>
-        <button onClick={onClose} className="absolute top-2 right-2 p-1 bg-black/20 rounded-full text-white">&times;</button>
       </div>
     </div>
   );
@@ -76,7 +137,9 @@ const ServiceDetailCard = ({ service, onClose , navigate }) => {
 
 // --- MAIN MAP COMPONENT ---
 const MapView = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || 'uz';
+  const [mapLayer, setMapLayer] = useState('roadmap'); // 'roadmap' | 'satellite'
   const [category, setCategory] = useState("All");
   const [userLocation, setUserLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
@@ -185,14 +248,16 @@ const MapView = () => {
         style={{ height: '100%', width: '100%', zIndex: 0 }}
         zoomControl={false} // Disable default zoom control
       >
-        {/* CARTO Voyager Tile Layer (or OpenStreetMap fallback if no key) */}
+        {/* High-detail tile layer with building footprints, numbers, and POIs */}
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          key={mapLayer}
+          attribution='&copy; <a href="https://www.google.com/maps">Google Maps</a>'
           url={
-            import.meta.env.VITE_CARTO_API_KEY
-              ? `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=${import.meta.env.VITE_CARTO_API_KEY}`
-              : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            mapLayer === 'satellite'
+              ? 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}'
+              : 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
           }
+          maxZoom={20}
         />
 
         <LocationMarker
@@ -224,15 +289,33 @@ const MapView = () => {
 
       {/* iOS-style UI Controls */}
       <div className="absolute top-20 right-3 z-[1000] flex flex-col space-y-2">
-        <button onClick={() => mapRef.current?.zoomIn()} className="w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-xl text-text">+</button>
-        <button onClick={() => mapRef.current?.zoomOut()} className="w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-xl text-text">-</button>
+        <button
+          onClick={() => setMapLayer((prev) => (prev === 'roadmap' ? 'satellite' : 'roadmap'))}
+          className="w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-base text-text hover:bg-surface transition cursor-pointer"
+          title="Toggle map style (Roadmap / Satellite)"
+        >
+          {mapLayer === 'roadmap' ? '🛰️' : '🗺️'}
+        </button>
+        <button
+          onClick={() => mapRef.current?.zoomIn()}
+          className="w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-xl text-text hover:bg-surface transition cursor-pointer"
+        >
+          +
+        </button>
+        <button
+          onClick={() => mapRef.current?.zoomOut()}
+          className="w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-xl text-text hover:bg-surface transition cursor-pointer"
+        >
+          -
+        </button>
+        <button
+          onClick={reCenterMap}
+          className="w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-text hover:bg-surface transition cursor-pointer"
+          title="Recenter"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+        </button>
       </div>
-      <button
-        onClick={reCenterMap}
-        className="absolute top-44 right-3 z-[1000] w-10 h-10 bg-surface/80 backdrop-blur-md rounded-lg shadow-md flex items-center justify-center text-text"
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-      </button>
 
       {!userLocation && !locationError && (
         <button
@@ -254,7 +337,13 @@ const MapView = () => {
         </button>
       )}
 
-      <ServiceDetailCard service={selectedService} onClose={() => setSelectedService(null)} navigate={navigate} />
+      <ServiceDetailCard
+        service={selectedService}
+        onClose={() => setSelectedService(null)}
+        navigate={navigate}
+        lang={lang}
+        t={t}
+      />
 
       <style>{`
                 /* Custom Leaflet Popup Style */

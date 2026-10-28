@@ -6,6 +6,12 @@ import Toast from '../components/Toast.jsx'
 
 const Layout = () => {
   const location = useLocation();
+  // Hide bottom navigation on service detail and booking pages so it never
+  // overlaps or blocks the floating CTA / booking submission buttons.
+  const hideBottomNav =
+    location.pathname.startsWith('/service/') ||
+    location.pathname.startsWith('/booking');
+
   return (
     <div className='flex flex-col justify-between min-h-screen bg-bg'>
       <Toast />
@@ -18,7 +24,7 @@ const Layout = () => {
       <div key={location.pathname} className="animate-pageIn flex-1">
         <Outlet />
       </div>
-      <BottomNav />
+      {!hideBottomNav && <BottomNav />}
 
     </div>
   )

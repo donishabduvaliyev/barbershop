@@ -98,8 +98,28 @@ const Booking = () => {
   const [shop, setShop] = useState(null);
   const [availability, setAvailability] = useState({ workingHours: [], bookedSlots: [] });
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState(""); // Assuming you still want to collect this
+  const [name, setName] = useState(userInfo?.name || "");
+  const [phone, setPhone] = useState(userInfo?.phone || "");
+
+  // Autofill name and phone if profile information becomes available
+  useEffect(() => {
+    if (userInfo?.name && !name) setName(userInfo.name);
+    if (userInfo?.phone && !phone) setPhone(userInfo.phone);
+  }, [userInfo]);
+
+  const handleAutofillFromProfile = () => {
+    const profileName = userInfo?.name || '';
+    const profilePhone = userInfo?.phone || '';
+
+    if (!profileName && !profilePhone) {
+      showNotification(t('NoProfileInfo', 'No saved profile info found. Please enter manually.'));
+      return;
+    }
+
+    if (profileName) setName(profileName);
+    if (profilePhone) setPhone(profilePhone);
+    showNotification(t('ProfileAutofilled', 'Name and phone filled from your profile!'));
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -358,7 +378,55 @@ const Booking = () => {
     // Just make sure the final "Confirm Booking" button calls handleRequestBooking
     // Example: <button onClick={handleRequestBooking} disabled={isSubmitting}> ... </button>
     <div className="p-4 pb-28 max-w-md mx-auto bg-bg text-text min-h-screen animate-pageIn">
-      <div className="text-center mb-6"> <img src={shop.image} alt={shop.name[lang]} className="w-full h-48 object-cover rounded-lg shadow-md mb-4" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/d1d5db/374151?text=Image+Not+Found'; }} /> <h2 className="text-2xl font-bold">{t('Book Your Visit')}</h2> <p className="text-md text-text-muted">{shop.name[lang]}</p> </div> <div className="space-y-4"> <div> <label className="block mb-1 text-sm font-medium text-text-muted">{t("Name")}</label> <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2 bg-surface-2 border border-border rounded-md focus:ring-accent focus:border-accent" placeholder={t("Enter your name")} /> </div> <div> <label className="block mb-1 text-sm font-medium text-text-muted">{t("Phone Number")}</label> <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full px-4 py-2 bg-surface-2 border border-border rounded-md focus:ring-accent focus:border-accent" placeholder="+998 (33) 3333333" /> </div> </div> <div className="mt-8 text-center"> <button onClick={() => setIsModalOpen(true)} className="w-full bg-accent text-black text-lg px-6 py-3 rounded-lg shadow-md hover:bg-accent-hover transition-all duration-300 active:scale-95 focus:outline-none focus:ring-4 focus:ring-accent/30" > {t('Select Date and Time')} </button> </div> <ValidationModal isOpen={isValidationModalOpen} onClose={() => setIsValidationModalOpen(false)} message={validationMessage} t={t} /> {isModalOpen && createPortal(<div className="fixed inset-0 z-[9999] bg-black/60 flex justify-center items-end"> <div className="bg-surface/95 backdrop-blur-xl rounded-t-2xl sm:rounded-2xl shadow-lg w-full max-w-sm max-h-[85vh] flex flex-col overflow-hidden animate-slideUp"> <div className="p-3 border-b border-border-soft flex justify-between items-center shrink-0"> <h3 className="font-semibold text-lg text-text">{t('Choose a Time')}</h3> <button className="text-text-muted hover:bg-surface-2 rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold" onClick={() => setIsModalOpen(false)} > &times; </button> </div> <div className="overflow-y-auto"> {shop.services?.length > 0 && (<div className="p-4 border-b border-border-soft"> <p className="text-xs font-medium text-text-muted mb-2">{t('ChooseService')}</p> <div className="flex space-x-2 overflow-x-auto no-scrollbar"> {shop.services.map((service) => (<button key={service._id} onClick={() => setSelectedServiceId(service._id)} className={clsx('flex flex-col items-start min-w-[120px] px-3 py-2 rounded-xl border text-xs transition-all', selectedServiceId === service._id ? 'bg-accent text-black border-accent shadow-sm' : 'bg-surface-2/70 text-text-muted border-border')} > <span className="font-semibold truncate w-full text-left">{service.name?.[lang] || service.name?.en}</span> <span className="opacity-80">{service.price?.toLocaleString()} · {service.durationMinutes} {t('min', 'min')}</span> </button>))} </div> </div>)} {availableStaffForService.length > 0 && (<div className="p-4 border-b border-border-soft"> <p className="text-xs font-medium text-text-muted mb-2">{t('ChooseBarber')}</p> <div className="flex space-x-2 overflow-x-auto no-scrollbar"> <button onClick={() => setSelectedStaffId(null)} className={clsx('flex flex-col items-center min-w-[64px] px-2 py-1.5 rounded-xl border text-xs transition-all', selectedStaffId === null ? 'bg-accent text-black border-accent shadow-sm' : 'bg-surface-2/70 text-text-muted border-border')} > <span className="w-9 h-9 rounded-full bg-surface-3 flex items-center justify-center text-lg mb-1">✨</span> {t('AnyAvailable')} </button> {availableStaffForService.map((member) => (<button key={member._id} onClick={() => setSelectedStaffId(member._id)} className={clsx('flex flex-col items-center min-w-[64px] px-2 py-1.5 rounded-xl border text-xs transition-all', selectedStaffId === member._id ? 'bg-accent text-black border-accent shadow-sm' : 'bg-surface-2/70 text-text-muted border-border')} > <img src={member.photo || 'https://placehold.co/100x100/d1d5db/374151?text=%F0%9F%92%88'} alt={member.name} className="w-9 h-9 rounded-full object-cover mb-1" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/100x100/d1d5db/374151?text=%F0%9F%92%88'; }} /> <span className="truncate w-full text-center">{member.name}</span> </button>))} </div> </div>)} <div className="p-4 flex space-x-2 overflow-x-auto border-b border-border-soft"> {dates.map((date) => { const engDayName = date.toLocaleDateString('en-US', { weekday: 'long' }); const translatedDayName = t(`days.${engDayName}`, engDayName); const isAvailable = workingDays.includes(engDayName); return (<button key={date.toISOString()} disabled={!isAvailable} onClick={() => setSelectedDate(date)} className={clsx('px-3 py-2 rounded-lg border text-sm min-w-[100px] transition-all text-center', { 'bg-accent text-black border-accent font-semibold shadow-md': selectedDate?.toDateString() === date.toDateString(), 'bg-surface-2/70 text-text-muted border-border hover:border-accent/60': selectedDate?.toDateString() !== date.toDateString(), 'opacity-50 cursor-not-allowed bg-surface-3': !isAvailable, })} > <div className="font-semibold">{translatedDayName}</div> <div className="text-xs">{date.toLocaleDateString(lang, { month: 'short', day: 'numeric' })}</div> </button>); })} </div> {selectedDate && (<div className="flex flex-col p-4 gap-4"> {availableHours.length > 0 ? (
+      <div className="text-center mb-6">
+        <img
+          src={shop.image}
+          alt={shop.name[lang]}
+          className="w-full h-48 object-cover rounded-lg shadow-md mb-4"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = 'https://placehold.co/600x400/d1d5db/374151?text=Image+Not+Found';
+          }}
+        />
+        <h2 className="text-2xl font-bold">{t('Book Your Visit')}</h2>
+        <p className="text-md text-text-muted">{shop.name[lang]}</p>
+      </div>
+
+      <div className="space-y-4">
+        {/* Autofill from Profile Button */}
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={handleAutofillFromProfile}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:text-accent-hover bg-accent/10 border border-accent/25 hover:bg-accent/20 px-3 py-1.5 rounded-xl transition cursor-pointer active:scale-95"
+          >
+            <span>✨</span>
+            <span>{t('UseMyNameAndNumber', 'Use my name and number from profile')}</span>
+          </button>
+        </div>
+
+        <div>
+          <label className="block mb-1 text-sm font-medium text-text-muted">{t('Name')}</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-2.5 bg-surface-2 border border-border rounded-xl focus:ring-1 focus:ring-accent focus:border-accent text-sm"
+            placeholder={t('Enter your name')}
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 text-sm font-medium text-text-muted">{t('Phone Number')}</label>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full px-4 py-2.5 bg-surface-2 border border-border rounded-xl focus:ring-1 focus:ring-accent focus:border-accent text-sm"
+            placeholder="+998 (33) 3333333"
+          />
+        </div>
+      </div> <div className="mt-8 text-center"> <button onClick={() => setIsModalOpen(true)} className="w-full bg-accent text-black text-lg px-6 py-3 rounded-lg shadow-md hover:bg-accent-hover transition-all duration-300 active:scale-95 focus:outline-none focus:ring-4 focus:ring-accent/30" > {t('Select Date and Time')} </button> </div> <ValidationModal isOpen={isValidationModalOpen} onClose={() => setIsValidationModalOpen(false)} message={validationMessage} t={t} /> {isModalOpen && createPortal(<div className="fixed inset-0 z-[9999] bg-black/60 flex justify-center items-end"> <div className="bg-surface/95 backdrop-blur-xl rounded-t-2xl sm:rounded-2xl shadow-lg w-full max-w-sm max-h-[85vh] flex flex-col overflow-hidden animate-slideUp"> <div className="p-3 border-b border-border-soft flex justify-between items-center shrink-0"> <h3 className="font-semibold text-lg text-text">{t('Choose a Time')}</h3> <button className="text-text-muted hover:bg-surface-2 rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold" onClick={() => setIsModalOpen(false)} > &times; </button> </div> <div className="overflow-y-auto"> {shop.services?.length > 0 && (<div className="p-4 border-b border-border-soft"> <p className="text-xs font-medium text-text-muted mb-2">{t('ChooseService')}</p> <div className="flex space-x-2 overflow-x-auto no-scrollbar"> {shop.services.map((service) => (<button key={service._id} onClick={() => setSelectedServiceId(service._id)} className={clsx('flex flex-col items-start min-w-[120px] px-3 py-2 rounded-xl border text-xs transition-all', selectedServiceId === service._id ? 'bg-accent text-black border-accent shadow-sm' : 'bg-surface-2/70 text-text-muted border-border')} > <span className="font-semibold truncate w-full text-left">{service.name?.[lang] || service.name?.en}</span> <span className="opacity-80">{service.price?.toLocaleString()} · {service.durationMinutes} {t('min', 'min')}</span> </button>))} </div> </div>)} {availableStaffForService.length > 0 && (<div className="p-4 border-b border-border-soft"> <p className="text-xs font-medium text-text-muted mb-2">{t('ChooseBarber')}</p> <div className="flex space-x-2 overflow-x-auto no-scrollbar"> <button onClick={() => setSelectedStaffId(null)} className={clsx('flex flex-col items-center min-w-[64px] px-2 py-1.5 rounded-xl border text-xs transition-all', selectedStaffId === null ? 'bg-accent text-black border-accent shadow-sm' : 'bg-surface-2/70 text-text-muted border-border')} > <span className="w-9 h-9 rounded-full bg-surface-3 flex items-center justify-center text-lg mb-1">✨</span> {t('AnyAvailable')} </button> {availableStaffForService.map((member) => (<button key={member._id} onClick={() => setSelectedStaffId(member._id)} className={clsx('flex flex-col items-center min-w-[64px] px-2 py-1.5 rounded-xl border text-xs transition-all', selectedStaffId === member._id ? 'bg-accent text-black border-accent shadow-sm' : 'bg-surface-2/70 text-text-muted border-border')} > <img src={member.photo || 'https://placehold.co/100x100/d1d5db/374151?text=%F0%9F%92%88'} alt={member.name} className="w-9 h-9 rounded-full object-cover mb-1" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/100x100/d1d5db/374151?text=%F0%9F%92%88'; }} /> <span className="truncate w-full text-center">{member.name}</span> </button>))} </div> </div>)} <div className="p-4 flex space-x-2 overflow-x-auto border-b border-border-soft"> {dates.map((date) => { const engDayName = date.toLocaleDateString('en-US', { weekday: 'long' }); const translatedDayName = t(`days.${engDayName}`, engDayName); const isAvailable = workingDays.includes(engDayName); return (<button key={date.toISOString()} disabled={!isAvailable} onClick={() => setSelectedDate(date)} className={clsx('px-3 py-2 rounded-lg border text-sm min-w-[100px] transition-all text-center', { 'bg-accent text-black border-accent font-semibold shadow-md': selectedDate?.toDateString() === date.toDateString(), 'bg-surface-2/70 text-text-muted border-border hover:border-accent/60': selectedDate?.toDateString() !== date.toDateString(), 'opacity-50 cursor-not-allowed bg-surface-3': !isAvailable, })} > <div className="font-semibold">{translatedDayName}</div> <div className="text-xs">{date.toLocaleDateString(lang, { month: 'short', day: 'numeric' })}</div> </button>); })} </div> {selectedDate && (<div className="flex flex-col p-4 gap-4"> {availableHours.length > 0 ? (
                     <>
                       <div className="relative flex justify-center items-center h-44">
                         <div className="absolute inset-x-4 h-10 bg-surface-3/70 rounded-lg top-1/2 -translate-y-1/2 pointer-events-none"></div>
